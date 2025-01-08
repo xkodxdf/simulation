@@ -1,4 +1,4 @@
-package com.xkodxdf.app.entities;
+package com.xkodxdf.app.entities.base;
 /*
     Creature - абстрактный класс, наследуется от Entity.
     Существо, имеет скорость (сколько клеток может пройти за 1 ход), количество HP.

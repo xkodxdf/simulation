@@ -1,4 +1,4 @@
-package com.xkodxdf.app.entities;
+package com.xkodxdf.app.entities.base;
 /*
     Корневой абстрактный класс для всех существ и объектов существующих в симуляции.
 */
