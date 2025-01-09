@@ -1,15 +1,17 @@
 package com.xkodxdf.app;
 
 import com.xkodxdf.app.entities.EntityNotation;
+import com.xkodxdf.app.entities.animated.Herbivore;
+import com.xkodxdf.app.entities.animated.Predator;
 import com.xkodxdf.app.entities.base.Entity;
-import com.xkodxdf.app.entities.animated.*;
-import com.xkodxdf.app.entities.inanimate.*;
+import com.xkodxdf.app.entities.inanimate.Grass;
+import com.xkodxdf.app.entities.inanimate.Rock;
+import com.xkodxdf.app.entities.inanimate.Tree;
 import com.xkodxdf.app.exceptions.InvalidCoordinatesException;
 import com.xkodxdf.app.map.Coordinates;
 import com.xkodxdf.app.map.WorldMap;
 
 import java.util.Objects;
-import java.util.stream.IntStream;
 
 public class Renderer {
 
@@ -23,11 +25,8 @@ public class Renderer {
 
     public void renderMap() throws InvalidCoordinatesException {
         StringBuilder row = new StringBuilder();
-        System.out.print("\n   +");
-        IntStream.range(0, worldMap.getWidth()).forEach(num -> System.out.printf(" %2d ", num));
         System.out.println();
         for (int y = 0; y < worldMap.getHeight(); y++) {
-            System.out.printf("%2d ", y);
             System.out.println(assembleRow(row, y));
             row.setLength(0);
         }
@@ -36,10 +35,8 @@ public class Renderer {
     private String assembleRow(StringBuilder row, int y) throws InvalidCoordinatesException {
         for (int x = 0; x < worldMap.getWidth(); x++) {
             Entity entity = worldMap.getEntity(new Coordinates(x, y));
-            row.append(" . ").append(getEntityNotation(entity));
+            row.append(getEntityNotation(entity)).append(" ");
         }
-        row.append(" .");
-
         return row.toString();
     }
 
