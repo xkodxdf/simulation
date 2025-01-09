@@ -2,8 +2,11 @@ package com.xkodxdf.app;
 
 public class Messages {
 
+    public static final String mustNotBeNull = " must not be null";
     public static final String invalidCoordinatesMsg = "Incorrect coordinates are specified: ";
     public static final String noNotationForEntity = "No notation found for the entity: ";
-    public static final String invalidMapParametersMsg = "the value of the width and height parameters " +
+    public static final String inanimateFillingPercentageErr = "The percentage of filling cannot be negative or greater " +
+            "than 60 for all inanimate objects.";
+    public static final String invalidMapParametersMsg = "The value of the width and height parameters " +
             "should be in the range of ";
 }
