@@ -6,18 +6,22 @@ import com.xkodxdf.app.exceptions.InvalidCoordinatesException;
 import com.xkodxdf.app.exceptions.InvalidMapParametersException;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class WorldMap {
 
     private final int width;
     private final int height;
     private final Map<Coordinates, Entity> map = new HashMap<>();
+    private final Set<Coordinates> unoccupiedCoordinates = new HashSet<>();
 
 
     public WorldMap() {
         this.width = 32;
         this.height = 16;
+        setUnoccupiedCoordinates();
     }
 
     public WorldMap(int width, int height) throws InvalidMapParametersException {
@@ -30,6 +34,7 @@ public class WorldMap {
         }
         this.width = width;
         this.height = height;
+        setUnoccupiedCoordinates();
     }
 
 
@@ -41,14 +46,10 @@ public class WorldMap {
         return height;
     }
 
-
-    public void initMap() {
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                map.put(new Coordinates(x, y), null);
-            }
-        }
+    public Set<Coordinates> getUnoccupiedCoordinates() {
+        return new HashSet<>(unoccupiedCoordinates);
     }
+
 
     public int getSize() {
         return map.size();
@@ -57,6 +58,7 @@ public class WorldMap {
     public void setEntity(Coordinates coordinates, Entity entity) throws InvalidCoordinatesException {
         validateCoordinates(coordinates);
         map.put(coordinates, entity);
+        unoccupiedCoordinates.remove(coordinates);
     }
 
     public Entity getEntity(Coordinates coordinates) throws InvalidCoordinatesException {
@@ -67,6 +69,7 @@ public class WorldMap {
     public void removeEntity(Coordinates coordinates) throws InvalidCoordinatesException {
         validateCoordinates(coordinates);
         map.remove(coordinates);
+        unoccupiedCoordinates.add(coordinates);
     }
 
     private boolean isCoordinatesValid(Coordinates coordinates) {
@@ -80,6 +83,14 @@ public class WorldMap {
         if (!isCoordinatesValid(coordinates)) {
             throw new InvalidCoordinatesException(Messages.invalidCoordinatesMsg
                     + coordinates.getX() + ":" + coordinates.getY());
+        }
+    }
+
+    private void setUnoccupiedCoordinates() {
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                unoccupiedCoordinates.add(new Coordinates(x, y));
+            }
         }
     }
 }
