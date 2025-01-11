@@ -72,9 +72,7 @@ public class Placement extends Actions {
     }
 
     private void placeEntities(Entity entity, int fillingPercentage) throws InvalidCoordinatesException {
-        double availableSquaresAmount = worldMap.getUnoccupiedCoordinates().size();
-        int squaresAvailableForEntity = ((int) (availableSquaresAmount / 100 * fillingPercentage));
-
+        int squaresAvailableForEntity = (int) (Math.ceil(worldMap.getSize() / 100D * fillingPercentage));
         for (int i = 0; i < squaresAvailableForEntity; i++) {
             Coordinates coordinates = getRandomUnoccupiedCoordinate(worldMap.getUnoccupiedCoordinates());
             worldMap.setEntity(coordinates, entity);
