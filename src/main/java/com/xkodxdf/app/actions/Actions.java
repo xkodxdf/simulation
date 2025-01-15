@@ -1,4 +1,8 @@
 package com.xkodxdf.app.actions;
+
+import com.xkodxdf.app.exceptions.InvalidParametersException;
+import com.xkodxdf.app.map.Manager;
+
 /*
     Actions
     Action - действие, совершаемое над миром. Например - сходить всеми существами.
@@ -9,5 +13,7 @@ package com.xkodxdf.app.actions;
        - turnActions - действия, совершаемые каждый ход. Примеры - передвижение существ, добавить травы или травоядных,
          если их осталось слишком мало
 */
-public class Actions {
+public interface Actions {
+
+    void process(Manager mapManager) throws InvalidParametersException;
 }
