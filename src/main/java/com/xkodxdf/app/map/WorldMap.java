@@ -1,9 +1,6 @@
 package com.xkodxdf.app.map;
 
-import com.xkodxdf.app.Messages;
 import com.xkodxdf.app.entities.base.Entity;
-import com.xkodxdf.app.exceptions.InvalidCoordinatesException;
-import com.xkodxdf.app.exceptions.InvalidMapParametersException;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -12,85 +9,44 @@ import java.util.Set;
 
 public class WorldMap {
 
-    private final int width;
-    private final int height;
-    private final Map<Coordinates, Entity> map = new HashMap<>();
-    private final Set<Coordinates> unoccupiedCoordinates = new HashSet<>();
+    protected final Set<Coordinates> coordinates;
+    protected final Set<Coordinates> occupiedCoordinates;
+    protected final Set<Coordinates> unoccupiedCoordinates;
+    protected final Map<Coordinates, Entity> entities = new HashMap<>();
 
 
-    public WorldMap() {
-        this.width = 32;
-        this.height = 16;
-        setUnoccupiedCoordinates();
-    }
-
-    public WorldMap(int width, int height) throws InvalidMapParametersException {
-        int minWidthHeightValue = 8;
-        int maxWidthHeightValue = 48;
-        if ((width < minWidthHeightValue) || (width > maxWidthHeightValue)
-                || (height < minWidthHeightValue) || (height > maxWidthHeightValue)) {
-            throw new InvalidMapParametersException(String.format(Messages.invalidMapParametersMsg + "%d - %d",
-                    minWidthHeightValue, maxWidthHeightValue));
-        }
-        this.width = width;
-        this.height = height;
-        setUnoccupiedCoordinates();
+    protected WorldMap(Set<Coordinates> coordinates) {
+        this.coordinates = coordinates;
+        this.occupiedCoordinates = new HashSet<>();
+        this.unoccupiedCoordinates = new HashSet<>(coordinates);
     }
 
 
-    public int getWidth() {
-        return width;
+    public void setEntity(Coordinates coordinates, Entity entity) {
+        entities.put(coordinates, entity);
+        occupyCoordinates(coordinates);
+
     }
 
-    public int getHeight() {
-        return height;
+    public Entity getEntity(Coordinates coordinates) {
+        return entities.get(coordinates);
     }
 
-    public Set<Coordinates> getUnoccupiedCoordinates() {
-        return new HashSet<>(unoccupiedCoordinates);
+    public Entity removeEntity(Coordinates coordinates) {
+        Entity removedEntity = entities.remove(coordinates);
+        releaseCoordinates(coordinates);
+
+        return removedEntity;
     }
 
 
-    public int getSize() {
-        return map.size();
-    }
-
-    public void setEntity(Coordinates coordinates, Entity entity) throws InvalidCoordinatesException {
-        validateCoordinates(coordinates);
-        map.put(coordinates, entity);
+    private void occupyCoordinates(Coordinates coordinates) {
         unoccupiedCoordinates.remove(coordinates);
+        occupiedCoordinates.add(coordinates);
     }
 
-    public Entity getEntity(Coordinates coordinates) throws InvalidCoordinatesException {
-        validateCoordinates(coordinates);
-        return map.get(coordinates);
-    }
-
-    public void removeEntity(Coordinates coordinates) throws InvalidCoordinatesException {
-        validateCoordinates(coordinates);
-        map.remove(coordinates);
+    private void releaseCoordinates(Coordinates coordinates) {
+        occupiedCoordinates.remove(coordinates);
         unoccupiedCoordinates.add(coordinates);
-    }
-
-    private boolean isCoordinatesValid(Coordinates coordinates) {
-        int x = coordinates.getX();
-        int y = coordinates.getY();
-
-        return ((x >= 0) && (y >= 0) && (x < width) && (y < height));
-    }
-
-    private void validateCoordinates(Coordinates coordinates) throws InvalidCoordinatesException {
-        if (!isCoordinatesValid(coordinates)) {
-            throw new InvalidCoordinatesException(Messages.invalidCoordinatesMsg
-                    + coordinates.getX() + ":" + coordinates.getY());
-        }
-    }
-
-    private void setUnoccupiedCoordinates() {
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                unoccupiedCoordinates.add(new Coordinates(x, y));
-            }
-        }
     }
 }
