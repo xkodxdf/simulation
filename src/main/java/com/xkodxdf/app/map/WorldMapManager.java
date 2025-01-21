@@ -41,6 +41,14 @@ public class WorldMapManager {
         map.removeValue(coordinates);
     }
 
+    public List<Entity> getEntities() {
+        return Arrays.asList(map.getValuesWithCoordinatesCopy().values().toArray(new Entity[0]));
+    }
+
+    public Map<Coordinates, Entity> getEntitiesWithCoordinates() {
+        return map.getValuesWithCoordinatesCopy();
+    }
+
     public List<Entity> getAroundEntities(Set<Coordinates> aroundCoordinates) throws InvalidCoordinatesException {
         List<Entity> result = new ArrayList<>();
         for (Coordinates coordinate : aroundCoordinates) {
