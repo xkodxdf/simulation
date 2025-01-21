@@ -60,7 +60,7 @@ public class WorldArrayMap extends BaseWorldMap<Coordinates, Entity> {
     }
 
     @Override
-    public Map<Coordinates, Entity> getValuesWithCoordinates() {
+    public Map<Coordinates, Entity> getValuesWithCoordinatesCopy() {
         Map<Coordinates, Entity> result = new HashMap<>();
         for (int row = 0; row < map.length; row++) {
             for (int col = 0; col < map[row].length; col++) {

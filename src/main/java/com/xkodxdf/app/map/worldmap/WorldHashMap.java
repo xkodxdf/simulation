@@ -39,7 +39,7 @@ public class WorldHashMap extends BaseWorldMap<Coordinates, Entity> {
     }
 
     @Override
-    public Map<Coordinates, Entity> getValuesWithCoordinates() {
+    public Map<Coordinates, Entity> getValuesWithCoordinatesCopy() {
         return new HashMap<>(entities);
     }
 

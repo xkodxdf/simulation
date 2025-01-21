@@ -52,20 +52,20 @@ public class WorldMapManager {
     }
 
     public List<Creature> getCreatures() {
-        return map.getValuesWithCoordinates().values().stream()
+        return map.getValuesWithCoordinatesCopy().values().stream()
                 .filter(entity -> entity instanceof Creature).map(entity -> (Creature) entity)
                 .collect(Collectors.toList());
     }
 
     public Set<Map.Entry<Coordinates, Creature>> getCreaturesWithCoordinates() {
-        return map.getValuesWithCoordinates().entrySet().stream()
+        return map.getValuesWithCoordinatesCopy().entrySet().stream()
                 .filter(entry -> entry.getValue() instanceof Creature)
                 .map(entry -> new AbstractMap.SimpleEntry<>(entry.getKey(), (Creature) entry.getValue()))
                 .collect(Collectors.toSet());
     }
 
     public Set<Map.Entry<Coordinates, Predator>> getPredatorsWithCoordinates() {
-        return map.getValuesWithCoordinates().entrySet().stream()
+        return map.getValuesWithCoordinatesCopy().entrySet().stream()
                 .filter(entry -> entry.getValue() instanceof Predator)
                 .map(entry -> new AbstractMap.SimpleEntry<>(entry.getKey(), (Predator) entry.getValue()))
                 .collect(Collectors.toSet());
@@ -108,7 +108,7 @@ public class WorldMapManager {
 
     public Optional<Coordinates> getEntityCoordinate(Entity entity) {
         Optional<Coordinates> result = Optional.empty();
-        for (Map.Entry<Coordinates, Entity> entityEntry : map.getValuesWithCoordinates().entrySet()) {
+        for (Map.Entry<Coordinates, Entity> entityEntry : map.getValuesWithCoordinatesCopy().entrySet()) {
             if (entityEntry.getValue().equals(entity)) {
                 result = Optional.ofNullable(entityEntry.getKey());
             }

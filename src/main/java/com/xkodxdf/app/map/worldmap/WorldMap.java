@@ -20,7 +20,7 @@ public interface WorldMap<C, V> {
 
     Set<C> getTakenCoordinatesCopy();
 
-    Map<C, V> getValuesWithCoordinates();
+    Map<C, V> getValuesWithCoordinatesCopy();
 
     void recreateMap(int width, int height);
 
