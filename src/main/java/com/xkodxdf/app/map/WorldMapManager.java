@@ -4,7 +4,6 @@ import com.xkodxdf.app.entities.animated.Predator;
 import com.xkodxdf.app.entities.base.Creature;
 import com.xkodxdf.app.entities.base.Entity;
 import com.xkodxdf.app.exceptions.InvalidCoordinatesException;
-import com.xkodxdf.app.map.config.Config;
 import com.xkodxdf.app.map.worldmap.WorldMap;
 
 import java.util.*;
@@ -16,7 +15,7 @@ public class WorldMapManager {
     private final WorldMap<Coordinates, Entity> map;
 
 
-    public WorldMapManager(Config config, WorldMap<Coordinates, Entity> worldMap) {
+    public WorldMapManager(WorldMap<Coordinates, Entity> worldMap) {
         this.map = worldMap;
     }
 
