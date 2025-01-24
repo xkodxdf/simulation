@@ -10,6 +10,7 @@ import com.xkodxdf.app.exceptions.InvalidParametersException;
 import com.xkodxdf.app.map.Coordinates;
 import com.xkodxdf.app.map.WorldMapManager;
 import com.xkodxdf.app.map.config.Config;
+import com.xkodxdf.app.messages.Messages;
 
 public class EntitiesDeployment extends InitActions {
 
@@ -54,7 +55,7 @@ public class EntitiesDeployment extends InitActions {
                 mapManager.setEntity(coordinate, new Predator(mapManager));
                 break;
             default:
-                throw new InvalidParametersException("REPLACE!");
+                throw new InvalidParametersException(Messages.invalidEntityType + entityType.name());
 
         }
     }
