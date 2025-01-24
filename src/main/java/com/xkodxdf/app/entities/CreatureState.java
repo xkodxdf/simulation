@@ -4,7 +4,7 @@ public enum CreatureState {
 
     ROAM,
     FORAGE,
-    ESCAPE,
+    IN_DANGER,
     DEATH;
 
 
@@ -16,8 +16,8 @@ public enum CreatureState {
         return this == FORAGE;
     }
 
-    public boolean isEscaping() {
-        return this == ESCAPE;
+    public boolean isInDanger() {
+        return this == IN_DANGER;
     }
 
     public boolean isAlive() {

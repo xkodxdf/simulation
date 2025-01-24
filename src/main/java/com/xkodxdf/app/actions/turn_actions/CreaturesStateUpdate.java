@@ -14,7 +14,7 @@ public class CreaturesStateUpdate extends TurnActions {
     @Override
     public void process(WorldMapManager mapManager) {
         deathStateUpdate(mapManager.getCreatures());
-        escapeStateUpdate(mapManager.getCreatures());
+        inDangerStateUpdate(mapManager.getCreatures());
         roamStateUpdate(mapManager.getCreatures());
         forageStateUpdate(mapManager.getCreatures());
     }
@@ -32,9 +32,9 @@ public class CreaturesStateUpdate extends TurnActions {
                 .forEach(creature -> creature.setState(CreatureState.FORAGE));
     }
 
-    private void escapeStateUpdate(List<Creature> creatures) {
+    private void inDangerStateUpdate(List<Creature> creatures) {
         creatures.stream()
-                .filter(this::shouldEscape)
+                .filter(this::isInDanger)
                 .forEach(creature -> creature.setState(CreatureState.IN_DANGER));
     }
 
@@ -52,8 +52,8 @@ public class CreaturesStateUpdate extends TurnActions {
         return isSafe(creature) && creature.getHunger() >= hungerThreshold;
     }
 
-    private boolean shouldEscape(Creature creature) {
-        return creature.getState().isAlive() && creature.isInDanger();
+    private boolean isInDanger(Creature creature) {
+        return creature.getState().isAlive() && creature.isThreatInViewRadius();
     }
 
     private boolean isSafe(Creature creature) {
