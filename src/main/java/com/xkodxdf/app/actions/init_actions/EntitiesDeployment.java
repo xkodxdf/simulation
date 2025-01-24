@@ -8,38 +8,41 @@ import com.xkodxdf.app.entities.inanimate.Rock;
 import com.xkodxdf.app.entities.inanimate.Tree;
 import com.xkodxdf.app.exceptions.InvalidParametersException;
 import com.xkodxdf.app.map.Coordinates;
-import com.xkodxdf.app.map.Manager;
+import com.xkodxdf.app.map.WorldMapManager;
+import com.xkodxdf.app.map.config.Config;
 
 public class EntitiesDeployment extends InitActions {
 
     @Override
-    public void process(Manager mapManager) throws InvalidParametersException {
+    public void process(WorldMapManager mapManager) throws InvalidParametersException {
         deployEntities(EntityType.values(), mapManager);
     }
 
 
-    private void deployEntities(EntityType[] entityTypes, Manager mapManager) throws InvalidParametersException {
+    private void deployEntities(EntityType[] entityTypes, WorldMapManager mapManager)
+            throws InvalidParametersException {
         int mapSize = mapManager.getSize();
         for (EntityType entityType : entityTypes) {
             if (entityType.equals(EntityType.CORPSE)) {
                 continue;
             }
-            int entityMapFillingPercentage = mapManager.getEntityMapFillingPercentage(entityType);
-            int squaresAvailableForEntity = (int) (Math.ceil(mapSize / 100D * entityMapFillingPercentage));
+            int entityMapFillingPercentage = Config.getConfig().getEntityMapFillingPercentage(entityType);
+            int squaresAvailableForEntity = calculateSquaresAvailable(mapSize, entityMapFillingPercentage);
             for (int i = 0; i < squaresAvailableForEntity; i++) {
-                Coordinates coordinates = mapManager.getRandomUnoccupiedCoordinate();
+                Coordinates coordinates = mapManager.getOneRandomFreeCoordinates();
                 deployEntity(coordinates, entityType, mapManager);
             }
         }
     }
 
-    private void deployEntity(Coordinates coordinate, EntityType entityType, Manager mapManager) throws InvalidParametersException {
+    private void deployEntity(Coordinates coordinate, EntityType entityType, WorldMapManager mapManager)
+            throws InvalidParametersException {
         switch (entityType) {
             case ROCK:
-                mapManager.setEntity(coordinate, new Rock());
+                mapManager.setEntity(coordinate, Rock.getInstance());
                 break;
             case TREE:
-                mapManager.setEntity(coordinate, new Tree());
+                mapManager.setEntity(coordinate, Tree.getInstance());
                 break;
             case GRASS:
                 mapManager.setEntity(coordinate, new Grass());
@@ -54,5 +57,10 @@ public class EntitiesDeployment extends InitActions {
                 throw new InvalidParametersException("REPLACE!");
 
         }
+    }
+
+
+    private int calculateSquaresAvailable(int mapSize, int fillingPercentage) {
+        return (int) (Math.ceil(mapSize / 100D * fillingPercentage));
     }
 }

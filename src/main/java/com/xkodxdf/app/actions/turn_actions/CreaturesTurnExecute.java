@@ -2,12 +2,12 @@ package com.xkodxdf.app.actions.turn_actions;
 
 import com.xkodxdf.app.entities.base.Creature;
 import com.xkodxdf.app.exceptions.InvalidParametersException;
-import com.xkodxdf.app.map.Manager;
+import com.xkodxdf.app.map.WorldMapManager;
 
-public class CreaturesTurnExecutor extends TurnActions {
+public class CreaturesTurnExecute extends TurnActions {
 
     @Override
-    public void process(Manager mapManager) throws InvalidParametersException {
+    public void process(WorldMapManager mapManager) throws InvalidParametersException {
         for (Creature creature : mapManager.getCreatures()) {
             creature.makeMove();
         }
