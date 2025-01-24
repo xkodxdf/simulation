@@ -59,6 +59,6 @@ public class CreaturesStateUpdate extends TurnActions {
     private boolean isSafe(Creature creature) {
         CreatureState state = creature.getState();
 
-        return state.isAlive() && !state.isInDanger();
+        return state.isAlive() && !creature.isThreatInViewRadius();
     }
 }
