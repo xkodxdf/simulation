@@ -6,7 +6,7 @@ import com.xkodxdf.app.exceptions.InvalidParametersException;
 import com.xkodxdf.app.map.Coordinates;
 import com.xkodxdf.app.map.WorldMapManager;
 import com.xkodxdf.app.messages.Messages;
-import com.xkodxdf.app.moving.PathFinder;
+import com.xkodxdf.app.pathfinder.PathFinder;
 
 import java.util.HashSet;
 import java.util.List;
@@ -47,7 +47,7 @@ public abstract class Creature extends Entity {
         this.state = state;
     }
 
-    public final void makeMove() throws InvalidParametersException {
+    public final void makeMove(PathFinder<Coordinates> pathFinder) throws InvalidParametersException {
         Optional<Coordinates> optionalCurrentCoordinates = mapManager.getEntityCoordinate(this);
         starve();
         if (healthPoints <= 0 || optionalCurrentCoordinates.isEmpty()) {
@@ -58,7 +58,7 @@ public abstract class Creature extends Entity {
                 roam(optionalCurrentCoordinates.get());
                 break;
             case FORAGE:
-                forage(optionalCurrentCoordinates.get());
+                forage(optionalCurrentCoordinates.get(), pathFinder);
                 break;
             default:
                 throw new InvalidParametersException(Messages.invalidCreatureState + state.name());
@@ -96,14 +96,14 @@ public abstract class Creature extends Entity {
         }
     }
 
-    private void forage(Coordinates currentCoordinates) throws InvalidParametersException {
+    private void forage(Coordinates currentCoordinates, PathFinder<Coordinates> pathFinder) throws InvalidParametersException {
         Optional<Coordinates> optionalFoodCoordinates = findNearestFoodCoordinatesInViewRadius(currentCoordinates);
         if (optionalFoodCoordinates.isEmpty()) {
             roam(currentCoordinates);
         } else if (canEat(currentCoordinates)) {
             eat(optionalFoodCoordinates.get());
         } else {
-            goToFood(currentCoordinates, optionalFoodCoordinates.get());
+            goToFood(currentCoordinates, optionalFoodCoordinates.get(), pathFinder);
         }
     }
 
@@ -150,8 +150,7 @@ public abstract class Creature extends Entity {
         healthPoints = Math.min(healthPoints, 100);
     }
 
-    private void goToFood(Coordinates currentCoordinate, Coordinates foodCoordinate) throws InvalidCoordinatesException {
-        PathFinder pathFinder = new PathFinder();
+    private void goToFood(Coordinates currentCoordinate, Coordinates foodCoordinate, PathFinder<Coordinates> pathFinder) throws InvalidCoordinatesException {
         Set<Coordinates> freeCoordinates = mapManager.getFreeCoordinates();
         freeCoordinates.add(foodCoordinate);
         Set<Coordinates> path = pathFinder.getPath(currentCoordinate, foodCoordinate, freeCoordinates);
