@@ -82,11 +82,13 @@ public class WorldMapManager {
         return map.getFreeCoordinatesCopy();
     }
 
-    public Coordinates getOneRandomFreeCoordinates() {
+    public Optional<Coordinates> getOneRandomFreeCoordinates() {
+        if (map.getFreeCoordinatesCopy().isEmpty()) {
+            return Optional.empty();
+        }
         Coordinates[] coordinates = map.getFreeCoordinatesCopy().toArray(new Coordinates[0]);
         int randomBound = coordinates.length;
-
-        return coordinates[ThreadLocalRandom.current().nextInt(randomBound)];
+        return Optional.of(coordinates[ThreadLocalRandom.current().nextInt(randomBound)]);
     }
 
     public Set<Coordinates> getAroundCoordinates(Coordinates target, int radius) {
