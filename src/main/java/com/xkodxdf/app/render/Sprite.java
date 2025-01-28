@@ -10,14 +10,11 @@ public enum Sprite {
     HERBIVORE("\uD83E\uDD8C"),
     PREDATOR("\uD83D\uDC3A");
 
-
     private final String notation;
-
 
     Sprite(String notation) {
         this.notation = notation;
     }
-
 
     public String getNotation() {
         return notation;
