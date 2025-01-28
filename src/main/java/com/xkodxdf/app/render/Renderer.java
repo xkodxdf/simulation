@@ -28,7 +28,7 @@ public class Renderer {
     private String assembleRow(StringBuilder row, int y, Map<Coordinates, Entity> map) {
         for (int x = 0; x < Config.getConfig().getWidth(); x++) {
             Entity entity = map.get(new Coordinates(x, y));
-            row.append(getEntityNotation(entity)).append(" ");
+            row.append(getEntityNotation(entity));
         }
         return row.toString();
     }
