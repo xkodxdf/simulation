@@ -1,6 +1,6 @@
 package com.xkodxdf.app.render;
 
-import com.xkodxdf.app.Messages;
+import com.xkodxdf.app.messages.Messages;
 import com.xkodxdf.app.entities.animated.Herbivore;
 import com.xkodxdf.app.entities.animated.Predator;
 import com.xkodxdf.app.entities.base.Entity;

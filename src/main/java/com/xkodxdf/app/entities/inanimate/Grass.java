@@ -1,4 +1,6 @@
 package com.xkodxdf.app.entities.inanimate;
 
-public class Grass {
+import com.xkodxdf.app.entities.base.Entity;
+
+public class Grass extends Entity {
 }

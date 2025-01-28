@@ -12,13 +12,14 @@ import com.xkodxdf.app.map.WorldMapManager;
 import com.xkodxdf.app.map.config.Config;
 import com.xkodxdf.app.messages.Messages;
 
+import java.util.Optional;
+
 public class EntitiesDeployment extends InitActions {
 
     @Override
     public void process(WorldMapManager mapManager) throws InvalidParametersException {
         deployEntities(EntityType.values(), mapManager);
     }
-
 
     private void deployEntities(EntityType[] entityTypes, WorldMapManager mapManager)
             throws InvalidParametersException {
@@ -30,8 +31,10 @@ public class EntitiesDeployment extends InitActions {
             int entityMapFillingPercentage = Config.getConfig().getEntityMapFillingPercentage(entityType);
             int squaresAvailableForEntity = calculateSquaresAvailable(mapSize, entityMapFillingPercentage);
             for (int i = 0; i < squaresAvailableForEntity; i++) {
-                Coordinates coordinates = mapManager.getOneRandomFreeCoordinates();
-                deployEntity(coordinates, entityType, mapManager);
+                Optional<Coordinates> optionalCoordinates = mapManager.getOneRandomFreeCoordinates();
+                if (optionalCoordinates.isPresent()) {
+                    deployEntity(optionalCoordinates.get(), entityType, mapManager);
+                }
             }
         }
     }
@@ -59,7 +62,6 @@ public class EntitiesDeployment extends InitActions {
 
         }
     }
-
 
     private int calculateSquaresAvailable(int mapSize, int fillingPercentage) {
         return (int) (Math.ceil(mapSize / 100D * fillingPercentage));
