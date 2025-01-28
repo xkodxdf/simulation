@@ -14,11 +14,9 @@ public class CreaturesStateUpdate extends TurnActions {
     @Override
     public void process(WorldMapManager mapManager) {
         deathStateUpdate(mapManager.getCreatures());
-        inDangerStateUpdate(mapManager.getCreatures());
         roamStateUpdate(mapManager.getCreatures());
         forageStateUpdate(mapManager.getCreatures());
     }
-
 
     private void roamStateUpdate(List<Creature> creatures) {
         creatures.stream()
@@ -32,12 +30,6 @@ public class CreaturesStateUpdate extends TurnActions {
                 .forEach(creature -> creature.setState(CreatureState.FORAGE));
     }
 
-    private void inDangerStateUpdate(List<Creature> creatures) {
-        creatures.stream()
-                .filter(this::isInDanger)
-                .forEach(creature -> creature.setState(CreatureState.IN_DANGER));
-    }
-
     private void deathStateUpdate(List<Creature> creatures) {
         creatures.stream()
                 .filter(creature -> creature.getHealthPoints() <= deathThreshold)
@@ -45,20 +37,10 @@ public class CreaturesStateUpdate extends TurnActions {
     }
 
     private boolean shouldRoam(Creature creature) {
-        return isSafe(creature) && creature.getHunger() < hungerThreshold;
+        return creature.getState().isAlive() && creature.getHunger() < hungerThreshold;
     }
 
     private boolean shouldForage(Creature creature) {
-        return isSafe(creature) && creature.getHunger() >= hungerThreshold;
-    }
-
-    private boolean isInDanger(Creature creature) {
-        return creature.getState().isAlive() && creature.isThreatInViewRadius();
-    }
-
-    private boolean isSafe(Creature creature) {
-        CreatureState state = creature.getState();
-
-        return state.isAlive() && !creature.isThreatInViewRadius();
+        return creature.getState().isAlive() && creature.getHunger() >= hungerThreshold;
     }
 }
