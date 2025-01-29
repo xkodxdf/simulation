@@ -1,6 +1,6 @@
 package com.xkodxdf.app.map;
 
-import com.xkodxdf.app.entities.animated.Predator;
+import com.xkodxdf.app.entities.animate.Predator;
 import com.xkodxdf.app.entities.base.Creature;
 import com.xkodxdf.app.entities.base.Entity;
 import com.xkodxdf.app.exceptions.InvalidCoordinatesException;

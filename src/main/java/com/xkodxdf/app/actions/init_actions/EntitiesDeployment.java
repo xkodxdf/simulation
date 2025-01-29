@@ -1,8 +1,8 @@
 package com.xkodxdf.app.actions.init_actions;
 
 import com.xkodxdf.app.entities.EntityType;
-import com.xkodxdf.app.entities.animated.Herbivore;
-import com.xkodxdf.app.entities.animated.Predator;
+import com.xkodxdf.app.entities.animate.Herbivore;
+import com.xkodxdf.app.entities.animate.Predator;
 import com.xkodxdf.app.entities.inanimate.Grass;
 import com.xkodxdf.app.entities.inanimate.Rock;
 import com.xkodxdf.app.entities.inanimate.Tree;

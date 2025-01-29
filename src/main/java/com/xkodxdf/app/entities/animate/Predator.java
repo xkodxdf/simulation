@@ -1,4 +1,4 @@
-package com.xkodxdf.app.entities.animated;
+package com.xkodxdf.app.entities.animate;
 
 import com.xkodxdf.app.entities.base.Creature;
 import com.xkodxdf.app.entities.base.Entity;
