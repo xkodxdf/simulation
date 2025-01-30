@@ -4,7 +4,7 @@ import com.xkodxdf.app.entities.CreatureState;
 import com.xkodxdf.app.exceptions.InvalidCoordinatesException;
 import com.xkodxdf.app.exceptions.InvalidParametersException;
 import com.xkodxdf.app.map.Coordinates;
-import com.xkodxdf.app.map.WorldMapManager;
+import com.xkodxdf.app.map.WorldMapManage;
 import com.xkodxdf.app.messages.Messages;
 import com.xkodxdf.app.pathfinder.PathFinder;
 
@@ -21,9 +21,9 @@ public abstract class Creature extends Entity {
     protected int hunger;
     private CreatureState state;
     protected final int viewRadius;
-    protected final WorldMapManager mapManager;
+    protected final WorldMapManage mapManager;
 
-    public Creature(int healthPoints, int viewRadius, WorldMapManager mapManager) {
+    public Creature(int healthPoints, int viewRadius, WorldMapManage mapManager) {
         this.healthPoints = healthPoints;
         this.viewRadius = viewRadius;
         this.mapManager = mapManager;
@@ -61,7 +61,7 @@ public abstract class Creature extends Entity {
                 forage(optionalCurrentCoordinates.get(), pathFinder);
                 break;
             default:
-                throw new InvalidParametersException(Messages.invalidCreatureState + state.name());
+                throw new InvalidParametersException(Messages.INVALID_CREATURE_STATE + state.name());
         }
     }
 

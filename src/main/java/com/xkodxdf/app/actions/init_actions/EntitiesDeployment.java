@@ -8,7 +8,7 @@ import com.xkodxdf.app.entities.inanimate.Rock;
 import com.xkodxdf.app.entities.inanimate.Tree;
 import com.xkodxdf.app.exceptions.InvalidParametersException;
 import com.xkodxdf.app.map.Coordinates;
-import com.xkodxdf.app.map.WorldMapManager;
+import com.xkodxdf.app.map.WorldMapManage;
 import com.xkodxdf.app.map.config.Config;
 import com.xkodxdf.app.messages.Messages;
 
@@ -17,11 +17,11 @@ import java.util.Optional;
 public class EntitiesDeployment extends InitActions {
 
     @Override
-    public void process(WorldMapManager mapManager) throws InvalidParametersException {
+    public void process(WorldMapManage mapManager) throws InvalidParametersException {
         deployEntities(EntityType.values(), mapManager);
     }
 
-    private void deployEntities(EntityType[] entityTypes, WorldMapManager mapManager)
+    private void deployEntities(EntityType[] entityTypes, WorldMapManage mapManager)
             throws InvalidParametersException {
         int mapSize = mapManager.getSize();
         for (EntityType entityType : entityTypes) {
@@ -39,7 +39,7 @@ public class EntitiesDeployment extends InitActions {
         }
     }
 
-    private void deployEntity(Coordinates coordinate, EntityType entityType, WorldMapManager mapManager)
+    private void deployEntity(Coordinates coordinate, EntityType entityType, WorldMapManage mapManager)
             throws InvalidParametersException {
         switch (entityType) {
             case ROCK:
@@ -58,7 +58,7 @@ public class EntitiesDeployment extends InitActions {
                 mapManager.setEntity(coordinate, new Predator(mapManager));
                 break;
             default:
-                throw new InvalidParametersException(Messages.invalidEntityType + entityType.name());
+                throw new InvalidParametersException(Messages.INVALID_ENTITY_TYPE + entityType.name());
 
         }
     }

@@ -5,7 +5,7 @@ import com.xkodxdf.app.actions.init_actions.EntitiesDeployment;
 import com.xkodxdf.app.actions.init_actions.InitActions;
 import com.xkodxdf.app.actions.turn_actions.*;
 import com.xkodxdf.app.exceptions.InvalidParametersException;
-import com.xkodxdf.app.map.WorldMapManager;
+import com.xkodxdf.app.map.WorldMapManage;
 import com.xkodxdf.app.map.config.Config;
 import com.xkodxdf.app.map.worldmap.WorldHashMap;
 import com.xkodxdf.app.render.Renderer;
@@ -20,7 +20,7 @@ public class Simulation {
     private final Renderer renderer = new Renderer();
     private final List<InitActions> initActions;
     private final List<TurnActions> turnActions;
-    private final WorldMapManager mapManager = new WorldMapManager(
+    private final WorldMapManage mapManager = new WorldMapManage(
             new WorldHashMap(config.getWidth(), config.getHeight())
     );
 

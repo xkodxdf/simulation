@@ -5,15 +5,15 @@ import com.xkodxdf.app.entities.base.Entity;
 import com.xkodxdf.app.entities.inanimate.Grass;
 import com.xkodxdf.app.exceptions.InvalidCoordinatesException;
 import com.xkodxdf.app.map.Coordinates;
-import com.xkodxdf.app.map.WorldMapManager;
+import com.xkodxdf.app.map.WorldMapManage;
 
 public class Herbivore extends Creature {
 
-    public Herbivore(WorldMapManager mapManager) {
+    public Herbivore(WorldMapManage mapManager) {
         this(100, 2, mapManager);
     }
 
-    public Herbivore(int healthPoints, int viewRadius, WorldMapManager mapManager) {
+    public Herbivore(int healthPoints, int viewRadius, WorldMapManage mapManager) {
         super(healthPoints, viewRadius, mapManager);
     }
 

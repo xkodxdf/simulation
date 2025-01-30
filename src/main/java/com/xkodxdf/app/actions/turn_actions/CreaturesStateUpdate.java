@@ -2,7 +2,7 @@ package com.xkodxdf.app.actions.turn_actions;
 
 import com.xkodxdf.app.entities.CreatureState;
 import com.xkodxdf.app.entities.base.Creature;
-import com.xkodxdf.app.map.WorldMapManager;
+import com.xkodxdf.app.map.WorldMapManage;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ public class CreaturesStateUpdate extends TurnActions {
     private final int hungerThreshold = 20;
 
     @Override
-    public void process(WorldMapManager mapManager) {
+    public void process(WorldMapManage mapManager) {
         deathStateUpdate(mapManager.getCreatures());
         roamStateUpdate(mapManager.getCreatures());
         forageStateUpdate(mapManager.getCreatures());

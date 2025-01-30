@@ -10,15 +10,13 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
-public class WorldMapManager {
+public class WorldMapManage {
 
     private final WorldMap<Coordinates, Entity> map;
 
-
-    public WorldMapManager(WorldMap<Coordinates, Entity> worldMap) {
+    public WorldMapManage(WorldMap<Coordinates, Entity> worldMap) {
         this.map = worldMap;
     }
-
 
     public int getSize() {
         return map.size();

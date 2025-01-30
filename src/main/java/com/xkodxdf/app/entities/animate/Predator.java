@@ -5,7 +5,7 @@ import com.xkodxdf.app.entities.base.Entity;
 import com.xkodxdf.app.entities.inanimate.Corpse;
 import com.xkodxdf.app.exceptions.InvalidCoordinatesException;
 import com.xkodxdf.app.map.Coordinates;
-import com.xkodxdf.app.map.WorldMapManager;
+import com.xkodxdf.app.map.WorldMapManage;
 
 import java.util.Comparator;
 import java.util.List;
@@ -16,11 +16,11 @@ public class Predator extends Creature {
 
     private final int attackStrength;
 
-    public Predator(WorldMapManager mapManager) {
+    public Predator(WorldMapManage mapManager) {
         this(120, 3, 34, mapManager);
     }
 
-    public Predator(int healthPoints, int viewRadius, int attackStrength, WorldMapManager mapManager) {
+    public Predator(int healthPoints, int viewRadius, int attackStrength, WorldMapManage mapManager) {
         super(healthPoints, viewRadius, mapManager);
         this.attackStrength = attackStrength;
     }
