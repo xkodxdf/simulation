@@ -25,7 +25,6 @@ public class ConfigValidator {
                 config.getTreesMapFillingPercentage(),
                 config.getGrassMapFillingPercentage()
         };
-
         int[] animateValues = {
                 config.getHerbivoreMapFillingPercentage(),
                 config.getPredatorMapFillingPercentage()
@@ -34,13 +33,7 @@ public class ConfigValidator {
         if (hasNegativeValues(inanimateValues) || hasNegativeValues(animateValues)) {
             throw new InvalidFillingPercentageException("REPLACE!!!");
         }
-
-        if (hasExceededLimit(inanimateValues, Config.INANIMATE_MAX_FILLING_PERCENTAGE)
-                || hasExceededLimit(animateValues, Config.ANIMATE_MAX_FILLING_PERCENTAGE)) {
-            throw new InvalidFillingPercentageException("REPLACE!!!");
-        }
     }
-
 
     private static boolean hasNegativeValues(int... values) {
         return IntStream.of(values).anyMatch(value -> value < 0);

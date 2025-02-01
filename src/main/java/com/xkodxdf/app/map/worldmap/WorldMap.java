@@ -20,7 +20,6 @@ public interface WorldMap<C, V> {
 
     void removeValue(C coordinates) throws InvalidCoordinatesException;
 
-
     Set<C> getFreeCoordinatesCopy();
 
     Set<C> getTakenCoordinatesCopy();

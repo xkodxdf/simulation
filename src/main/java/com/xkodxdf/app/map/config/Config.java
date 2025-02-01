@@ -29,15 +29,12 @@ public class Config {
     private Config() {
     }
 
-
     public static Config getConfig() {
         if (config == null) {
             config = new Config();
         }
-
         return config;
     }
-
 
     public int getWidth() {
         return width;

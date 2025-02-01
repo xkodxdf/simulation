@@ -67,6 +67,7 @@ public enum EntityNotation implements EntityNotationProvider {
 
 
     private static class EmojiNotation {
+
         private static final String EMPTY = "\uD83D\uDFEB";
         private static final String ROCK = "⛰️";
         private static final String TREE = "\uD83C\uDFD5️";
@@ -78,6 +79,7 @@ public enum EntityNotation implements EntityNotationProvider {
 
 
     private static class SymbolNotation {
+
         private static final String EMPTY = " . ";
         private static final String ROCK = "/^\\";
         private static final String TREE = "(¶)";
@@ -89,6 +91,7 @@ public enum EntityNotation implements EntityNotationProvider {
 
 
     private static class AnsiColor {
+
         private static final String RESET = "\u001B[0m";
         private static final String TEMPLATE = "\u001B[%dm%s" + RESET;
         private static final int BRIGHT_RED = 91;

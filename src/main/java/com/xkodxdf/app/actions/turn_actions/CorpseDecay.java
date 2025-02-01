@@ -18,7 +18,6 @@ public class CorpseDecay extends TurnActions {
         removeRottedCorpses(corpses, mapManager);
     }
 
-
     private List<Corpse> getCorpses(WorldMapManage mapManager) {
         return mapManager.getEntities().stream()
                 .filter(entity -> entity instanceof Corpse)

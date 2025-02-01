@@ -10,12 +10,10 @@ public class WorldHashMap extends BaseWorldMap<Coordinates, Entity> {
 
     private final Map<Coordinates, Entity> entities;
 
-
     public WorldHashMap(int width, int height) {
         super(width, height);
         entities = new HashMap<>();
     }
-
 
     @Override
     public void setValue(Coordinates coordinates, Entity entity) throws InvalidCoordinatesException {
@@ -27,7 +25,6 @@ public class WorldHashMap extends BaseWorldMap<Coordinates, Entity> {
     @Override
     public Optional<Entity> getValue(Coordinates coordinates) throws InvalidCoordinatesException {
         validateCoordinates(coordinates);
-
         return Optional.ofNullable(entities.get(coordinates));
     }
 
@@ -51,7 +48,6 @@ public class WorldHashMap extends BaseWorldMap<Coordinates, Entity> {
                 result.add(new Coordinates(x, y));
             }
         }
-
         return result;
     }
 

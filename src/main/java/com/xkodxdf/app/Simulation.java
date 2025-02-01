@@ -44,7 +44,6 @@ public class Simulation {
         for (Actions action : initActions) {
             action.process(mapManager);
         }
-
         while (true) {
             turn++;
             renderer.renderMap(mapManager.getEntitiesWithCoordinates());

@@ -12,14 +12,12 @@ public class WorldArrayMap extends BaseWorldMap<Coordinates, Entity> {
     private int cols;
     private Entity[][] map;
 
-
     public WorldArrayMap(int width, int height) {
         super(width, height);
         rows = height;
         cols = width;
         initMap(width, height);
     }
-
 
     @Override
     protected Set<Coordinates> generateMapCoordinates(int width, int height) {
@@ -30,7 +28,6 @@ public class WorldArrayMap extends BaseWorldMap<Coordinates, Entity> {
                 result.add(new Coordinates(col, row));
             }
         }
-
         return result;
     }
 
@@ -70,7 +67,6 @@ public class WorldArrayMap extends BaseWorldMap<Coordinates, Entity> {
             }
 
         }
-
         return result;
     }
 
