@@ -73,13 +73,13 @@ public class WorldMapManage {
             Optional<Entity> entity = map.getValue(coordinate);
             entity.ifPresent(result::add);
         }
-
         return result;
     }
 
-    public List<Creature> getCreatures() {
+    public <T> List<T> getEntitiesByType(Class<T> type) {
         return map.getValuesWithCoordinatesCopy().values().stream()
-                .filter(entity -> entity instanceof Creature).map(entity -> (Creature) entity)
+                .filter(type::isInstance)
+                .map(type::cast)
                 .collect(Collectors.toList());
     }
 
