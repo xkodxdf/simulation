@@ -34,7 +34,7 @@ public enum EntityNotation implements EntityNotationProvider {
             if (entity instanceof Predator) {
                 return EmojiNotation.PREDATOR;
             }
-            throw new IllegalArgumentException(Messages.noNotationForEntity + entity.getClass().getSimpleName());
+            throw new IllegalArgumentException(Messages.NO_NOTATION_FOUND_FOR_ENTITY + entity.getClass().getSimpleName());
         }
     },
     SYMBOL {
@@ -61,7 +61,7 @@ public enum EntityNotation implements EntityNotationProvider {
             if (entity instanceof Predator) {
                 return AnsiColor.colorizeNotation(AnsiColor.BRIGHT_YELLOW, SymbolNotation.PREDATOR);
             }
-            throw new IllegalArgumentException(Messages.noNotationForEntity + entity.getClass().getSimpleName());
+            throw new IllegalArgumentException(Messages.NO_NOTATION_FOUND_FOR_ENTITY + entity.getClass().getSimpleName());
         }
     };
 
