@@ -101,6 +101,29 @@ public class WorldMapManage {
         return map.getFreeCoordinatesCopy();
     }
 
+    public Set<Coordinates> getBorderCoordinates() {
+        Set<Coordinates> borderCoordinates = new HashSet<>();
+        int firstRowY = 0;
+        int lastRowY = map.getHeight() - 1;
+        for (int x = 0; x < map.getWidth(); x++) {
+            borderCoordinates.add(new Coordinates(x, firstRowY));
+            borderCoordinates.add(new Coordinates(x, lastRowY));
+        }
+        int firstColumn = 0;
+        int lastColumn = map.getWidth() - 1;
+        for (int y = 0; y < map.getHeight(); y++) {
+            borderCoordinates.add(new Coordinates(firstColumn, y));
+            borderCoordinates.add(new Coordinates(lastColumn, y));
+        }
+        return borderCoordinates;
+    }
+
+    public Set<Coordinates> getBorderFreeCoordinates() {
+        Set<Coordinates> borderFreeCoordinates = new HashSet<>(getBorderCoordinates());
+        borderFreeCoordinates.removeAll(map.getTakenCoordinatesCopy());
+        return borderFreeCoordinates;
+    }
+
     public Optional<Coordinates> getOneRandomFreeCoordinates() {
         if (map.getFreeCoordinatesCopy().isEmpty()) {
             return Optional.empty();
@@ -114,7 +137,6 @@ public class WorldMapManage {
         int x = target.getX();
         int y = target.getY();
         Set<Coordinates> result = new HashSet<>();
-
         for (int row = -radius; row <= radius; row++) {
             for (int col = -radius; col <= radius; col++) {
                 Coordinates coordinate = new Coordinates(x + col, y + row);
@@ -123,14 +145,12 @@ public class WorldMapManage {
                 }
             }
         }
-
         return result;
     }
 
     public Set<Coordinates> getAroundFreeCoordinates(Coordinates target, int radius) {
         Set<Coordinates> result = getAroundCoordinates(target, radius);
         result.retainAll(map.getFreeCoordinatesCopy());
-
         return result;
     }
 
@@ -141,10 +161,8 @@ public class WorldMapManage {
                 result = Optional.ofNullable(entityEntry.getKey());
             }
         }
-
         return result;
     }
-
 
     private boolean isCoordinatesValid(Coordinates coordinates) {
         try {
@@ -152,7 +170,6 @@ public class WorldMapManage {
         } catch (InvalidCoordinatesException e) {
             return false;
         }
-
         return true;
     }
 }
