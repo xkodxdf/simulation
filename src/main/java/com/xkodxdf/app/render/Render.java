@@ -13,7 +13,7 @@ public class Render {
 
     private EntityNotationProvider entityNotation;
 
-    public Renderer() {
+    public Render() {
         this.entityNotation = EntityNotation.SYMBOL;
     }
 
