@@ -8,13 +8,18 @@ import java.util.Set;
 
 public interface WorldMap<C, V> {
 
+    int size();
+
+    int getWidth();
+
+    int getHeight();
+
     void setValue(C coordinates, V value) throws InvalidCoordinatesException;
 
     Optional<V> getValue(C coordinates) throws InvalidCoordinatesException;
 
     void removeValue(C coordinates) throws InvalidCoordinatesException;
 
-    int size();
 
     Set<C> getFreeCoordinatesCopy();
 
