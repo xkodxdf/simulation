@@ -35,6 +35,8 @@ public class Simulation {
             add(new CreaturesStateUpdate());
             add(new DeadCreaturesReplacement());
             add(new CorpseDecay());
+            add(new GrassSpawn());
+            add(new CreatureSpawn());
         }};
     }
 
