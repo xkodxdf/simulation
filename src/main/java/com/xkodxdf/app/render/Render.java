@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.IntStream;
 
-public class Renderer {
+public class Render {
 
     private EntityNotationProvider entityNotation;
 
@@ -18,7 +18,7 @@ public class Renderer {
     }
 
     public void setEntityNotation(EntityNotation entityNotation) {
-        Objects.requireNonNull(entityNotation, Messages.mustNotBeNull);
+        Objects.requireNonNull(entityNotation, Messages.MUST_NOT_BE_NULL);
         this.entityNotation = entityNotation;
     }
 
