@@ -4,11 +4,10 @@ import com.xkodxdf.app.actions.Actions;
 import com.xkodxdf.app.actions.init_actions.EntitiesDeployment;
 import com.xkodxdf.app.actions.init_actions.InitActions;
 import com.xkodxdf.app.actions.turn_actions.*;
+import com.xkodxdf.app.entities.animate.Herbivore;
 import com.xkodxdf.app.exceptions.InvalidParametersException;
 import com.xkodxdf.app.map.WorldMapManage;
-import com.xkodxdf.app.map.config.Config;
-import com.xkodxdf.app.map.worldmap.WorldHashMap;
-import com.xkodxdf.app.render.Renderer;
+import com.xkodxdf.app.render.Render;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,13 +15,15 @@ import java.util.List;
 public class Simulation {
 
     private int turn = 0;
-    private final Config config = Config.getConfig();
-    private final Renderer renderer = new Renderer();
+    private final Render renderer;
     private final List<InitActions> initActions;
     private final List<TurnActions> turnActions;
-    private final WorldMapManage mapManager = new WorldMapManage(
-            new WorldHashMap(config.getWidth(), config.getHeight())
-    );
+    private final WorldMapManage mapManager;
+
+    public Simulation(Render renderer, WorldMapManage mapManager) {
+        this.renderer = renderer;
+        this.mapManager = mapManager;
+    }
 
     {
         initActions = new ArrayList<>() {{
