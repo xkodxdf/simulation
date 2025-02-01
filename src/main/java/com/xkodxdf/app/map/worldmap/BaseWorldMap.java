@@ -1,25 +1,36 @@
 package com.xkodxdf.app.map.worldmap;
 
 import com.xkodxdf.app.exceptions.InvalidCoordinatesException;
+import com.xkodxdf.app.messages.Messages;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public abstract class BaseWorldMap<C, V> implements WorldMap<C, V> {
 
-    protected final Set<C> freeCoordinates;
-    protected final Set<C> takenCoordinates;
-
+    private final int width;
+    private final int height;
+    private final Set<C> freeCoordinates;
+    private final Set<C> takenCoordinates;
 
     public BaseWorldMap(int width, int height) {
+        this.width = width;
+        this.height = height;
         this.freeCoordinates = generateMapCoordinates(width, height);
         this.takenCoordinates = new HashSet<>();
     }
 
+    public int getHeight() {
+        return height;
+    }
+
+    public int getWidth() {
+        return width;
+    }
 
     @Override
     public int size() {
-        return freeCoordinates.size() + takenCoordinates.size();
+        return width * height;
     }
 
     @Override
@@ -43,10 +54,9 @@ public abstract class BaseWorldMap<C, V> implements WorldMap<C, V> {
     @Override
     public void validateCoordinates(C coordinates) throws InvalidCoordinatesException {
         if (!freeCoordinates.contains(coordinates) && !takenCoordinates.contains(coordinates)) {
-            throw new InvalidCoordinatesException("REPLACE");
+            throw new InvalidCoordinatesException(Messages.INCORRECT_COORDINATES_ARE_SPECIFIED);
         }
     }
-
 
     protected void takeCoordinates(C coordinates) {
         freeCoordinates.remove(coordinates);
@@ -57,7 +67,6 @@ public abstract class BaseWorldMap<C, V> implements WorldMap<C, V> {
         takenCoordinates.remove(coordinates);
         freeCoordinates.add(coordinates);
     }
-
 
     protected abstract Set<C> generateMapCoordinates(int width, int height);
 
