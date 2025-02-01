@@ -4,6 +4,12 @@ import com.xkodxdf.app.entities.animate.Predator;
 import com.xkodxdf.app.entities.base.Creature;
 import com.xkodxdf.app.entities.base.Entity;
 import com.xkodxdf.app.exceptions.InvalidCoordinatesException;
+import com.xkodxdf.app.exceptions.InvalidFillingPercentageException;
+import com.xkodxdf.app.exceptions.InvalidMapSizeParametersException;
+import com.xkodxdf.app.map.config.Config;
+import com.xkodxdf.app.map.config.ConfigValidator;
+import com.xkodxdf.app.map.worldmap.WorldArrayMap;
+import com.xkodxdf.app.map.worldmap.WorldHashMap;
 import com.xkodxdf.app.map.worldmap.WorldMap;
 
 import java.util.*;
@@ -12,10 +18,25 @@ import java.util.stream.Collectors;
 
 public class WorldMapManage {
 
-    private final WorldMap<Coordinates, Entity> map;
+    private final Config config;
+    private WorldMap<Coordinates, Entity> map;
 
-    public WorldMapManage(WorldMap<Coordinates, Entity> worldMap) {
-        this.map = worldMap;
+    public WorldMapManage(Config config) throws InvalidFillingPercentageException, InvalidMapSizeParametersException {
+        ConfigValidator.validateConfig(config);
+        this.config = config;
+        setHashWorldMap();
+    }
+
+    public Config getConfig() {
+        return config;
+    }
+
+    public void setHashWorldMap() {
+        map = new WorldHashMap(config.getWidth(), config.getHeight());
+    }
+
+    public void setArrayWorldMap() {
+        map = new WorldArrayMap(config.getWidth(), config.getHeight());
     }
 
     public int getSize() {
