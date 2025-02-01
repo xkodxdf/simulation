@@ -133,6 +133,16 @@ public class WorldMapManage {
         return Optional.of(coordinates[ThreadLocalRandom.current().nextInt(randomBound)]);
     }
 
+    public Optional<Coordinates> getOneRandomFreeCoordinates(Set<Coordinates> freeCoordinates) {
+        if (freeCoordinates.isEmpty()) {
+            return Optional.empty();
+        }
+        Coordinates[] coordinates = freeCoordinates.toArray(new Coordinates[0]);
+        int randomBound = coordinates.length;
+        return Optional.of(coordinates[ThreadLocalRandom.current().nextInt(randomBound)]);
+    }
+
+
     public Set<Coordinates> getAroundCoordinates(Coordinates target, int radius) {
         int x = target.getX();
         int y = target.getY();
