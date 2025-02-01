@@ -13,9 +13,9 @@ public class CreaturesStateUpdate extends TurnActions {
 
     @Override
     public void process(WorldMapManage mapManager) {
-        deathStateUpdate(mapManager.getCreatures());
-        roamStateUpdate(mapManager.getCreatures());
-        forageStateUpdate(mapManager.getCreatures());
+        deathStateUpdate(mapManager.getEntitiesByType(Creature.class));
+        roamStateUpdate(mapManager.getEntitiesByType(Creature.class));
+        forageStateUpdate(mapManager.getEntitiesByType(Creature.class));
     }
 
     private void roamStateUpdate(List<Creature> creatures) {

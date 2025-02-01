@@ -13,7 +13,7 @@ public class CreaturesTurnExecute extends TurnActions {
 
     @Override
     public void process(WorldMapManage mapManager) throws InvalidParametersException {
-        for (Creature creature : mapManager.getCreatures()) {
+        for (Creature creature : mapManager.getEntitiesByType(Creature.class)) {
             creature.makeMove(pathFinder);
         }
     }
