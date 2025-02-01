@@ -41,6 +41,7 @@ public class CreaturesStateUpdate extends TurnActions {
     }
 
     private boolean shouldForage(Creature creature) {
-        return creature.getState().isAlive() && creature.getHunger() >= hungerThreshold;
+        return creature.getState().isAlive()
+                && (creature.getHunger() >= hungerThreshold) || (!creature.isOnFullHp());
     }
 }
