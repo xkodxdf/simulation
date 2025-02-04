@@ -6,16 +6,13 @@ public class Tree extends Entity {
 
     private static Tree instance;
 
-
     private Tree() {
     }
-
 
     public static Tree getInstance() {
         if (instance == null) {
             instance = new Tree();
         }
-
         return instance;
     }
 }
