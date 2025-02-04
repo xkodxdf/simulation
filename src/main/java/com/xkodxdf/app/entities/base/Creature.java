@@ -13,13 +13,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 public abstract class Creature extends Entity {
 
-    protected int healthPoints;
-    protected int hunger;
+    protected int hungerLevel;
+    protected int currentHealthPoints;
     private CreatureState state;
     protected final int viewRadius;
     protected final WorldMapManage mapManager;
