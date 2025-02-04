@@ -114,7 +114,7 @@ public class Config {
             case PREDATOR:
                 return predatorMapFillingPercentage;
             default:
-                throw new InvalidParametersException("REPLACE!");
+                throw new InvalidParametersException(Messages.INVALID_ENTITY_TYPE);
 
         }
     }
