@@ -14,15 +14,24 @@ import java.util.stream.Collectors;
 
 public class Predator extends Creature {
 
-    private final int attackStrength;
-
     public Predator(WorldMapManage mapManager) {
-        this(120, 3, 34, mapManager);
+        this(
+                new CharacteristicsBuilder()
+                        .setHealthPointsInRange(80, 112)
+                        .setViewRadiusInRange(2, 5)
+                        .setMetabolicRateInRange(4, 8)
+                        .setHungerThresholdInRange(24, 36)
+                        .setStarvationThresholdInRange(100, 112)
+                        .setSatiateHungerDecreaseInRange(24, 32)
+                        .setSatiateHealthIncreaseInRange(18, 28)
+                        .setAttackStrengthInRange(24, 48)
+                        .build(),
+                mapManager
+        );
     }
 
-    public Predator(int healthPoints, int viewRadius, int attackStrength, WorldMapManage mapManager) {
-        super(healthPoints, viewRadius, mapManager);
-        this.attackStrength = attackStrength;
+    public Predator(Characteristics characteristics, WorldMapManage mapManager) {
+        super(characteristics, mapManager);
     }
 
     @Override
@@ -30,7 +39,8 @@ public class Predator extends Creature {
         if (entity instanceof Herbivore) {
             return true;
         }
-        return (entity instanceof Corpse) && hunger >= 100;
+        return (entity instanceof Corpse)
+                && hungerLevel >= characteristics.getHungerThreshold();
     }
 
     @Override
@@ -38,7 +48,7 @@ public class Predator extends Creature {
             throws InvalidCoordinatesException {
         if (food instanceof Herbivore) {
             Herbivore herb = (Herbivore) food;
-            herb.takeDamage(attackStrength);
+            herb.takeDamage(characteristics.getAttackStrength());
         } else if (food instanceof Corpse) {
             mapManager.removeEntity(currentCoordinates);
             mapManager.setEntity(foodCoordinates, this);
@@ -47,17 +57,18 @@ public class Predator extends Creature {
 
     @Override
     protected void satiate(Entity food) {
-        if ((food instanceof Herbivore) && (((Herbivore) food).getHealthPoints() <= 0)) {
-            int satiateHungerDecrease = 20;
-            int satiateHealthIncrease = 10;
-            hunger -= satiateHungerDecrease;
-            healthPoints += satiateHealthIncrease;
+        int satiateHungerDecrease = characteristics.getSatiateHungerDecrease();
+        int satiateHealthIncrease = characteristics.getSatiateHealthIncrease();
+        if ((food instanceof Herbivore) && (((Herbivore) food).getCurrentHealthPoints() <= 0)) {
+            hungerLevel -= satiateHungerDecrease;
+            currentHealthPoints += satiateHealthIncrease;
         } else if (food instanceof Corpse) {
-            int baseSatiateHungerDecrease = 3;
-            int baseSatiateHealthIncrease = 1;
+            int penaltyForEatingCarrion = 10;
+            int corpseSatiateHungerDecrease = satiateHungerDecrease / penaltyForEatingCarrion;
+            int baseSatiateHealthIncrease = satiateHealthIncrease / penaltyForEatingCarrion;
             int decayIndicator = ((Corpse) food).getDecayCounter();
-            hunger = hunger - (baseSatiateHungerDecrease * decayIndicator);
-            healthPoints = healthPoints + (baseSatiateHealthIncrease * decayIndicator);
+            hungerLevel = hungerLevel - (corpseSatiateHungerDecrease * decayIndicator);
+            currentHealthPoints = currentHealthPoints + (baseSatiateHealthIncrease * decayIndicator);
         }
     }
 
@@ -91,7 +102,7 @@ public class Predator extends Creature {
 
     private Optional<Coordinates> selectCreatureOrCorpse(List<Creature> creatures, List<Corpse> corpses) {
         Creature creatureWithMinHealth = getCreatureWithMinHealth(creatures);
-        if (hunger < 100) {
+        if (hungerLevel < 100) {
             return mapManager.getEntityCoordinate(creatureWithMinHealth);
         } else if ((canOneHitKill(creatureWithMinHealth)) || (corpses.isEmpty())) {
             return mapManager.getEntityCoordinate(creatureWithMinHealth);
@@ -102,7 +113,7 @@ public class Predator extends Creature {
 
     private Creature getCreatureWithMinHealth(List<Creature> creatures) {
         return creatures.stream()
-                .min(Comparator.comparing(Creature::getHealthPoints))
+                .min(Comparator.comparing(Creature::getCurrentHealthPoints))
                 .get();
     }
 
@@ -113,6 +124,6 @@ public class Predator extends Creature {
     }
 
     private boolean canOneHitKill(Creature creature) {
-        return creature.getHealthPoints() <= attackStrength;
+        return creature.getCurrentHealthPoints() <= characteristics.getAttackStrength();
     }
 }

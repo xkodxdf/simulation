@@ -10,11 +10,22 @@ import com.xkodxdf.app.map.WorldMapManage;
 public class Herbivore extends Creature {
 
     public Herbivore(WorldMapManage mapManager) {
-        this(100, 2, mapManager);
+        this(
+                new CharacteristicsBuilder()
+                        .setHealthPointsInRange(94, 146)
+                        .setViewRadiusInRange(2, 8)
+                        .setMetabolicRateInRange(4, 12)
+                        .setHungerThresholdInRange(18, 32)
+                        .setStarvationThresholdInRange(88, 112)
+                        .setSatiateHungerDecreaseInRange(18, 28)
+                        .setSatiateHealthIncreaseInRange(22, 34)
+                        .build(),
+                mapManager
+        );
     }
 
-    public Herbivore(int healthPoints, int viewRadius, WorldMapManage mapManager) {
-        super(healthPoints, viewRadius, mapManager);
+    public Herbivore(Characteristics characteristics, WorldMapManage mapManager) {
+        super(characteristics, mapManager);
     }
 
     @Override
@@ -31,9 +42,7 @@ public class Herbivore extends Creature {
 
     @Override
     protected void satiate(Entity food) {
-        int satiateHungerDecrease = 16;
-        int satiateHealthIncrease = 25;
-        hunger -= satiateHungerDecrease;
-        healthPoints += satiateHealthIncrease;
+        hungerLevel -= characteristics.getSatiateHungerDecrease();
+        currentHealthPoints += characteristics.getSatiateHealthIncrease();
     }
 }
