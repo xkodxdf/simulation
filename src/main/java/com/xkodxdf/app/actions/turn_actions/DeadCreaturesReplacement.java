@@ -21,7 +21,7 @@ public class DeadCreaturesReplacement extends TurnActions {
 
     private List<Creature> getDeadCreatures(WorldMapManage mapManager) {
         return mapManager.getEntitiesByType(Creature.class).stream()
-                .filter(creature -> creature.getHealthPoints() <= 0)
+                .filter(creature -> !creature.getState().isAlive())
                 .collect(Collectors.toList());
     }
 }
