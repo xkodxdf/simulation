@@ -1,6 +1,7 @@
 package com.xkodxdf.app.entities.base;
 
 import com.xkodxdf.app.entities.CreatureState;
+import com.xkodxdf.app.entities.animate.Characteristics;
 import com.xkodxdf.app.exceptions.InvalidCoordinatesException;
 import com.xkodxdf.app.exceptions.InvalidParametersException;
 import com.xkodxdf.app.map.Coordinates;
