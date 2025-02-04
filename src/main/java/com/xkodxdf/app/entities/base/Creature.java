@@ -68,7 +68,7 @@ public abstract class Creature extends Entity {
     public final void makeMove(PathFinder<Coordinates> pathFinder) throws InvalidParametersException {
         Optional<Coordinates> optionalCurrentCoordinates = mapManager.getEntityCoordinate(this);
         starve();
-        if (healthPoints <= 0 || optionalCurrentCoordinates.isEmpty()) {
+        if (currentHealthPoints <= 0 || optionalCurrentCoordinates.isEmpty()) {
             return;
         }
         switch (state) {
@@ -81,26 +81,18 @@ public abstract class Creature extends Entity {
             default:
                 throw new InvalidParametersException(Messages.INVALID_CREATURE_STATE + state.name());
         }
+        age++;
     }
 
     public void takeDamage(int damage) {
-        healthPoints -= damage;
-    }
-
-    protected Optional<Coordinates> selectFood(List<Entity> aroundFood) {
-        if (aroundFood.isEmpty()) {
-            return Optional.empty();
-        }
-        int firstElement = 0;
-        return Optional.of(mapManager.getEntityCoordinate(aroundFood.get(firstElement)).get());
+        currentHealthPoints -= damage;
     }
 
     private void starve() {
-        int hungerIncreasePerTurn = 5;
-        hunger += hungerIncreasePerTurn;
-        int starvationThreshold = 100;
-        if (hunger > starvationThreshold) {
-            healthPoints -= (hunger - starvationThreshold) / 2;
+        hungerLevel += characteristics.getMetabolicRate();
+        int starvationThreshold = characteristics.getStarvationThreshold();
+        if (hungerLevel > starvationThreshold) {
+            currentHealthPoints -= (hungerLevel - starvationThreshold) / 2;
         }
     }
 
@@ -108,7 +100,7 @@ public abstract class Creature extends Entity {
         int moveSquaresPerTurn = 1;
         Set<Coordinates> aroundFreeCoordinates = mapManager.getAroundFreeCoordinates(currentCoordinates, moveSquaresPerTurn);
         if (!aroundFreeCoordinates.isEmpty()) {
-            Coordinates target = getRandomCoordinate(aroundFreeCoordinates);
+            Coordinates target = mapManager.getOneRandomFreeCoordinates(aroundFreeCoordinates).get();
             mapManager.removeEntity(currentCoordinates);
             mapManager.setEntity(target, this);
         }
@@ -130,7 +122,7 @@ public abstract class Creature extends Entity {
         List<Entity> aroundEntities;
         Set<Coordinates> aroundCoordinates;
         Set<Coordinates> aroundCoordinatesPrevious = new HashSet<>();
-        for (int i = 1; i <= viewRadius; i++) {
+        for (int i = 1; i <= characteristics.getViewRadius(); i++) {
             aroundCoordinates = mapManager.getAroundCoordinates(currentCoordinates, i);
             aroundCoordinates.removeAll(aroundCoordinatesPrevious);
             aroundCoordinatesPrevious.addAll(aroundCoordinates);
@@ -143,6 +135,14 @@ public abstract class Creature extends Entity {
             }
         }
         return Optional.empty();
+    }
+
+    protected Optional<Coordinates> selectFood(List<Entity> aroundFood) {
+        if (aroundFood.isEmpty()) {
+            return Optional.empty();
+        }
+        int firstElement = 0;
+        return mapManager.getEntityCoordinate(aroundFood.get(firstElement));
     }
 
     private boolean canEat(Coordinates currentCoordinates) throws InvalidCoordinatesException {
@@ -164,8 +164,8 @@ public abstract class Creature extends Entity {
     }
 
     private void avoidHpOrHungerOutOfBound() {
-        hunger = Math.max(hunger, 0);
-        healthPoints = Math.min(healthPoints, 100);
+        hungerLevel = Math.max(hungerLevel, 0);
+        currentHealthPoints = Math.min(currentHealthPoints, 100);
     }
 
     private void goToFood(Coordinates currentCoordinate, Coordinates foodCoordinate, PathFinder<Coordinates> pathFinder) throws InvalidCoordinatesException {
@@ -177,11 +177,6 @@ public abstract class Creature extends Entity {
             mapManager.removeEntity(currentCoordinate);
             mapManager.setEntity(target, this);
         }
-    }
-
-    private Coordinates getRandomCoordinate(Set<Coordinates> coordinates) {
-        int randomBound = coordinates.size();
-        return (Coordinates) coordinates.toArray()[ThreadLocalRandom.current().nextInt(randomBound)];
     }
 
     protected abstract boolean isFood(Entity entity);
