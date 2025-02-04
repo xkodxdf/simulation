@@ -31,16 +31,26 @@ public abstract class Creature extends Entity {
         this.state = CreatureState.ROAM;
         this.characteristics = characteristics;
         this.mapManager = mapManager;
-        this.hunger = 0;
-        this.state = CreatureState.ROAM;
     }
 
-    public int getHealthPoints() {
-        return healthPoints;
+    public boolean isHungry() {
+        return hungerLevel >= characteristics.getHungerThreshold();
     }
 
-    public int getHunger() {
-        return hunger;
+    public int getCurrentHealthPoints() {
+        return currentHealthPoints;
+    }
+
+    public boolean isDead() {
+        return currentHealthPoints <= 0;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public Characteristics characteristics() {
+        return characteristics;
     }
 
     public CreatureState getState() {
@@ -49,6 +59,10 @@ public abstract class Creature extends Entity {
 
     public void setState(CreatureState state) {
         this.state = state;
+    }
+
+    public boolean isOnFullHp() {
+        return characteristics.getHealthPoints() == currentHealthPoints;
     }
 
     public final void makeMove(PathFinder<Coordinates> pathFinder) throws InvalidParametersException {
