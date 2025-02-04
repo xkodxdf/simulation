@@ -8,9 +8,6 @@ import java.util.List;
 
 public class CreaturesStateUpdate extends TurnActions {
 
-    private final int deathThreshold = 0;
-    private final int hungerThreshold = 20;
-
     @Override
     public void process(WorldMapManage mapManager) {
         deathStateUpdate(mapManager.getEntitiesByType(Creature.class));
@@ -32,12 +29,12 @@ public class CreaturesStateUpdate extends TurnActions {
 
     private void deathStateUpdate(List<Creature> creatures) {
         creatures.stream()
-                .filter(creature -> creature.getHealthPoints() <= deathThreshold)
+                .filter(Creature::isDead)
                 .forEach(creature -> creature.setState(CreatureState.DEATH));
     }
 
     private boolean shouldRoam(Creature creature) {
-        return creature.getState().isAlive() && creature.getHunger() < hungerThreshold;
+        return creature.getState().isAlive() && creature.isHungry();
     }
 
     private boolean shouldForage(Creature creature) {
