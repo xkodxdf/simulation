@@ -19,8 +19,9 @@ public abstract class Creature extends Entity {
 
     protected int hungerLevel;
     protected int currentHealthPoints;
+    private int age;
     private CreatureState state;
-    protected final int viewRadius;
+    protected final Characteristics characteristics;
     protected final WorldMapManage mapManager;
 
     public Creature(int healthPoints, int viewRadius, WorldMapManage mapManager) {
