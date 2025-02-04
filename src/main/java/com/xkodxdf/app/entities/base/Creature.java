@@ -24,9 +24,12 @@ public abstract class Creature extends Entity {
     protected final Characteristics characteristics;
     protected final WorldMapManage mapManager;
 
-    public Creature(int healthPoints, int viewRadius, WorldMapManage mapManager) {
-        this.healthPoints = healthPoints;
-        this.viewRadius = viewRadius;
+    public Creature(Characteristics characteristics, WorldMapManage mapManager) {
+        this.hungerLevel = 0;
+        this.currentHealthPoints = characteristics.getHealthPoints();
+        this.age = 0;
+        this.state = CreatureState.ROAM;
+        this.characteristics = characteristics;
         this.mapManager = mapManager;
         this.hunger = 0;
         this.state = CreatureState.ROAM;
