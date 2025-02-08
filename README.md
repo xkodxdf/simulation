@@ -6,3 +6,5 @@
 <img src="src/img/simSymbol.gif">
 <br><hr>
 <img src="src/img/simEmoji.gif">
+<br><hr>
+<img src="src/img/simMenu.gif">
