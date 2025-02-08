@@ -11,13 +11,7 @@ import com.xkodxdf.app.map.WorldMapManage;
 
 import java.util.Set;
 
-public class CreatureSpawn extends SpawnActions {
-
-    /*
-     *  creatures begin to spawn when the level of their current population
-     *  decreases to (initial level * SPAWN_THRESHOLD_FACTOR)
-     *  and spawn until their original population level is restored
-     */
+public class CreatureSpawn extends SpawnAction {
 
     private static final double SPAWN_THRESHOLD_FACTOR = 0.5D;
 

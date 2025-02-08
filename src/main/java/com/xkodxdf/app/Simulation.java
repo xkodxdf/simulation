@@ -1,8 +1,8 @@
 package com.xkodxdf.app;
 
-import com.xkodxdf.app.actions.Actions;
+import com.xkodxdf.app.actions.Action;
 import com.xkodxdf.app.actions.init_actions.EntitiesDeployment;
-import com.xkodxdf.app.actions.init_actions.InitActions;
+import com.xkodxdf.app.actions.init_actions.InitAction;
 import com.xkodxdf.app.actions.turn_actions.*;
 import com.xkodxdf.app.entities.animate.Herbivore;
 import com.xkodxdf.app.exceptions.InvalidParametersException;

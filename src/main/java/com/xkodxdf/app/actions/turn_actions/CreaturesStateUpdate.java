@@ -6,7 +6,7 @@ import com.xkodxdf.app.map.WorldMapManage;
 
 import java.util.List;
 
-public class CreaturesStateUpdate extends TurnActions {
+public class CreaturesStateUpdate extends TurnAction {
 
     @Override
     public void process(WorldMapManage mapManager) {

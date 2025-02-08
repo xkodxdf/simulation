@@ -10,11 +10,11 @@ import com.xkodxdf.app.exceptions.InvalidParametersException;
 import com.xkodxdf.app.map.Coordinates;
 import com.xkodxdf.app.map.WorldMapManage;
 import com.xkodxdf.app.map.config.Config;
-import com.xkodxdf.app.messages.Messages;
+import com.xkodxdf.app.text_constants.ErrorMessages;
 
 import java.util.Optional;
 
-public class EntitiesDeployment extends InitActions {
+public class EntitiesDeployment extends InitAction {
 
     @Override
     public void process(WorldMapManage mapManager) throws InvalidParametersException {
@@ -58,7 +58,7 @@ public class EntitiesDeployment extends InitActions {
                 mapManager.setEntity(coordinate, new Predator(mapManager));
                 break;
             default:
-                throw new InvalidParametersException(Messages.INVALID_ENTITY_TYPE + entityType.name());
+                throw new InvalidParametersException(ErrorMessages.INVALID_ENTITY_TYPE + entityType.name());
 
         }
     }

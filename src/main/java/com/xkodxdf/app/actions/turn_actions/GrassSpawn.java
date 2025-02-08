@@ -9,7 +9,7 @@ import com.xkodxdf.app.map.WorldMapManage;
 
 import java.util.Set;
 
-public class GrassSpawn extends SpawnActions {
+public class GrassSpawn extends SpawnAction {
 
     @Override
     public void process(WorldMapManage mapManager) throws InvalidParametersException {
@@ -23,7 +23,7 @@ public class GrassSpawn extends SpawnActions {
 
     }
 
-    private int getAmountGrassToAdd(int baseGrass, int currentGrass, WorldMapManage mapManager) {
+    private int getAmountOfGrassToAdd(int baseGrass, int currentGrass, WorldMapManage mapManager) {
         int bonus = getBonusFromAmountOfHerbivores(mapManager);
         currentGrass = Math.max(currentGrass, 1);
         return (baseGrass + bonus) / currentGrass;

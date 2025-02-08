@@ -7,7 +7,7 @@ import com.xkodxdf.app.map.WorldMapManage;
 import com.xkodxdf.app.pathfinder.PathFinder;
 import com.xkodxdf.app.pathfinder.PathFinderAStar;
 
-public class CreaturesTurnExecute extends TurnActions {
+public class CreaturesTurnExecute extends TurnAction {
 
     private final PathFinder<Coordinates> pathFinder = new PathFinderAStar();
 

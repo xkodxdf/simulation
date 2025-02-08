@@ -9,7 +9,7 @@ import com.xkodxdf.app.map.WorldMapManage;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class CorpseDecay extends TurnActions {
+public class CorpseDecay extends TurnAction {
 
     @Override
     public void process(WorldMapManage mapManager) throws InvalidParametersException {
