@@ -6,7 +6,7 @@ import com.xkodxdf.app.exceptions.InvalidCoordinatesException;
 import com.xkodxdf.app.exceptions.InvalidParametersException;
 import com.xkodxdf.app.map.Coordinates;
 import com.xkodxdf.app.map.WorldMapManage;
-import com.xkodxdf.app.messages.Messages;
+import com.xkodxdf.app.text_constants.ErrorMessages;
 import com.xkodxdf.app.pathfinder.PathFinder;
 
 import java.util.HashSet;
@@ -79,7 +79,7 @@ public abstract class Creature extends Entity {
                 forage(optionalCurrentCoordinates.get(), pathFinder);
                 break;
             default:
-                throw new InvalidParametersException(Messages.INVALID_CREATURE_STATE + state.name());
+                throw new InvalidParametersException(ErrorMessages.INVALID_CREATURE_STATE + state.name());
         }
         age++;
     }
@@ -91,8 +91,9 @@ public abstract class Creature extends Entity {
     private void starve() {
         hungerLevel += characteristics.getMetabolicRate();
         int starvationThreshold = characteristics.getStarvationThreshold();
+        int starvationModifier = 2;
         if (hungerLevel > starvationThreshold) {
-            currentHealthPoints -= (hungerLevel - starvationThreshold) / 2;
+            currentHealthPoints -= (hungerLevel - starvationThreshold) / starvationModifier;
         }
     }
 
@@ -122,7 +123,8 @@ public abstract class Creature extends Entity {
         List<Entity> aroundEntities;
         Set<Coordinates> aroundCoordinates;
         Set<Coordinates> aroundCoordinatesPrevious = new HashSet<>();
-        for (int i = 1; i <= characteristics.getViewRadius(); i++) {
+        int minViewRadius = 1;
+        for (int i = minViewRadius; i <= characteristics.getViewRadius(); i++) {
             aroundCoordinates = mapManager.getAroundCoordinates(currentCoordinates, i);
             aroundCoordinates.removeAll(aroundCoordinatesPrevious);
             aroundCoordinatesPrevious.addAll(aroundCoordinates);

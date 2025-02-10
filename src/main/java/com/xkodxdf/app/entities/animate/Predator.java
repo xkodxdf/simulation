@@ -14,17 +14,34 @@ import java.util.stream.Collectors;
 
 public class Predator extends Creature {
 
+    private static final int MIN_HP = 80;
+    private static final int MAX_HP = 112;
+    private static final int MIN_VIEW_RADIUS = 2;
+    private static final int MAX_VIEW_RADIUS = 5;
+    private static final int MIN_METABOLIC_RATE = 4;
+    private static final int MAX_METABOLIC_RATE = 8;
+    private static final int MIN_HUNGER_THRESHOLD = 24;
+    private static final int MAX_HUNGER_THRESHOLD = 36;
+    private static final int MIN_STARVATION_THRESHOLD = 100;
+    private static final int MAX_STARVATION_THRESHOLD = 112;
+    private static final int MIN_HUNGER_DECREASE = 24;
+    private static final int MAX_HUNGER_DECREASE = 32;
+    private static final int MIN_HEALTH_INCREASE = 18;
+    private static final int MAX_HEALTH_INCREASE = 28;
+    private static final int MIN_ATTACK_STRENGTH = 32;
+    private static final int MAX_ATTACK_STRENGTH = 52;
+
     public Predator(WorldMapManage mapManager) {
         this(
                 new CharacteristicsBuilder()
-                        .setHealthPointsInRange(80, 112)
-                        .setViewRadiusInRange(2, 5)
-                        .setMetabolicRateInRange(4, 8)
-                        .setHungerThresholdInRange(24, 36)
-                        .setStarvationThresholdInRange(100, 112)
-                        .setSatiateHungerDecreaseInRange(24, 32)
-                        .setSatiateHealthIncreaseInRange(18, 28)
-                        .setAttackStrengthInRange(24, 48)
+                        .setHealthPointsInRange(MIN_HP, MAX_HP)
+                        .setViewRadiusInRange(MIN_VIEW_RADIUS, MAX_VIEW_RADIUS)
+                        .setMetabolicRateInRange(MIN_METABOLIC_RATE, MAX_METABOLIC_RATE)
+                        .setHungerThresholdInRange(MIN_HUNGER_THRESHOLD, MAX_HUNGER_THRESHOLD)
+                        .setStarvationThresholdInRange(MIN_STARVATION_THRESHOLD, MAX_STARVATION_THRESHOLD)
+                        .setSatiateHungerDecreaseInRange(MIN_HUNGER_DECREASE, MAX_HUNGER_DECREASE)
+                        .setSatiateHealthIncreaseInRange(MIN_HEALTH_INCREASE, MAX_HEALTH_INCREASE)
+                        .setAttackStrengthInRange(MIN_ATTACK_STRENGTH, MAX_ATTACK_STRENGTH)
                         .build(),
                 mapManager
         );
@@ -39,8 +56,7 @@ public class Predator extends Creature {
         if (entity instanceof Herbivore) {
             return true;
         }
-        return (entity instanceof Corpse)
-                && hungerLevel >= characteristics.getHungerThreshold();
+        return (entity instanceof Corpse) && (hungerLevel >= characteristics.getHungerThreshold());
     }
 
     @Override
@@ -102,7 +118,7 @@ public class Predator extends Creature {
 
     private Optional<Coordinates> selectCreatureOrCorpse(List<Creature> creatures, List<Corpse> corpses) {
         Creature creatureWithMinHealth = getCreatureWithMinHealth(creatures);
-        if (hungerLevel < 100) {
+        if (hungerLevel < characteristics.getHungerThreshold()) {
             return mapManager.getEntityCoordinate(creatureWithMinHealth);
         } else if ((canOneHitKill(creatureWithMinHealth)) || (corpses.isEmpty())) {
             return mapManager.getEntityCoordinate(creatureWithMinHealth);
