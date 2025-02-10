@@ -36,6 +36,17 @@ public class Config {
         return config;
     }
 
+    public void setInanimateEntitiesFillingPercentageToZero() {
+        rocksMapFillingPercentage = 0;
+        treesMapFillingPercentage = 0;
+        grassMapFillingPercentage = 0;
+    }
+
+    public void setAnimateEntitiesFillingPercentagesToZero() {
+        herbivoreMapFillingPercentage = 0;
+        predatorMapFillingPercentage = 0;
+    }
+
     public int getWidth() {
         return width;
     }

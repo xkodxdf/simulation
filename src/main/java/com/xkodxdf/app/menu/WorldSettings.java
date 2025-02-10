@@ -126,6 +126,7 @@ public class WorldSettings extends BaseMenu {
     }
 
     private boolean tryToSetAnimateMapFillingPercentages(int herbivoresPercentage, int predatorsPercentage) {
+        simulationManager.setAnimateEntitiesFillingPercentagesToZero();
         try {
             simulationManager.setHerbivoreMapFillingPercentage(herbivoresPercentage);
             simulationManager.setPredatorMapFillingPercentage(predatorsPercentage);
@@ -137,6 +138,7 @@ public class WorldSettings extends BaseMenu {
 
     private boolean tryToSetInanimateMapFillingPercentages(int rocksPercentage, int treesPercentage,
                                                            int grassPercentage) {
+        simulationManager.setInanimateEntitiesFillingPercentageToZero();
         try {
             simulationManager.setRockMapFillingPercentage(rocksPercentage);
             simulationManager.setTreeMapFillingPercentage(treesPercentage);
