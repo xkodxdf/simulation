@@ -4,8 +4,7 @@ import com.xkodxdf.app.entities.animate.Predator;
 import com.xkodxdf.app.entities.base.Creature;
 import com.xkodxdf.app.entities.base.Entity;
 import com.xkodxdf.app.exceptions.InvalidCoordinatesException;
-import com.xkodxdf.app.exceptions.InvalidFillingPercentageException;
-import com.xkodxdf.app.exceptions.InvalidMapSizeParametersException;
+import com.xkodxdf.app.exceptions.InvalidParametersException;
 import com.xkodxdf.app.map.config.Config;
 import com.xkodxdf.app.map.config.ConfigValidator;
 import com.xkodxdf.app.map.worldmap.WorldArrayMap;
@@ -21,7 +20,7 @@ public class WorldMapManage {
     private final Config config;
     private WorldMap<Coordinates, Entity> map;
 
-    public WorldMapManage(Config config) throws InvalidFillingPercentageException, InvalidMapSizeParametersException {
+    public WorldMapManage(Config config) throws InvalidParametersException {
         ConfigValidator.validateConfig(config);
         this.config = config;
         setHashWorldMap();
@@ -43,8 +42,8 @@ public class WorldMapManage {
         return map.size();
     }
 
-    public void recreateMap(int width, int height) {
-        map.recreateMap(width, height);
+    public void recreateMap() {
+        map.recreateMap(config.getWidth(), config.getHeight());
     }
 
     public void setEntity(Coordinates coordinates, Entity entity) throws InvalidCoordinatesException {
