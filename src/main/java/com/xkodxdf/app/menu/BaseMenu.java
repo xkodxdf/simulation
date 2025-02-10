@@ -18,7 +18,7 @@ public abstract class BaseMenu implements Menu {
     protected final List<Item> items;
     protected final BaseInput<Integer> input;
     protected final SimulationManage simulationManager;
-    public final Scanner scn = new Scanner(System.in);
+    protected final Scanner scn = new Scanner(System.in);
 
     public BaseMenu(String title, SimulationManage simulationManager) {
         this.title = title;
