@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public abstract class BaseMenu implements Menu {
 
@@ -36,11 +37,9 @@ public abstract class BaseMenu implements Menu {
 
     @Override
     public void display() {
-        System.out.println(title);
-        for (int i = 0; i < items.size(); i++) {
-            System.out.printf(" %d. %s\n", i + 1, items.get(i).text);
-        }
-        System.out.println(MenuContent.PROMPT_MSG + items.size());
+        List<String> itemsText = items.stream().map(item -> item.text).collect(Collectors.toList());
+        String prompt = MenuContent.PROMPT_MSG + items.size();
+        simulationManager.getRenderer().renderMenu(title, itemsText, prompt);
     }
 
     @Override

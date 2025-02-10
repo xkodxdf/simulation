@@ -3,8 +3,9 @@ package com.xkodxdf.app.render;
 import com.xkodxdf.app.entities.base.Entity;
 import com.xkodxdf.app.map.Coordinates;
 import com.xkodxdf.app.map.config.Config;
-import com.xkodxdf.app.messages.Messages;
+import com.xkodxdf.app.text_constants.ErrorMessages;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.IntStream;
@@ -18,7 +19,7 @@ public class Render {
     }
 
     public void setEntityNotation(EntityNotation entityNotation) {
-        Objects.requireNonNull(entityNotation, Messages.MUST_NOT_BE_NULL);
+        Objects.requireNonNull(entityNotation, ErrorMessages.MUST_NOT_BE_NULL);
         this.entityNotation = entityNotation;
     }
 
@@ -35,6 +36,21 @@ public class Render {
             }
             System.out.println(assembleRow(row, y, map));
             row.setLength(0);
+        }
+    }
+
+    public void renderMenu(String title, List<String> items, String prompt) {
+        System.out.println(title);
+        for (int i = 0; i < items.size(); i++) {
+            System.out.printf(" %d. %s\n", i + 1, items.get(i));
+        }
+        System.out.println(prompt);
+    }
+
+    public void clearScreen() {
+        try {
+            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+        } catch (Exception ignored) {
         }
     }
 
