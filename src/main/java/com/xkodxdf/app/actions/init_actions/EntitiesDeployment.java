@@ -1,11 +1,7 @@
 package com.xkodxdf.app.actions.init_actions;
 
 import com.xkodxdf.app.entities.EntityType;
-import com.xkodxdf.app.entities.animate.Herbivore;
-import com.xkodxdf.app.entities.animate.Predator;
-import com.xkodxdf.app.entities.inanimate.Grass;
-import com.xkodxdf.app.entities.inanimate.Rock;
-import com.xkodxdf.app.entities.inanimate.Tree;
+import com.xkodxdf.app.entities.creation.EntityCreator;
 import com.xkodxdf.app.exceptions.InvalidParametersException;
 import com.xkodxdf.app.map.Coordinates;
 import com.xkodxdf.app.map.WorldMapManage;
@@ -14,7 +10,7 @@ import com.xkodxdf.app.text_constants.ErrorMessages;
 
 import java.util.Optional;
 
-public class EntitiesDeployment extends InitAction {
+public class EntitiesDeployment extends InitAction implements EntityCreator {
 
     @Override
     public void process(WorldMapManage mapManager) throws InvalidParametersException {
@@ -43,19 +39,19 @@ public class EntitiesDeployment extends InitAction {
             throws InvalidParametersException {
         switch (entityType) {
             case ROCK:
-                mapManager.setEntity(coordinate, Rock.getInstance());
+                mapManager.setEntity(coordinate, getRock());
                 break;
             case TREE:
-                mapManager.setEntity(coordinate, Tree.getInstance());
+                mapManager.setEntity(coordinate, getTree());
                 break;
             case GRASS:
-                mapManager.setEntity(coordinate, new Grass());
+                mapManager.setEntity(coordinate, getGrass());
                 break;
             case HERBIVORE:
-                mapManager.setEntity(coordinate, new Herbivore(mapManager));
+                mapManager.setEntity(coordinate, getHerbivore(mapManager));
                 break;
             case PREDATOR:
-                mapManager.setEntity(coordinate, new Predator(mapManager));
+                mapManager.setEntity(coordinate, getPredator(mapManager));
                 break;
             default:
                 throw new InvalidParametersException(ErrorMessages.INVALID_ENTITY_TYPE + entityType.name());

@@ -4,6 +4,7 @@ import com.xkodxdf.app.entities.EntityType;
 import com.xkodxdf.app.entities.animate.Herbivore;
 import com.xkodxdf.app.entities.animate.Predator;
 import com.xkodxdf.app.entities.base.Entity;
+import com.xkodxdf.app.entities.creation.CreatureCreator;
 import com.xkodxdf.app.exceptions.InvalidCoordinatesException;
 import com.xkodxdf.app.exceptions.InvalidParametersException;
 import com.xkodxdf.app.map.Coordinates;
@@ -11,7 +12,7 @@ import com.xkodxdf.app.map.WorldMapManage;
 
 import java.util.Set;
 
-public class CreatureSpawn extends SpawnAction {
+public class CreatureSpawn extends SpawnAction implements CreatureCreator {
 
     private static final double SPAWN_THRESHOLD_FACTOR = 0.5D;
 
@@ -26,10 +27,10 @@ public class CreatureSpawn extends SpawnAction {
         }
         updateSpawnFlags(mapManager);
         if (spawningHerbsAllowed) {
-            spawnCreature(new Herbivore(mapManager), borderFreeCoordinates, mapManager);
+            spawnCreature(getHerbivore(mapManager), borderFreeCoordinates, mapManager);
         }
         if (spawningPredatorsAllowed) {
-            spawnCreature(new Predator(mapManager), borderFreeCoordinates, mapManager);
+            spawnCreature(getPredator(mapManager), borderFreeCoordinates, mapManager);
         }
     }
 
