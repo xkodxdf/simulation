@@ -16,6 +16,9 @@ public class Exit extends BaseMenu {
 
     @Override
     protected void setDefaultMenuContent() {
+    }
 
+    public void closeScanner() {
+        scn.close();
     }
 }
