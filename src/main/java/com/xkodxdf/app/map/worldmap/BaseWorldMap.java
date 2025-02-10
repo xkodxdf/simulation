@@ -1,15 +1,15 @@
 package com.xkodxdf.app.map.worldmap;
 
 import com.xkodxdf.app.exceptions.InvalidCoordinatesException;
-import com.xkodxdf.app.messages.Messages;
+import com.xkodxdf.app.text_constants.ErrorMessages;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public abstract class BaseWorldMap<C, V> implements WorldMap<C, V> {
 
-    private final int width;
-    private final int height;
+    private int width;
+    private int height;
     private final Set<C> freeCoordinates;
     private final Set<C> takenCoordinates;
 
@@ -45,6 +45,8 @@ public abstract class BaseWorldMap<C, V> implements WorldMap<C, V> {
 
     @Override
     public void recreateMap(int width, int height) {
+        this.width = width;
+        this.height = height;
         clearEntities();
         freeCoordinates.clear();
         takenCoordinates.clear();
@@ -54,7 +56,7 @@ public abstract class BaseWorldMap<C, V> implements WorldMap<C, V> {
     @Override
     public void validateCoordinates(C coordinates) throws InvalidCoordinatesException {
         if (!freeCoordinates.contains(coordinates) && !takenCoordinates.contains(coordinates)) {
-            throw new InvalidCoordinatesException(Messages.INCORRECT_COORDINATES_ARE_SPECIFIED);
+            throw new InvalidCoordinatesException(ErrorMessages.INCORRECT_COORDINATES_ARE_SPECIFIED);
         }
     }
 
