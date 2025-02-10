@@ -4,7 +4,6 @@ import com.xkodxdf.app.actions.Action;
 import com.xkodxdf.app.actions.init_actions.EntitiesDeployment;
 import com.xkodxdf.app.actions.init_actions.InitAction;
 import com.xkodxdf.app.actions.turn_actions.*;
-import com.xkodxdf.app.entities.animate.Herbivore;
 import com.xkodxdf.app.exceptions.InvalidParametersException;
 import com.xkodxdf.app.map.WorldMapManage;
 import com.xkodxdf.app.render.Render;
@@ -14,13 +13,20 @@ import java.util.List;
 
 public class Simulation {
 
-    private int turn = 0;
+    private int turn;
+    private int amountOfTurns;
+    private long turnDelay;
+    private final int turnsLimit;
     private final Render renderer;
-    private final List<InitActions> initActions;
-    private final List<TurnActions> turnActions;
+    private final List<InitAction> initActions;
+    private final List<TurnAction> turnActions;
     private final WorldMapManage mapManager;
 
     public Simulation(Render renderer, WorldMapManage mapManager) {
+        this.turn = 0;
+        this.turnsLimit = 5;
+        this.amountOfTurns = turnsLimit;
+        this.turnDelay = 1000L;
         this.renderer = renderer;
         this.mapManager = mapManager;
     }
@@ -40,22 +46,41 @@ public class Simulation {
         }};
     }
 
-    public void start() throws InvalidParametersException, InterruptedException {
-        for (Actions action : initActions) {
-            action.process(mapManager);
-        }
-        while (true) {
-            turn++;
-            renderer.renderMap(mapManager.getEntitiesWithCoordinates());
-            nextTurn();
-            Thread.sleep(1500L);
-        }
-
+    public int getTurnsLimit() {
+        return turnsLimit;
     }
 
-    public void nextTurn() throws InvalidParametersException {
-        for (Actions action : turnActions) {
+    public void setAmountOfTurns(int amountOfTurns) {
+        this.amountOfTurns = amountOfTurns;
+    }
+
+    public void setTurnDelay(long turnDelay) {
+        this.turnDelay = turnDelay;
+    }
+
+    public void start() throws InvalidParametersException, InterruptedException {
+        for (Action action : initActions) {
             action.process(mapManager);
         }
+        while (turn < amountOfTurns) {
+            turn++;
+            renderer.clearScreen();
+            renderer.renderMap(mapManager.getEntitiesWithCoordinates());
+            nextTurn();
+            Thread.sleep(turnDelay);
+        }
+        resetSimulation();
+    }
+
+
+    private void nextTurn() throws InvalidParametersException {
+        for (Action action : turnActions) {
+            action.process(mapManager);
+        }
+    }
+
+    private void resetSimulation() {
+        turn = 0;
+        mapManager.recreateMap();
     }
 }
