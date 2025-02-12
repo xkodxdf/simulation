@@ -56,6 +56,15 @@ public class SimulationManage {
         mapManager.setArrayWorldMap();
     }
 
+    public void resetSettings() throws InvalidMapSizeParametersException {
+        conf.resetEntitiesFillingPercentagesToDefault();
+        simulation.setAmountOfTurnsToDefault();
+        simulation.setTurnDelayToDefault();
+        mapManager.resetMapSizeToDefault();
+        setEntityNotationPreset(EntityNotation.SYMBOL);
+        setHashMapEntityStorage();
+    }
+
     public void setAnimateEntitiesFillingPercentagesToZero() {
         conf.setAnimateEntitiesFillingPercentagesToZero();
     }
