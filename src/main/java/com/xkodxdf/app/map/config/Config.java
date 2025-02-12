@@ -4,27 +4,28 @@ import com.xkodxdf.app.entities.EntityType;
 import com.xkodxdf.app.exceptions.InvalidFillingPercentageException;
 import com.xkodxdf.app.exceptions.InvalidMapSizeParametersException;
 import com.xkodxdf.app.exceptions.InvalidParametersException;
+import com.xkodxdf.app.text_constants.ErrorMessages;
 
 public class Config {
 
     private static Config config;
 
-    protected static final int MIN_WIDTH = 8;
-    protected static final int MIN_HEIGHT = 8;
-    protected static final int MAX_WIDTH = 64;
-    protected static final int MAX_HEIGHT = 48;
-    protected static final int ANIMATE_MAX_FILLING_PERCENTAGE = 20;
-    protected static final int INANIMATE_MAX_FILLING_PERCENTAGE = 60;
+    public static final int MIN_WIDTH = 8;
+    public static final int MAX_WIDTH = 80;
+    public static final int MIN_HEIGHT = 8;
+    public static final int MAX_HEIGHT = 80;
+    public static final int DEFAULT_WIDTH = 16;
+    public static final int DEFAULT_HEIGHT = 12;
+    public static final int ANIMATE_MAX_FILLING_PERCENTAGE = 20;
+    public static final int INANIMATE_MAX_FILLING_PERCENTAGE = 60;
 
-
-    private int width = 8;
-    private int height = 8;
-    private int rocksMapFillingPercentage = 20;
-    private int treesMapFillingPercentage = 20;
-    private int grassMapFillingPercentage = 20;
-    private int herbivoreMapFillingPercentage = 10;
-    private int predatorMapFillingPercentage = 10;
-
+    private int width = 32;
+    private int height = 16;
+    private int rocksMapFillingPercentage = 6;
+    private int treesMapFillingPercentage = 8;
+    private int grassMapFillingPercentage = 24;
+    private int herbivoreMapFillingPercentage = 6;
+    private int predatorMapFillingPercentage = 4;
 
     private Config() {
     }
@@ -125,7 +126,7 @@ public class Config {
             case PREDATOR:
                 return predatorMapFillingPercentage;
             default:
-                throw new InvalidParametersException(Messages.INVALID_ENTITY_TYPE);
+                throw new InvalidParametersException(ErrorMessages.INVALID_ENTITY_TYPE);
 
         }
     }
