@@ -4,6 +4,7 @@ import com.xkodxdf.app.SimulationManage;
 import com.xkodxdf.app.exceptions.InvalidMapSizeParametersException;
 import com.xkodxdf.app.exceptions.InvalidParametersException;
 import com.xkodxdf.app.map.config.Config;
+import com.xkodxdf.app.input.BaseInput;
 import com.xkodxdf.app.text_constants.InputMessages;
 import com.xkodxdf.app.text_constants.MenuContent;
 
@@ -11,8 +12,8 @@ import static com.xkodxdf.app.text_constants.InputMessages.WorldSettingsInput.IN
 
 public class WorldSettings extends BaseMenu {
 
-    public WorldSettings(SimulationManage simulationManager) {
-        super(MenuContent.WorldSettingsMenu.TITLE, simulationManager);
+    public WorldSettings(BaseInput<Integer> input, SimulationManage simulationManager) {
+        super(MenuContent.WorldSettingsMenu.TITLE, input, simulationManager);
         setDefaultMenuContent();
     }
 
@@ -42,11 +43,11 @@ public class WorldSettings extends BaseMenu {
                 ),
                 new Item(
                         MenuContent.BACK,
-                        () -> new GeneralSettings(simulationManager)
+                        () -> new GeneralSettings(input, simulationManager)
                 ),
                 new Item(
                         MenuContent.TO_MAIN_MENU,
-                        () -> new MainMenu(simulationManager)
+                        () -> new MainMenu(input, simulationManager)
                 ),
                 new Item(
                         MenuContent.EXIT,

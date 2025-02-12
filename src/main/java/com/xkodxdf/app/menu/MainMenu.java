@@ -1,12 +1,13 @@
 package com.xkodxdf.app.menu;
 
 import com.xkodxdf.app.SimulationManage;
+import com.xkodxdf.app.input.BaseInput;
 import com.xkodxdf.app.text_constants.MenuContent;
 
 public class MainMenu extends BaseMenu {
 
-    public MainMenu(SimulationManage simulationManager) {
-        super(MenuContent.MainMenu.TITLE, simulationManager);
+    public MainMenu(BaseInput<Integer> input, SimulationManage simulationManager) {
+        super(MenuContent.MainMenu.TITLE, input, simulationManager);
         setDefaultMenuContent();
     }
 
@@ -17,12 +18,19 @@ public class MainMenu extends BaseMenu {
                         MenuContent.MainMenu.START_SIMULATION,
                         () -> {
                             simulationManager.start();
-                            return new MainMenu(simulationManager);
+                            return new MainMenu(input, simulationManager);
                         }
                 ),
                 new Item(
                         MenuContent.MainMenu.SETTINGS,
-                        () -> new GeneralSettings(simulationManager)
+                        () -> new GeneralSettings(input, simulationManager)
+                ),
+                new Item(
+                        MenuContent.MainMenu.INFO,
+                        () -> {
+                            simulationManager.getRenderer().printString(MenuContent.MainMenu.INFO_CONTENT);
+                            return this;
+                        }
                 ),
                 new Item(
                         MenuContent.EXIT,

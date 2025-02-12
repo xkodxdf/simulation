@@ -1,13 +1,15 @@
 package com.xkodxdf.app.menu;
 
 import com.xkodxdf.app.SimulationManage;
+import com.xkodxdf.app.input.BaseInput;
 import com.xkodxdf.app.text_constants.InputMessages;
 import com.xkodxdf.app.text_constants.MenuContent;
 
 public class GeneralSettings extends BaseMenu {
 
-    public GeneralSettings(SimulationManage simulationManager) {
-        super(MenuContent.SettingsMenu.TITLE, simulationManager);
+
+    public GeneralSettings(BaseInput<Integer> input, SimulationManage simulationManager) {
+        super(MenuContent.SettingsMenu.TITLE, input, simulationManager);
         setDefaultMenuContent();
     }
 
@@ -16,15 +18,15 @@ public class GeneralSettings extends BaseMenu {
         addItems(
                 new Item(
                         MenuContent.SettingsMenu.WORLD_SETTINGS,
-                        () -> new WorldSettings(simulationManager)
+                        () -> new WorldSettings(input, simulationManager)
                 ),
                 new Item(
                         MenuContent.SettingsMenu.GRAPHIC_SETTINGS,
-                        () -> new GraphicsSettings(simulationManager)
+                        () -> new GraphicsSettings(input, simulationManager)
                 ),
                 new Item(
                         MenuContent.SettingsMenu.ENTITIES_STORAGE,
-                        () -> new EntityStorageMenu(simulationManager)
+                        () -> new EntityStorageMenu(input, simulationManager)
                 ),
                 new Item(
                         MenuContent.SettingsMenu.AMOUNT_OF_TURNS,
@@ -42,7 +44,7 @@ public class GeneralSettings extends BaseMenu {
                 ),
                 new Item(
                         MenuContent.BACK,
-                        () -> new MainMenu(simulationManager)
+                        () -> new MainMenu(input, simulationManager)
                 ),
                 new Item(
                         MenuContent.EXIT,

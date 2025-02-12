@@ -1,13 +1,14 @@
 package com.xkodxdf.app.menu;
 
 import com.xkodxdf.app.SimulationManage;
+import com.xkodxdf.app.input.BaseInput;
 import com.xkodxdf.app.render.EntityNotation;
 import com.xkodxdf.app.text_constants.MenuContent;
 
 public class GraphicsSettings extends BaseMenu {
 
-    public GraphicsSettings(SimulationManage simulationManager) {
-        super(MenuContent.GraphicSettingsMenu.TITLE, simulationManager);
+    public GraphicsSettings(BaseInput<Integer> input, SimulationManage simulationManager) {
+        super(MenuContent.GraphicSettingsMenu.TITLE, input, simulationManager);
         setDefaultMenuContent();
     }
 
@@ -34,11 +35,11 @@ public class GraphicsSettings extends BaseMenu {
                 ),
                 new Item(
                         MenuContent.BACK,
-                        () -> new GeneralSettings(simulationManager)
+                        () -> new GeneralSettings(input, simulationManager)
                 ),
                 new Item(
                         MenuContent.TO_MAIN_MENU,
-                        () -> new MainMenu(simulationManager)
+                        () -> new MainMenu(input, simulationManager)
                 ),
                 new Item(
                         MenuContent.EXIT,

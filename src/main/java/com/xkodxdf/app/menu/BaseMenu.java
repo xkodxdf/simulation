@@ -1,15 +1,13 @@
 package com.xkodxdf.app.menu;
 
 import com.xkodxdf.app.SimulationManage;
-import com.xkodxdf.app.menu.input.BaseInput;
-import com.xkodxdf.app.menu.input.IntegerInput;
+import com.xkodxdf.app.input.BaseInput;
 import com.xkodxdf.app.text_constants.InputMessages;
 import com.xkodxdf.app.text_constants.MenuContent;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public abstract class BaseMenu implements Menu {
@@ -18,12 +16,11 @@ public abstract class BaseMenu implements Menu {
     protected final List<Item> items;
     protected final BaseInput<Integer> input;
     protected final SimulationManage simulationManager;
-    protected final Scanner scn = new Scanner(System.in);
 
-    public BaseMenu(String title, SimulationManage simulationManager) {
+    public BaseMenu(String title, BaseInput<Integer> input, SimulationManage simulationManager) {
         this.title = title;
         this.items = new ArrayList<>();
-        this.input = new IntegerInput(scn);
+        this.input = input;
         this.simulationManager = simulationManager;
     }
 
@@ -51,8 +48,8 @@ public abstract class BaseMenu implements Menu {
     }
 
     protected Exit exit() {
-        scn.close();
-        return new Exit(simulationManager);
+        input.closeReader();
+        return new Exit(input, simulationManager);
     }
 
     protected void informAboutSelectedOption(String msg) {
