@@ -152,12 +152,16 @@ public class WorldMapManage {
     public Set<Coordinates> getAroundCoordinates(Coordinates target, int radius) {
         int x = target.getX();
         int y = target.getY();
+        int targetRow = 0;
+        int targetCol = 0;
         Set<Coordinates> result = new HashSet<>();
         for (int row = -radius; row <= radius; row++) {
             for (int col = -radius; col <= radius; col++) {
-                Coordinates coordinate = new Coordinates(x + col, y + row);
-                if (!coordinate.equals(target) && isCoordinatesValid(coordinate)) {
-                    result.add(coordinate);
+                if (!(row == targetRow && col == targetCol)) {
+                    Coordinates coordinate = new Coordinates(x + col, y + row);
+                    if (isCoordinatesValid(coordinate)) {
+                        result.add(coordinate);
+                    }
                 }
             }
         }
