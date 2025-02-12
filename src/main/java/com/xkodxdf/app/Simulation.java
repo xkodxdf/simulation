@@ -21,12 +21,15 @@ public class Simulation {
     private int currentTurn;
     private int amountOfTurns;
     private long turnDelay;
+    private final long defaultTurnDelay;
+    private final int defaultAmountOfTurns;
     private final int turnsLimit;
-    BaseInput<String> stringInput;
+    private final BaseInput<String> stringInput;
     private final Render renderer;
     private final List<InitAction> initActions;
     private final List<TurnAction> turnActions;
     private final WorldMapManage mapManager;
+    private final Object pauseLock;
 
     public Simulation(BaseInput<String> stringInput, Render renderer, WorldMapManage mapManager) {
         this.isPaused = false;
@@ -40,6 +43,7 @@ public class Simulation {
         this.stringInput = stringInput;
         this.renderer = renderer;
         this.mapManager = mapManager;
+        this.pauseLock = new Object();
     }
 
     {
@@ -65,33 +69,104 @@ public class Simulation {
         this.amountOfTurns = amountOfTurns;
     }
 
+    public void setAmountOfTurnsToDefault() {
+        amountOfTurns = defaultAmountOfTurns;
+    }
+
     public void setTurnDelay(long turnDelay) {
         this.turnDelay = turnDelay;
     }
 
+    public void setTurnDelayToDefault() {
+        turnDelay = defaultTurnDelay;
+    }
+
     public void start() throws InvalidParametersException, InterruptedException {
+        prepareForFirstTurn();
+        runControlThread();
+        while (isRunning && (currentTurn < amountOfTurns)) {
+            synchronized (pauseLock) {
+                while (isPaused) {
+                    pauseLock.wait();
+                }
+            }
+            if (isRunning) {
+                nextTurn();
+                Thread.sleep(turnDelay);
+            }
+        }
+        standardStop();
+    }
+
+    private void prepareForFirstTurn() throws InvalidParametersException {
+        isRunning = true;
+        currentTurn = 0;
         for (Action action : initActions) {
             action.process(mapManager);
         }
-        while (turn < amountOfTurns) {
-            turn++;
-            renderer.clearScreen();
-            renderer.renderMap(mapManager.getEntitiesWithCoordinates());
-            nextTurn();
-            Thread.sleep(turnDelay);
-        }
-        resetSimulation();
     }
 
-
     private void nextTurn() throws InvalidParametersException {
+        currentTurn++;
+        renderer.renderTurn(mapManager.getEntitiesWithCoordinates());
         for (Action action : turnActions) {
             action.process(mapManager);
         }
     }
 
-    private void resetSimulation() {
-        turn = 0;
+    private void standardStop() {
+        isRunning = false;
+        isPaused = false;
         mapManager.recreateMap();
+    }
+
+    private void runControlThread() {
+        new Thread(() -> {
+            try {
+                while (isRunning) {
+                    if (stringInput.ready()) {
+                        String userInput = stringInput.getInput();
+                        if (((userInput != null))) {
+                            if (userInput.isEmpty()) {
+                                togglePause();
+                            } else {
+                                prematureStop();
+                                break;
+                            }
+                        }
+                    } else {
+                        Thread.sleep(50);
+                    }
+                }
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }).start();
+    }
+
+    private void togglePause() {
+        isPaused = !isPaused;
+        if (!isPaused) {
+            synchronized (pauseLock) {
+                pauseLock.notify();
+            }
+        }
+        String pauseMsg = isPaused ? SimulationPauseMessages.PAUSED : SimulationPauseMessages.RESUMED;
+        renderer.printString(pauseMsg);
+        renderer.printString(SimulationPauseMessages.PROMPT_MSG);
+        try {
+            Thread.sleep(100L);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void prematureStop() {
+        isPaused = false;
+        isRunning = false;
+        synchronized (pauseLock) {
+            pauseLock.notify();
+        }
+        renderer.printString(SimulationPauseMessages.STOPPED);
     }
 }
