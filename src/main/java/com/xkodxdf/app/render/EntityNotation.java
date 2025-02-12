@@ -65,6 +65,16 @@ public enum EntityNotation implements EntityNotationProvider {
         }
     };
 
+    public static class SymbolNotation {
+
+        public static final String EMPTY = " . ";
+        public static final String ROCK = "/^\\";
+        public static final String TREE = "(¶)";
+        public static final String CORPSE = " x ";
+        public static final String GRASS = " ѽ ";
+        public static final String HERBIVORE = " @ ";
+        public static final String PREDATOR = " $ ";
+    }
 
     private static class EmojiNotation {
 
@@ -76,19 +86,6 @@ public enum EntityNotation implements EntityNotationProvider {
         private static final String HERBIVORE = "\uD83E\uDD8C";
         private static final String PREDATOR = "\uD83D\uDC3A";
     }
-
-
-    private static class SymbolNotation {
-
-        private static final String EMPTY = " . ";
-        private static final String ROCK = "/^\\";
-        private static final String TREE = "(¶)";
-        private static final String CORPSE = " x ";
-        private static final String GRASS = " ѽ ";
-        private static final String HERBIVORE = " @ ";
-        private static final String PREDATOR = " $ ";
-    }
-
 
     private static class AnsiColor {
 
