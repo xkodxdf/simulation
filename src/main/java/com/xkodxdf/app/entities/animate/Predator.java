@@ -15,21 +15,21 @@ import java.util.stream.Collectors;
 public class Predator extends Creature {
 
     private static final int MIN_HP = 80;
-    private static final int MAX_HP = 112;
-    private static final int MIN_VIEW_RADIUS = 2;
-    private static final int MAX_VIEW_RADIUS = 5;
-    private static final int MIN_METABOLIC_RATE = 4;
-    private static final int MAX_METABOLIC_RATE = 8;
-    private static final int MIN_HUNGER_THRESHOLD = 24;
-    private static final int MAX_HUNGER_THRESHOLD = 36;
+    private static final int MAX_HP = 120;
+    private static final int MIN_VIEW_RADIUS = 3;
+    private static final int MAX_VIEW_RADIUS = 6;
+    private static final int MIN_METABOLIC_RATE = 3;
+    private static final int MAX_METABOLIC_RATE = 5;
+    private static final int MIN_HUNGER_THRESHOLD = 22;
+    private static final int MAX_HUNGER_THRESHOLD = 26;
     private static final int MIN_STARVATION_THRESHOLD = 100;
-    private static final int MAX_STARVATION_THRESHOLD = 112;
+    private static final int MAX_STARVATION_THRESHOLD = 120;
     private static final int MIN_HUNGER_DECREASE = 24;
     private static final int MAX_HUNGER_DECREASE = 32;
     private static final int MIN_HEALTH_INCREASE = 18;
     private static final int MAX_HEALTH_INCREASE = 28;
-    private static final int MIN_ATTACK_STRENGTH = 32;
-    private static final int MAX_ATTACK_STRENGTH = 52;
+    private static final int MIN_ATTACK_STRENGTH = 38;
+    private static final int MAX_ATTACK_STRENGTH = 56;
 
     public Predator(WorldMapManage mapManager) {
         this(

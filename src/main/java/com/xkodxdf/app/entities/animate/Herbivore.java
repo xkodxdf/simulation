@@ -12,7 +12,7 @@ public class Herbivore extends Creature {
     private static final int MIN_HP = 94;
     private static final int MAX_HP = 146;
     private static final int MIN_VIEW_RADIUS = 2;
-    private static final int MAX_VIEW_RADIUS = 8;
+    private static final int MAX_VIEW_RADIUS = 5;
     private static final int MIN_METABOLIC_RATE = 4;
     private static final int MAX_METABOLIC_RATE = 12;
     private static final int MIN_HUNGER_THRESHOLD = 18;
