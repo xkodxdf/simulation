@@ -6,7 +6,9 @@ import com.xkodxdf.app.actions.init_actions.InitAction;
 import com.xkodxdf.app.actions.turn_actions.*;
 import com.xkodxdf.app.exceptions.InvalidParametersException;
 import com.xkodxdf.app.map.WorldMapManage;
+import com.xkodxdf.app.input.BaseInput;
 import com.xkodxdf.app.render.Render;
+import com.xkodxdf.app.text_constants.SimulationPauseMessages;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,16 +19,18 @@ public class Simulation {
     private int amountOfTurns;
     private long turnDelay;
     private final int turnsLimit;
+    BaseInput<String> stringInput;
     private final Render renderer;
     private final List<InitAction> initActions;
     private final List<TurnAction> turnActions;
     private final WorldMapManage mapManager;
 
-    public Simulation(Render renderer, WorldMapManage mapManager) {
         this.turn = 0;
         this.turnsLimit = 5;
         this.amountOfTurns = turnsLimit;
         this.turnDelay = 1000L;
+    public Simulation(BaseInput<String> stringInput, Render renderer, WorldMapManage mapManager) {
+        this.stringInput = stringInput;
         this.renderer = renderer;
         this.mapManager = mapManager;
     }

@@ -5,6 +5,7 @@ import com.xkodxdf.app.exceptions.InvalidMapSizeParametersException;
 import com.xkodxdf.app.exceptions.InvalidParametersException;
 import com.xkodxdf.app.map.WorldMapManage;
 import com.xkodxdf.app.map.config.Config;
+import com.xkodxdf.app.input.BaseInput;
 import com.xkodxdf.app.render.EntityNotation;
 import com.xkodxdf.app.render.Render;
 
@@ -15,11 +16,11 @@ public class SimulationManage {
     private final WorldMapManage mapManager;
     private final Simulation simulation;
 
-    public SimulationManage() throws InvalidParametersException {
+    public SimulationManage(BaseInput<String> stringInput) throws InvalidParametersException {
         this.conf = Config.getConfig();
         this.renderer = new Render();
         this.mapManager = new WorldMapManage(conf);
-        this.simulation = new Simulation(renderer, mapManager);
+        this.simulation = new Simulation(stringInput, renderer, mapManager);
     }
 
     public Render getRenderer() {
