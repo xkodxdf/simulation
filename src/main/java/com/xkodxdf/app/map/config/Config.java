@@ -37,6 +37,14 @@ public class Config {
         return config;
     }
 
+    public void resetEntitiesFillingPercentagesToDefault() {
+        rocksMapFillingPercentage = 8;
+        treesMapFillingPercentage = 12;
+        grassMapFillingPercentage = 36;
+        herbivoreMapFillingPercentage = 3;
+        predatorMapFillingPercentage = 2;
+    }
+
     public void setInanimateEntitiesFillingPercentageToZero() {
         rocksMapFillingPercentage = 0;
         treesMapFillingPercentage = 0;
