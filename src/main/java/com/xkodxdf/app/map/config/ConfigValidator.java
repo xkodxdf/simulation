@@ -2,7 +2,10 @@ package com.xkodxdf.app.map.config;
 
 import com.xkodxdf.app.exceptions.InvalidFillingPercentageException;
 import com.xkodxdf.app.exceptions.InvalidMapSizeParametersException;
+import com.xkodxdf.app.exceptions.InvalidParametersException;
+import com.xkodxdf.app.text_constants.ErrorMessages;
 
+import java.util.Arrays;
 import java.util.stream.IntStream;
 
 public class ConfigValidator {
@@ -10,12 +13,16 @@ public class ConfigValidator {
     private ConfigValidator() {
     }
 
+    public static void validateConfig(Config config) throws InvalidParametersException {
+        validateMapSizeParameters(config);
+        validateMapFillingPercentages(config);
+    }
 
     protected static void validateMapSizeParameters(Config config) throws InvalidMapSizeParametersException {
         if ((config.getHeight() < Config.MIN_HEIGHT || config.getHeight() > Config.MAX_HEIGHT)
                 || (config.getWidth() < Config.MIN_WIDTH || config.getWidth() > Config.MAX_WIDTH)) {
-
-            throw new InvalidMapSizeParametersException("REPLACE!!!");
+            throw new InvalidMapSizeParametersException(ErrorMessages.INVALID_MAP_SIZE_PARAMETERS + config.getWidth()
+                    + " " + config.getHeight());
         }
     }
 
