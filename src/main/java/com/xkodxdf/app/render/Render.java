@@ -47,24 +47,10 @@ public class Render {
             if (entityNotation.equals(EntityNotation.SYMBOL)) {
                 drawYCoordinateLine(y);
             }
-            System.out.println(assembleRow(row, y, map));
+            printString(assembleRow(row, y, map));
             row.setLength(0);
         }
-    }
-
-    public void renderMenu(String title, List<String> items, String prompt) {
-        System.out.println(title);
-        for (int i = 0; i < items.size(); i++) {
-            System.out.printf(" %d. %s\n", i + 1, items.get(i));
-        }
-        System.out.println(prompt);
-    }
-
-    public void clearScreen() {
-        try {
-            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-        } catch (Exception ignored) {
-        }
+        printString(SimulationPauseMessages.PROMPT_MSG);
     }
 
     private String assembleRow(StringBuilder row, int y, Map<Coordinates, Entity> map) {
