@@ -36,9 +36,12 @@ public class ConfigValidator {
                 config.getHerbivoreMapFillingPercentage(),
                 config.getPredatorMapFillingPercentage()
         };
-
-        if (hasNegativeValues(inanimateValues) || hasNegativeValues(animateValues)) {
-            throw new InvalidFillingPercentageException("REPLACE!!!");
+        if ((hasNegativeValues(animateValues) || hasNegativeValues(inanimateValues))
+                || (hasExceededLimit(animateValues, Config.ANIMATE_MAX_FILLING_PERCENTAGE)
+                || hasExceededLimit(inanimateValues, Config.INANIMATE_MAX_FILLING_PERCENTAGE))) {
+            throw new InvalidFillingPercentageException(ErrorMessages.ENTITIES_FILLING_PERCENTAGE_ERR
+                    + " Inanimate values: " + Arrays.toString(inanimateValues)
+                    + " Animate values: " + Arrays.toString(animateValues));
         }
     }
 
