@@ -1,5 +1,7 @@
 package com.xkodxdf.app.text_constants;
 
+import com.xkodxdf.app.render.EntityNotation;
+
 public class MenuContent {
 
     public static class MainMenu {
@@ -7,6 +9,18 @@ public class MenuContent {
         public static final String TITLE = "### Main menu ###";
         public static final String START_SIMULATION = "[Start simulation]";
         public static final String SETTINGS = "Settings->";
+        public static final String INFO = "-Info";
+        public static final String INFO_CONTENT = String.format(
+                "###The Simulation Project###\n" +
+                        "The essence of the project is a step-by-step simulation of a 2D world inhabited by " +
+                        "herbivores and predators.\nIn addition to creatures, the world contains resources (grasses) that " +
+                        "herbivores feed on,\nand static objects that cannot be interacted with - they just take up space.\n" +
+                        "The 2D world is an NxM matrix, each creature or object occupies an entire cell," +
+                        "\nand the presence of several objects/creatures in a cell is unacceptable.\n\n" +
+                        "For ASCII graphics:\n%s - rock\n%s - tree\n%s - grass\n%s - herbivore\n%s - predator",
+                EntityNotation.SymbolNotation.ROCK, EntityNotation.SymbolNotation.TREE,
+                EntityNotation.SymbolNotation.GRASS, EntityNotation.SymbolNotation.HERBIVORE,
+                EntityNotation.SymbolNotation.PREDATOR);
     }
 
     public static class SettingsMenu {
@@ -17,6 +31,7 @@ public class MenuContent {
         public static final String ENTITIES_STORAGE = "Entities storage type->";
         public static final String AMOUNT_OF_TURNS = "-How many turns to simulate";
         public static final String TURN_DELAY = "-Delay between turns";
+        public static final String RESET_SETTINGS = "-Reset settings";
     }
 
     public static class WorldSettingsMenu {
