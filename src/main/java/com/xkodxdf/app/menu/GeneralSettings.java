@@ -43,6 +43,13 @@ public class GeneralSettings extends BaseMenu {
                         }
                 ),
                 new Item(
+                        MenuContent.SettingsMenu.RESET_SETTINGS,
+                        () -> {
+                            simulationManager.resetSettings();
+                            return this;
+                        }
+                ),
+                new Item(
                         MenuContent.BACK,
                         () -> new MainMenu(input, simulationManager)
                 ),
