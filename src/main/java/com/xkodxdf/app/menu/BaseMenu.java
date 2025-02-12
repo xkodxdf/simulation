@@ -48,7 +48,6 @@ public abstract class BaseMenu implements Menu {
     }
 
     protected Exit exit() {
-        input.closeReader();
         return new Exit(input, simulationManager);
     }
 

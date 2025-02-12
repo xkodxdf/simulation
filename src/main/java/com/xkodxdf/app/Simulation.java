@@ -15,7 +15,10 @@ import java.util.List;
 
 public class Simulation {
 
-    private int turn;
+    private volatile boolean isPaused;
+    private volatile boolean isRunning;
+
+    private int currentTurn;
     private int amountOfTurns;
     private long turnDelay;
     private final int turnsLimit;
@@ -25,11 +28,15 @@ public class Simulation {
     private final List<TurnAction> turnActions;
     private final WorldMapManage mapManager;
 
-        this.turn = 0;
-        this.turnsLimit = 5;
-        this.amountOfTurns = turnsLimit;
-        this.turnDelay = 1000L;
     public Simulation(BaseInput<String> stringInput, Render renderer, WorldMapManage mapManager) {
+        this.isPaused = false;
+        this.isRunning = true;
+        this.currentTurn = 0;
+        this.defaultAmountOfTurns = 100;
+        this.amountOfTurns = defaultAmountOfTurns;
+        this.defaultTurnDelay = 1000L;
+        this.turnDelay = defaultTurnDelay;
+        this.turnsLimit = 1_000_000_000;
         this.stringInput = stringInput;
         this.renderer = renderer;
         this.mapManager = mapManager;
