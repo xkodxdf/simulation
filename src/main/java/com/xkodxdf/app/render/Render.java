@@ -4,6 +4,7 @@ import com.xkodxdf.app.entities.base.Entity;
 import com.xkodxdf.app.map.Coordinates;
 import com.xkodxdf.app.map.config.Config;
 import com.xkodxdf.app.text_constants.ErrorMessages;
+import com.xkodxdf.app.text_constants.SimulationPauseMessages;
 
 import java.util.List;
 import java.util.Map;
@@ -23,7 +24,19 @@ public class Render {
         this.entityNotation = entityNotation;
     }
 
-    public void renderMap(Map<Coordinates, Entity> map) {
+    public void renderMenu(String title, List<String> items, String prompt) {
+        System.out.println(title);
+        for (int i = 0; i < items.size(); i++) {
+            System.out.printf(" %d. %s\n", i + 1, items.get(i));
+        }
+        printString(prompt);
+    }
+
+    public void printString(String s) {
+        System.out.println(s);
+    }
+
+    public void renderTurn(Map<Coordinates, Entity> map) {
         StringBuilder row = new StringBuilder();
         Config config = Config.getConfig();
         if (entityNotation.equals(EntityNotation.SYMBOL)) {
