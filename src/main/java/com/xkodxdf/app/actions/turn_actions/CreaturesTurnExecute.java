@@ -5,11 +5,11 @@ import com.xkodxdf.app.exceptions.InvalidParametersException;
 import com.xkodxdf.app.map.Coordinates;
 import com.xkodxdf.app.map.WorldMapManage;
 import com.xkodxdf.app.pathfinder.PathFinder;
-import com.xkodxdf.app.pathfinder.PathFinderAStar;
+import com.xkodxdf.app.pathfinder.PathFinderBFS;
 
 public class CreaturesTurnExecute extends TurnAction {
 
-    private final PathFinder<Coordinates> pathFinder = new PathFinderAStar();
+    private final PathFinder<Coordinates> pathFinder = new PathFinderBFS();
 
     @Override
     public void process(WorldMapManage mapManager) throws InvalidParametersException {
