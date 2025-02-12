@@ -19,7 +19,6 @@ public abstract class Creature extends Entity {
 
     protected int hungerLevel;
     protected int currentHealthPoints;
-    private int age;
     private CreatureState state;
     protected final Characteristics characteristics;
     protected final WorldMapManage mapManager;
@@ -27,7 +26,6 @@ public abstract class Creature extends Entity {
     public Creature(Characteristics characteristics, WorldMapManage mapManager) {
         this.hungerLevel = 0;
         this.currentHealthPoints = characteristics.getHealthPoints();
-        this.age = 0;
         this.state = CreatureState.ROAM;
         this.characteristics = characteristics;
         this.mapManager = mapManager;
@@ -43,10 +41,6 @@ public abstract class Creature extends Entity {
 
     public boolean isDead() {
         return currentHealthPoints <= 0;
-    }
-
-    public int getAge() {
-        return age;
     }
 
     public Characteristics characteristics() {
@@ -81,7 +75,6 @@ public abstract class Creature extends Entity {
             default:
                 throw new InvalidParametersException(ErrorMessages.INVALID_CREATURE_STATE + state.name());
         }
-        age++;
     }
 
     public void takeDamage(int damage) {
