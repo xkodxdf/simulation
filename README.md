@@ -4,8 +4,9 @@
     <i>2D мир представляет из себя матрицу NxM, каждое существо или объект занимают клетку целиком, нахождение в клетке нескольких объектов/существ - недопустимо.</i>
 
 <br><hr>
-<img src="src/img/simEmoji.gif">
-<br><hr>
 <img src="src/img/simSymbol.gif">
 <br><hr>
+<img src="src/img/simEmoji.gif">
+<br><hr>
+CLI version
 <img src="src/img/simMenu.gif">
