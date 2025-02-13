@@ -70,7 +70,8 @@ public abstract class BaseWorldMap<C, V> implements WorldMap<C, V> {
         freeCoordinates.add(coordinates);
     }
 
+    protected abstract void clearEntities();
+
     protected abstract Set<C> generateMapCoordinates(int width, int height);
 
-    protected abstract void clearEntities();
 }

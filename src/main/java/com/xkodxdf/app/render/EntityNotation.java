@@ -10,6 +10,7 @@ import com.xkodxdf.app.entities.inanimate.Tree;
 import com.xkodxdf.app.text_constants.ErrorMessages;
 
 public enum EntityNotation implements EntityNotationProvider {
+
     EMOJI {
         @Override
         public String getNotation(Entity entity) {
@@ -34,7 +35,8 @@ public enum EntityNotation implements EntityNotationProvider {
             if (entity instanceof Predator) {
                 return EmojiNotation.PREDATOR;
             }
-            throw new IllegalArgumentException(ErrorMessages.NO_NOTATION_FOUND_FOR_ENTITY + entity.getClass().getSimpleName());
+            throw new IllegalArgumentException(ErrorMessages.NO_NOTATION_FOUND_FOR_ENTITY
+                    + entity.getClass().getSimpleName());
         }
     },
     SYMBOL {
@@ -61,7 +63,8 @@ public enum EntityNotation implements EntityNotationProvider {
             if (entity instanceof Predator) {
                 return AnsiColor.colorizeNotation(AnsiColor.BRIGHT_YELLOW, SymbolNotation.PREDATOR);
             }
-            throw new IllegalArgumentException(ErrorMessages.NO_NOTATION_FOUND_FOR_ENTITY + entity.getClass().getSimpleName());
+            throw new IllegalArgumentException(ErrorMessages.NO_NOTATION_FOUND_FOR_ENTITY
+                    + entity.getClass().getSimpleName());
         }
     };
 

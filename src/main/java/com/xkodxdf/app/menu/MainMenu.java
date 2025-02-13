@@ -28,7 +28,7 @@ public class MainMenu extends BaseMenu {
                 new Item(
                         MenuContent.MainMenu.INFO,
                         () -> {
-                            simulationManager.getRenderer().printString(MenuContent.MainMenu.INFO_CONTENT);
+                            simulationManager.getRenderer().printlnString(MenuContent.MainMenu.INFO_CONTENT);
                             return this;
                         }
                 ),

@@ -72,7 +72,7 @@ public class WorldSettings extends BaseMenu {
     private void setAnimateMapFillingPercentage() {
         boolean isSet = false;
         while (!isSet) {
-            System.out.println(InputMessages.WorldSettingsInput.ANIMATE_FILLING);
+            simulationManager.getRenderer().printlnString(InputMessages.WorldSettingsInput.ANIMATE_FILLING);
             int minPercentage = 0;
             int herbivoresPercentage = getValidWorldSettingsParameter(
                     InputMessages.WorldSettingsInput.HERBIVORES_PERCENTAGE,
@@ -86,7 +86,7 @@ public class WorldSettings extends BaseMenu {
             );
             isSet = tryToSetAnimateMapFillingPercentages(herbivoresPercentage, predatorsPercentage);
             if (!isSet) {
-                System.out.println(InputMessages.INVALID_INPUT);
+                simulationManager.getRenderer().printlnString(InputMessages.INVALID_INPUT);
             }
         }
     }
@@ -94,7 +94,7 @@ public class WorldSettings extends BaseMenu {
     private void setInanimateMapFillingPercentage() {
         boolean isSet = false;
         while (!isSet) {
-            System.out.println(INANIMATE_FILLING);
+            simulationManager.getRenderer().printlnString(INANIMATE_FILLING);
             int minPercentage = 0;
             int rocksPercentage = getValidWorldSettingsParameter(
                     InputMessages.WorldSettingsInput.ROCKS_PERCENTAGE,
@@ -113,13 +113,13 @@ public class WorldSettings extends BaseMenu {
             );
             isSet = tryToSetInanimateMapFillingPercentages(rocksPercentage, treesPercentage, grassPercentage);
             if (!isSet) {
-                System.out.println(InputMessages.INVALID_INPUT);
+                simulationManager.getRenderer().printlnString(InputMessages.INVALID_INPUT);
             }
         }
     }
 
     private int getValidWorldSettingsParameter(String prompt, int minValueIncl, int maxValueIncl) {
-        return input.getInput(
+        return input.getValidInput(
                 prompt,
                 InputMessages.INVALID_INPUT,
                 inputPercentage -> (inputPercentage >= minValueIncl) && (inputPercentage <= maxValueIncl)

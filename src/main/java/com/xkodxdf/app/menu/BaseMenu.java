@@ -24,10 +24,6 @@ public abstract class BaseMenu implements Menu {
         this.simulationManager = simulationManager;
     }
 
-    public void addItem(Item item) {
-        items.add(item);
-    }
-
     public void addItems(Item... items) {
         this.items.addAll(Arrays.asList(items));
     }
@@ -41,7 +37,7 @@ public abstract class BaseMenu implements Menu {
 
     @Override
     public Menu selectItem() throws Exception {
-        int item = input.getInput(null, InputMessages.INVALID_INPUT,
+        int item = input.getValidInput(null, InputMessages.INVALID_INPUT,
                 selectedItem -> (selectedItem > 0) && (selectedItem <= items.size()));
         int itemIndex = item - 1;
         return items.get(itemIndex).itemAction.process();
@@ -52,7 +48,7 @@ public abstract class BaseMenu implements Menu {
     }
 
     protected void informAboutSelectedOption(String msg) {
-        System.out.println(msg);
+        simulationManager.getRenderer().printlnString(msg);
     }
 
     protected abstract void setDefaultMenuContent();

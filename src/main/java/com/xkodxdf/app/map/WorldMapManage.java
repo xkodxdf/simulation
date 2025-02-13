@@ -1,7 +1,5 @@
 package com.xkodxdf.app.map;
 
-import com.xkodxdf.app.entities.animate.Predator;
-import com.xkodxdf.app.entities.base.Creature;
 import com.xkodxdf.app.entities.base.Entity;
 import com.xkodxdf.app.exceptions.InvalidCoordinatesException;
 import com.xkodxdf.app.exceptions.InvalidMapSizeParametersException;
@@ -24,18 +22,18 @@ public class WorldMapManage {
     public WorldMapManage(Config config) throws InvalidParametersException {
         ConfigValidator.validateConfig(config);
         this.config = config;
-        setHashWorldMap();
+        selectWorldHashMapAsWorldMap();
     }
 
     public Config getConfig() {
         return config;
     }
 
-    public void setHashWorldMap() {
+    public void selectWorldHashMapAsWorldMap() {
         map = new WorldHashMap(config.getWidth(), config.getHeight());
     }
 
-    public void setArrayWorldMap() {
+    public void selectWorldArrayMapAsWorldMap() {
         map = new WorldArrayMap(config.getWidth(), config.getHeight());
     }
 
@@ -87,20 +85,6 @@ public class WorldMapManage {
                 .filter(type::isInstance)
                 .map(type::cast)
                 .collect(Collectors.toList());
-    }
-
-    public Set<Map.Entry<Coordinates, Creature>> getCreaturesWithCoordinates() {
-        return map.getValuesWithCoordinatesCopy().entrySet().stream()
-                .filter(entry -> entry.getValue() instanceof Creature)
-                .map(entry -> new AbstractMap.SimpleEntry<>(entry.getKey(), (Creature) entry.getValue()))
-                .collect(Collectors.toSet());
-    }
-
-    public Set<Map.Entry<Coordinates, Predator>> getPredatorsWithCoordinates() {
-        return map.getValuesWithCoordinatesCopy().entrySet().stream()
-                .filter(entry -> entry.getValue() instanceof Predator)
-                .map(entry -> new AbstractMap.SimpleEntry<>(entry.getKey(), (Predator) entry.getValue()))
-                .collect(Collectors.toSet());
     }
 
     public Set<Coordinates> getFreeCoordinates() {

@@ -12,7 +12,8 @@ public class Characteristics {
     private final int attackStrength;
 
     protected Characteristics(int healthPoints, int viewRadius, int metabolicRate, int hungerThreshold,
-                              int starvationThreshold, int satiateHungerDecrease, int satiateHealthIncrease, int attackStrength) {
+                              int starvationThreshold, int satiateHungerDecrease, int satiateHealthIncrease,
+                              int attackStrength) {
         this.healthPoints = healthPoints;
         this.viewRadius = viewRadius;
         this.metabolicRate = metabolicRate;

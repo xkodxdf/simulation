@@ -35,6 +35,11 @@ public class EntitiesDeployment extends InitAction implements EntityCreator {
         }
     }
 
+    private int calculateSquaresAvailable(int mapSize, int fillingPercentage) {
+        double percentDivisor = 100D;
+        return (int) (Math.ceil(mapSize / percentDivisor * fillingPercentage));
+    }
+
     private void deployEntity(Coordinates coordinate, EntityType entityType, WorldMapManage mapManager)
             throws InvalidParametersException {
         switch (entityType) {
@@ -57,9 +62,5 @@ public class EntitiesDeployment extends InitAction implements EntityCreator {
                 throw new InvalidParametersException(ErrorMessages.INVALID_ENTITY_TYPE + entityType.name());
 
         }
-    }
-
-    private int calculateSquaresAvailable(int mapSize, int fillingPercentage) {
-        return (int) (Math.ceil(mapSize / 100D * fillingPercentage));
     }
 }

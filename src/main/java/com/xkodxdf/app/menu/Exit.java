@@ -12,7 +12,7 @@ public class Exit extends BaseMenu {
 
     @Override
     public void display() {
-        System.out.println(title);
+        simulationManager.getRenderer().printlnString(title);
     }
 
     @Override

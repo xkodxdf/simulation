@@ -9,5 +9,6 @@ public class ErrorMessages {
     public static final String INVALID_CREATURE_STATE = "Invalid creature state ";
     public static final String ENTITIES_FILLING_PERCENTAGE_ERR = "Invalid map filling percentage parameter ";
     public static final String INVALID_MAP_SIZE_PARAMETERS = "Invalid map width or height parameter ";
-    public static final String SELECT_OUT_OF_OPTIONS = "There is no this option ";
+    public static final String ANIMATE_VALUE = " Animate values ";
+    public static final String INANIMATE_VALUE = " Inanimate values ";
 }

@@ -105,7 +105,8 @@ public class Config {
         return herbivoreMapFillingPercentage;
     }
 
-    public void setHerbivoreMapFillingPercentage(int herbivoreMapFillingPercentage) throws InvalidFillingPercentageException {
+    public void setHerbivoreMapFillingPercentage(int herbivoreMapFillingPercentage)
+            throws InvalidFillingPercentageException {
         this.herbivoreMapFillingPercentage = herbivoreMapFillingPercentage;
         ConfigValidator.validateMapFillingPercentages(this);
     }
@@ -114,7 +115,8 @@ public class Config {
         return predatorMapFillingPercentage;
     }
 
-    public void setPredatorMapFillingPercentage(int predatorMapFillingPercentage) throws InvalidFillingPercentageException {
+    public void setPredatorMapFillingPercentage(int predatorMapFillingPercentage)
+            throws InvalidFillingPercentageException {
         this.predatorMapFillingPercentage = predatorMapFillingPercentage;
         ConfigValidator.validateMapFillingPercentages(this);
     }

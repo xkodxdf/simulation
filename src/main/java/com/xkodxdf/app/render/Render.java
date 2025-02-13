@@ -24,41 +24,44 @@ public class Render {
         this.entityNotation = entityNotation;
     }
 
-    public void renderMenu(String title, List<String> items, String prompt) {
-        System.out.println(title);
-        for (int i = 0; i < items.size(); i++) {
-            System.out.printf(" %d. %s\n", i + 1, items.get(i));
-        }
-        printString(prompt);
-    }
-
-    public void printString(String s) {
+    public void printlnString(String s) {
         System.out.println(s);
     }
 
+    public void renderMenu(String title, List<String> items, String prompt) {
+        printlnString(title);
+        for (int i = 0; i < items.size(); i++) {
+            System.out.printf(" %d. %s\n", i + 1, items.get(i));
+        }
+        printlnString(prompt);
+    }
+
     public void renderTurn(Map<Coordinates, Entity> map) {
-        StringBuilder row = new StringBuilder();
+        StringBuilder rowContent = new StringBuilder();
         Config config = Config.getConfig();
         if (entityNotation.equals(EntityNotation.SYMBOL)) {
             drawXCoordinateLine(config.getWidth());
         }
-        System.out.println();
-        for (int y = 0; y < Config.getConfig().getHeight(); y++) {
+        printlnString("");
+        int totalRows = config.getHeight();
+        int totalColumns = config.getWidth();
+        for (int rowCounter = 0; rowCounter < totalRows; rowCounter++) {
             if (entityNotation.equals(EntityNotation.SYMBOL)) {
-                drawYCoordinateLine(y);
+                drawYCoordinateLine(rowCounter);
             }
-            printString(assembleRow(row, y, map));
-            row.setLength(0);
+            printlnString(assembleRow(rowContent, rowCounter, totalColumns, map));
+            rowContent.setLength(0);
         }
-        printString(SimulationPauseMessages.PROMPT_MSG);
+        printlnString(SimulationPauseMessages.PROMPT_MSG);
     }
 
-    private String assembleRow(StringBuilder row, int y, Map<Coordinates, Entity> map) {
-        for (int x = 0; x < Config.getConfig().getWidth(); x++) {
-            Entity entity = map.get(new Coordinates(x, y));
-            row.append(entityNotation.getNotation(entity));
+    private String assembleRow(StringBuilder rowContent, int rowCounter, int totalColumns,
+                               Map<Coordinates, Entity> map) {
+        for (int columnCounter = 0; columnCounter < totalColumns; columnCounter++) {
+            Entity entity = map.get(new Coordinates(columnCounter, rowCounter));
+            rowContent.append(entityNotation.getNotation(entity));
         }
-        return row.toString();
+        return rowContent.toString();
     }
 
     private void drawXCoordinateLine(int lastXCoordinate) {

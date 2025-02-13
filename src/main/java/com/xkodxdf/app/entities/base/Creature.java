@@ -43,10 +43,6 @@ public abstract class Creature extends Entity {
         return currentHealthPoints <= 0;
     }
 
-    public Characteristics characteristics() {
-        return characteristics;
-    }
-
     public CreatureState getState() {
         return state;
     }
@@ -62,7 +58,7 @@ public abstract class Creature extends Entity {
     public final void makeMove(PathFinder<Coordinates> pathFinder) throws InvalidParametersException {
         Optional<Coordinates> optionalCurrentCoordinates = mapManager.getEntityCoordinate(this);
         starve();
-        if (currentHealthPoints <= 0 || optionalCurrentCoordinates.isEmpty()) {
+        if (isDead() || optionalCurrentCoordinates.isEmpty()) {
             return;
         }
         switch (state) {
@@ -92,7 +88,8 @@ public abstract class Creature extends Entity {
 
     private void roam(Coordinates currentCoordinates) throws InvalidParametersException {
         int moveSquaresPerTurn = 1;
-        Set<Coordinates> aroundFreeCoordinates = mapManager.getAroundFreeCoordinates(currentCoordinates, moveSquaresPerTurn);
+        Set<Coordinates> aroundFreeCoordinates = mapManager.getAroundFreeCoordinates(currentCoordinates,
+                moveSquaresPerTurn);
         if (!aroundFreeCoordinates.isEmpty()) {
             Coordinates target = mapManager.getOneRandomFreeCoordinates(aroundFreeCoordinates).get();
             mapManager.removeEntity(currentCoordinates);
@@ -100,7 +97,8 @@ public abstract class Creature extends Entity {
         }
     }
 
-    private void forage(Coordinates currentCoordinates, PathFinder<Coordinates> pathFinder) throws InvalidParametersException {
+    private void forage(Coordinates currentCoordinates, PathFinder<Coordinates> pathFinder)
+            throws InvalidParametersException {
         Optional<Coordinates> optionalFoodCoordinates = findNearestFoodCoordinatesInViewRadius(currentCoordinates);
         if (optionalFoodCoordinates.isEmpty()) {
             roam(currentCoordinates);
@@ -159,15 +157,18 @@ public abstract class Creature extends Entity {
     }
 
     private void avoidHpOrHungerOutOfBound() {
-        hungerLevel = Math.max(hungerLevel, 0);
-        currentHealthPoints = Math.min(currentHealthPoints, 100);
+        int minHungerLevel = 0;
+        hungerLevel = Math.max(hungerLevel, minHungerLevel);
+        currentHealthPoints = Math.min(currentHealthPoints, characteristics.getHealthPoints());
     }
 
-    private void goToFood(Coordinates currentCoordinate, Coordinates foodCoordinate, PathFinder<Coordinates> pathFinder) throws InvalidCoordinatesException {
+    private void goToFood(Coordinates currentCoordinate, Coordinates foodCoordinate, PathFinder<Coordinates> pathFinder)
+            throws InvalidCoordinatesException {
         Set<Coordinates> freeCoordinates = mapManager.getFreeCoordinates();
         freeCoordinates.add(foodCoordinate);
         Set<Coordinates> path = pathFinder.getPath(currentCoordinate, foodCoordinate, freeCoordinates);
-        if (!path.isEmpty() && path.size() != 1) {
+        int reachableRadius = 1;
+        if (!path.isEmpty() && path.size() != reachableRadius) {
             Coordinates target = path.stream().findFirst().get();
             mapManager.removeEntity(currentCoordinate);
             mapManager.setEntity(target, this);

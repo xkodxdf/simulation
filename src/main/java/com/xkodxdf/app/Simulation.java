@@ -26,10 +26,10 @@ public class Simulation {
     private final int turnsLimit;
     private final BaseInput<String> stringInput;
     private final Render renderer;
-    private final List<InitAction> initActions;
-    private final List<TurnAction> turnActions;
     private final WorldMapManage mapManager;
     private final Object pauseLock;
+    private final List<InitAction> initActions;
+    private final List<TurnAction> turnActions;
 
     public Simulation(BaseInput<String> stringInput, Render renderer, WorldMapManage mapManager) {
         this.isPaused = false;
@@ -52,7 +52,7 @@ public class Simulation {
         }};
 
         turnActions = new ArrayList<>() {{
-            add(new CreaturesTurnExecute());
+            add(new CreaturesMoveExecute());
             add(new CreaturesStateUpdate());
             add(new DeadCreaturesReplacement());
             add(new CorpseDecay());
@@ -125,8 +125,8 @@ public class Simulation {
             try {
                 while (isRunning) {
                     if (stringInput.ready()) {
-                        String userInput = stringInput.getInput();
-                        if (((userInput != null))) {
+                        String userInput = stringInput.getVerifiedInput();
+                        if (userInput != null) {
                             if (userInput.isEmpty()) {
                                 togglePause();
                             } else {
@@ -152,8 +152,8 @@ public class Simulation {
             }
         }
         String pauseMsg = isPaused ? SimulationPauseMessages.PAUSED : SimulationPauseMessages.RESUMED;
-        renderer.printString(pauseMsg);
-        renderer.printString(SimulationPauseMessages.PROMPT_MSG);
+        renderer.printlnString(pauseMsg);
+        renderer.printlnString(SimulationPauseMessages.PROMPT_MSG);
         try {
             Thread.sleep(100L);
         } catch (InterruptedException e) {
@@ -167,6 +167,6 @@ public class Simulation {
         synchronized (pauseLock) {
             pauseLock.notify();
         }
-        renderer.printString(SimulationPauseMessages.STOPPED);
+        renderer.printlnString(SimulationPauseMessages.STOPPED);
     }
 }

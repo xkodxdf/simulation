@@ -6,15 +6,11 @@ public abstract class Entity {
 
     private static int nextId = 1;
 
-    protected final int id;
+    private final int id;
 
     public Entity() {
         id = nextId;
         nextId++;
-    }
-
-    public int getId() {
-        return id;
     }
 
     @Override

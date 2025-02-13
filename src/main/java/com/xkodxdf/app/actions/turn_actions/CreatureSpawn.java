@@ -46,7 +46,8 @@ public class CreatureSpawn extends SpawnAction implements CreatureCreator {
                 Herbivore.class : Predator.class;
         int currentMapFillingPercentage = getCurrentEntityMapFillingPercentage(entyClass, mapManager);
         int percentageToStartSpawn = (int) (baseMapFillingPercentage * SPAWN_THRESHOLD_FACTOR);
-        return determineSpawningFlagState(currentMapFillingPercentage, percentageToStartSpawn, baseMapFillingPercentage, spawningFlag);
+        return determineSpawningFlagState(currentMapFillingPercentage, percentageToStartSpawn,
+                baseMapFillingPercentage, spawningFlag);
     }
 
     private boolean determineSpawningFlagState(int currentMapFillingPercentage, int percentageToStartSpawn,

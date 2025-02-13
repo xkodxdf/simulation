@@ -27,10 +27,10 @@ public class CorpseDecay extends TurnAction {
 
     private void removeRottedCorpses(List<Corpse> corpses, WorldMapManage mapManager)
             throws InvalidCoordinatesException {
-        int corpseRemovingThreshold = 0;
+        int rotIndex = 0;
         for (Corpse c : corpses) {
             Coordinates corpseCoordinates = mapManager.getEntityCoordinate(c).get();
-            if (c.getDecayCounter() <= corpseRemovingThreshold) {
+            if (c.getDecayCounter() <= rotIndex) {
                 mapManager.removeEntity(corpseCoordinates);
             }
         }

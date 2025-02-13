@@ -61,7 +61,7 @@ public class GeneralSettings extends BaseMenu {
     }
 
     private void setAmountOfTurns() {
-        int turns = input.getInput(
+        int turns = input.getValidInput(
                 InputMessages.SettingsMenuInput.AMOUNT_OF_TURNS,
                 InputMessages.INVALID_INPUT,
                 inputTurns -> (inputTurns > 0) && (inputTurns <= simulationManager.getMaxPossibleTurnsAMount()));
@@ -69,7 +69,7 @@ public class GeneralSettings extends BaseMenu {
     }
 
     private void setTurnDelay() {
-        int delay = input.getInput(
+        int delay = input.getValidInput(
                 InputMessages.SettingsMenuInput.TURN_DELAY,
                 InputMessages.INVALID_INPUT,
                 inputDelay -> true

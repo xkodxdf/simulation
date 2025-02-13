@@ -40,8 +40,8 @@ public class ConfigValidator {
                 || (hasExceededLimit(animateValues, Config.ANIMATE_MAX_FILLING_PERCENTAGE)
                 || hasExceededLimit(inanimateValues, Config.INANIMATE_MAX_FILLING_PERCENTAGE))) {
             throw new InvalidFillingPercentageException(ErrorMessages.ENTITIES_FILLING_PERCENTAGE_ERR
-                    + " Inanimate values: " + Arrays.toString(inanimateValues)
-                    + " Animate values: " + Arrays.toString(animateValues));
+                    + ErrorMessages.INANIMATE_VALUE + Arrays.toString(inanimateValues)
+                    + ErrorMessages.ANIMATE_VALUE + Arrays.toString(animateValues));
         }
     }
 

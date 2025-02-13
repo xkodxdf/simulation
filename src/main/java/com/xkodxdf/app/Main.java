@@ -13,8 +13,8 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        SimulationManage simulationManage = new SimulationManage(new StringInput(reader));
-        Menu currentMenu = new MainMenu(new IntegerInput(reader), simulationManage);
+        SimulationManage simulationManager = new SimulationManage(new StringInput(reader));
+        Menu currentMenu = new MainMenu(new IntegerInput(reader), simulationManager);
         while (!currentMenu.getClass().equals(Exit.class)) {
             currentMenu.display();
             currentMenu = currentMenu.selectItem();

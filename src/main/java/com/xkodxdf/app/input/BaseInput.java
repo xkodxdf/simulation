@@ -1,5 +1,7 @@
 package com.xkodxdf.app.input;
 
+import com.xkodxdf.app.render.Render;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.function.Function;
@@ -9,22 +11,25 @@ public abstract class BaseInput<V> {
 
     private final BufferedReader reader;
     private final Function<String, V> verification;
+    private final Render render;
 
     public BaseInput(BufferedReader reader, Function<String, V> verification) {
         this.reader = reader;
         this.verification = verification;
+        this.render = new Render();
     }
 
-    public V getInput() {
-        try {
-            String input = reader.readLine();
-            return verification.apply(input);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+    public V getVerifiedInput() {
+        while (true) {
+            try {
+                String input = reader.readLine();
+                return verification.apply(input);
+            } catch (Exception ignore) {
+            }
         }
     }
 
-    public V getInput(String promptMsg, String invalidInputMsg, Predicate<V> validation) {
+    public V getValidInput(String promptMsg, String invalidInputMsg, Predicate<V> validation) {
         V result;
         while (true) {
             printMsgIfPresent(promptMsg);
@@ -49,17 +54,9 @@ public abstract class BaseInput<V> {
         }
     }
 
-    public void closeReader() {
-        try {
-            reader.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     private void printMsgIfPresent(String msg) {
         if ((msg != null) && (!msg.isBlank())) {
-            System.out.println(msg);
+            render.printlnString(msg);
         }
     }
 }

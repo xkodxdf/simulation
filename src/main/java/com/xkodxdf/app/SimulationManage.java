@@ -50,11 +50,11 @@ public class SimulationManage {
     }
 
     public void setHashMapEntityStorage() {
-        mapManager.setHashWorldMap();
+        mapManager.selectWorldHashMapAsWorldMap();
     }
 
     public void setArrayEntityStorage() {
-        mapManager.setArrayWorldMap();
+        mapManager.selectWorldArrayMapAsWorldMap();
     }
 
     public void resetSettings() throws InvalidMapSizeParametersException {

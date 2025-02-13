@@ -8,6 +8,7 @@ public abstract class SpawnAction extends TurnAction {
     protected int getCurrentEntityMapFillingPercentage(Class<? extends Entity> entity, WorldMapManage mapManager) {
         int mapSize = mapManager.getSize();
         int currentEntitiesAmountOnMap = mapManager.getEntitiesByType(entity).size();
-        return (int) (currentEntitiesAmountOnMap / (mapSize / 100D));
+        double percentDivisor = 100;
+        return (int) (currentEntitiesAmountOnMap / (mapSize / percentDivisor));
     }
 }
