@@ -14,20 +14,33 @@ public class Config {
     public static final int MAX_WIDTH = 80;
     public static final int MIN_HEIGHT = 8;
     public static final int MAX_HEIGHT = 80;
-    public static final int DEFAULT_WIDTH = 16;
-    public static final int DEFAULT_HEIGHT = 12;
     public static final int ANIMATE_MAX_FILLING_PERCENTAGE = 20;
     public static final int INANIMATE_MAX_FILLING_PERCENTAGE = 60;
 
-    private int width = 32;
-    private int height = 16;
-    private int rocksMapFillingPercentage = 6;
-    private int treesMapFillingPercentage = 8;
-    private int grassMapFillingPercentage = 24;
-    private int herbivoreMapFillingPercentage = 6;
-    private int predatorMapFillingPercentage = 4;
+    private static final int DEFAULT_WIDTH = 16;
+    private static final int DEFAULT_HEIGHT = 12;
+    private static final int DEFAULT_ROCK_MAP_FILLING_PERCENTAGE = 6;
+    private static final int DEFAULT_TREES_MAP_FILLING_PERCENTAGE = 8;
+    private static final int DEFAULT_GRASS_MAP_FILLING_PERCENTAGE = 24;
+    private static final int DEFAULT_HERBIVORE_MAP_FILLING_PERCENTAGE = 6;
+    private static final int DEFAULT_PREDATOR_MAP_FILLING_PERCENTAGE = 4;
+
+    private int width;
+    private int height;
+    private int rocksMapFillingPercentage;
+    private int treesMapFillingPercentage;
+    private int grassMapFillingPercentage;
+    private int herbivoreMapFillingPercentage;
+    private int predatorMapFillingPercentage;
 
     private Config() {
+        width = DEFAULT_WIDTH;
+        height = DEFAULT_HEIGHT;
+        rocksMapFillingPercentage = DEFAULT_ROCK_MAP_FILLING_PERCENTAGE;
+        treesMapFillingPercentage = DEFAULT_TREES_MAP_FILLING_PERCENTAGE;
+        grassMapFillingPercentage = DEFAULT_GRASS_MAP_FILLING_PERCENTAGE;
+        herbivoreMapFillingPercentage = DEFAULT_HERBIVORE_MAP_FILLING_PERCENTAGE;
+        predatorMapFillingPercentage = DEFAULT_PREDATOR_MAP_FILLING_PERCENTAGE;
     }
 
     public static Config getConfig() {
@@ -38,11 +51,11 @@ public class Config {
     }
 
     public void resetEntitiesFillingPercentagesToDefault() {
-        rocksMapFillingPercentage = 8;
-        treesMapFillingPercentage = 12;
-        grassMapFillingPercentage = 36;
-        herbivoreMapFillingPercentage = 3;
-        predatorMapFillingPercentage = 2;
+        rocksMapFillingPercentage = DEFAULT_ROCK_MAP_FILLING_PERCENTAGE;
+        treesMapFillingPercentage = DEFAULT_TREES_MAP_FILLING_PERCENTAGE;
+        grassMapFillingPercentage = DEFAULT_GRASS_MAP_FILLING_PERCENTAGE;
+        herbivoreMapFillingPercentage = DEFAULT_HERBIVORE_MAP_FILLING_PERCENTAGE;
+        predatorMapFillingPercentage = DEFAULT_PREDATOR_MAP_FILLING_PERCENTAGE;
     }
 
     public void setInanimateEntitiesFillingPercentageToZero() {
