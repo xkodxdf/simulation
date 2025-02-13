@@ -50,6 +50,11 @@ public class Config {
         return config;
     }
 
+    public void resetMapSizeToDefault() {
+        width = DEFAULT_WIDTH;
+        height = DEFAULT_HEIGHT;
+    }
+
     public void resetEntitiesFillingPercentagesToDefault() {
         rocksMapFillingPercentage = DEFAULT_ROCK_MAP_FILLING_PERCENTAGE;
         treesMapFillingPercentage = DEFAULT_TREES_MAP_FILLING_PERCENTAGE;

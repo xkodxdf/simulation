@@ -2,7 +2,6 @@ package com.xkodxdf.app.map;
 
 import com.xkodxdf.app.entities.base.Entity;
 import com.xkodxdf.app.exceptions.InvalidCoordinatesException;
-import com.xkodxdf.app.exceptions.InvalidMapSizeParametersException;
 import com.xkodxdf.app.exceptions.InvalidParametersException;
 import com.xkodxdf.app.map.config.Config;
 import com.xkodxdf.app.map.config.ConfigValidator;
@@ -45,9 +44,8 @@ public class WorldMapManage {
         map.recreateMap(config.getWidth(), config.getHeight());
     }
 
-    public void resetMapSizeToDefault() throws InvalidMapSizeParametersException {
-        config.setWidth(Config.DEFAULT_WIDTH);
-        config.setHeight(Config.DEFAULT_HEIGHT);
+    public void resetMapSizeToDefault() {
+        config.resetMapSizeToDefault();
         map.recreateMap(config.getWidth(), config.getHeight());
     }
 
