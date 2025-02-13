@@ -57,7 +57,7 @@ public class SimulationManage {
         mapManager.selectWorldArrayMapAsWorldMap();
     }
 
-    public void resetSettings() throws InvalidMapSizeParametersException {
+    public void resetSettings() {
         conf.resetEntitiesFillingPercentagesToDefault();
         simulation.setAmountOfTurnsToDefault();
         simulation.setTurnDelayToDefault();
