@@ -17,10 +17,11 @@ public class MenuContent {
                         "herbivores feed on,\nand static objects that cannot be interacted with - they just take up space.\n" +
                         "The 2D world is an NxM matrix, each creature or object occupies an entire cell," +
                         "\nand the presence of several objects/creatures in a cell is unacceptable.\n\n" +
-                        "For ASCII graphics:\n%s - rock\n%s - tree\n%s - grass\n%s - herbivore\n%s - predator\n",
+                        "For ASCII graphics:\n%s - rock\n%s - tree\n%s - grass\n%s - herbivore\n%s - predator\n" +
+                        "%s - corpse\n",
                 EntityNotation.SymbolNotation.ROCK, EntityNotation.SymbolNotation.TREE,
                 EntityNotation.SymbolNotation.GRASS, EntityNotation.SymbolNotation.HERBIVORE,
-                EntityNotation.SymbolNotation.PREDATOR);
+                EntityNotation.SymbolNotation.PREDATOR, EntityNotation.SymbolNotation.CORPSE);
     }
 
     public static class SettingsMenu {
