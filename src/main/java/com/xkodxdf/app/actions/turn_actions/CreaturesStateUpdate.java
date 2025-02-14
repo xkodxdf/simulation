@@ -10,15 +10,8 @@ public class CreaturesStateUpdate extends TurnAction {
 
     @Override
     public void process(WorldMapManage mapManager) {
-        deathStateUpdate(mapManager.getEntitiesByType(Creature.class));
         roamStateUpdate(mapManager.getEntitiesByType(Creature.class));
         forageStateUpdate(mapManager.getEntitiesByType(Creature.class));
-    }
-
-    private void deathStateUpdate(List<Creature> creatures) {
-        creatures.stream()
-                .filter(Creature::isDead)
-                .forEach(creature -> creature.setState(CreatureState.DEATH));
     }
 
     private void roamStateUpdate(List<Creature> creatures) {
@@ -28,7 +21,7 @@ public class CreaturesStateUpdate extends TurnAction {
     }
 
     private boolean shouldRoam(Creature creature) {
-        return creature.getState().isAlive() && creature.isHungry();
+        return (!creature.isDead()) && (creature.isHungry());
     }
 
     private void forageStateUpdate(List<Creature> creatures) {
@@ -38,7 +31,7 @@ public class CreaturesStateUpdate extends TurnAction {
     }
 
     private boolean shouldForage(Creature creature) {
-        return (creature.getState().isAlive())
+        return (!creature.isDead())
                 && ((creature.isHungry()) || (!creature.isOnFullHp()));
     }
 }

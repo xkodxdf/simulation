@@ -43,10 +43,6 @@ public abstract class Creature extends Entity {
         return currentHealthPoints <= 0;
     }
 
-    public CreatureState getState() {
-        return state;
-    }
-
     public void setState(CreatureState state) {
         this.state = state;
     }

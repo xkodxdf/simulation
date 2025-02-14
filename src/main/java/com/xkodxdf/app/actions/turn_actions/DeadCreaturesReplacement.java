@@ -21,7 +21,7 @@ public class DeadCreaturesReplacement extends TurnAction implements CorpseCreato
 
     private List<Creature> getDeadCreatures(WorldMapManage mapManager) {
         return mapManager.getEntitiesByType(Creature.class).stream()
-                .filter(creature -> !creature.getState().isAlive())
+                .filter(Creature::isDead)
                 .collect(Collectors.toList());
     }
 }

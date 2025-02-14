@@ -149,7 +149,8 @@ public class Simulation {
                 pauseLock.notify();
             }
         }
-        String pauseMsg = isPaused ? SimulationPauseMessages.PAUSED : SimulationPauseMessages.RESUMED;
+        String pauseMsg = isPaused ? SimulationPauseMessages.PAUSED + currentTurn
+                : SimulationPauseMessages.RESUMED;
         renderer.printlnString(pauseMsg);
         renderer.printlnString(SimulationPauseMessages.PROMPT_MSG);
         try {

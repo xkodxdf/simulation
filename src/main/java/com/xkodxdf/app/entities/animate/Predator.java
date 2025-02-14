@@ -64,10 +64,9 @@ public class Predator extends Creature {
             throws InvalidCoordinatesException {
         if (food instanceof Herbivore) {
             Herbivore herb = (Herbivore) food;
-            herb.takeDamage(characteristics.getAttackStrength());
+            attackHerbivore(herb);
         } else if (food instanceof Corpse) {
-            mapManager.removeEntity(currentCoordinates);
-            mapManager.setEntity(foodCoordinates, this);
+            eatCorpse(currentCoordinates, foodCoordinates);
         }
     }
 
@@ -75,7 +74,7 @@ public class Predator extends Creature {
     protected void satiate(Entity food) {
         int satiateHungerDecrease = characteristics.getSatiateHungerDecrease();
         int satiateHealthIncrease = characteristics.getSatiateHealthIncrease();
-        if ((food instanceof Herbivore) && (((Herbivore) food).getCurrentHealthPoints() <= 0)) {
+        if ((food instanceof Herbivore) && (((Herbivore) food).isDead())) {
             hungerLevel -= satiateHungerDecrease;
             currentHealthPoints += satiateHealthIncrease;
         } else if (food instanceof Corpse) {
@@ -125,6 +124,16 @@ public class Predator extends Creature {
         } else {
             return mapManager.getEntityCoordinate(getFreshestCorpse(corpses));
         }
+    }
+
+    private void attackHerbivore(Herbivore herbivore) {
+        herbivore.takeDamage(characteristics.getAttackStrength());
+    }
+
+    private void eatCorpse(Coordinates currentCoordinates, Coordinates corpseCoordinates)
+            throws InvalidCoordinatesException {
+        mapManager.removeEntity(currentCoordinates);
+        mapManager.setEntity(corpseCoordinates, this);
     }
 
     private Creature getCreatureWithMinHealth(List<Creature> creatures) {
