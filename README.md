@@ -8,5 +8,4 @@
 <br><hr>
 <img src="src/img/simEmoji.gif">
 <br><hr>
-CLI version
 <img src="src/img/simMenu.gif">
