@@ -23,7 +23,6 @@ public class Simulation {
     private long turnDelay;
     private final long defaultTurnDelay;
     private final int turnsLimit;
-    private final int defaultAmountOfTurns;
     private final BaseInput<String> stringInput;
     private final Render renderer;
     private final WorldMapManage mapManager;
@@ -35,9 +34,8 @@ public class Simulation {
         this.isPaused = false;
         this.isRunning = true;
         this.currentTurn = 0;
-        this.defaultAmountOfTurns = 1000;
         this.turnsLimit = 1_000_000_000;
-        this.amountOfTurns = defaultAmountOfTurns;
+        this.amountOfTurns = turnsLimit;
         this.defaultTurnDelay = 1000L;
         this.turnDelay = defaultTurnDelay;
         this.stringInput = stringInput;
@@ -70,7 +68,7 @@ public class Simulation {
     }
 
     public void setAmountOfTurnsToDefault() {
-        amountOfTurns = defaultAmountOfTurns;
+        amountOfTurns = turnsLimit;
     }
 
     public void setTurnDelay(long turnDelay) {
