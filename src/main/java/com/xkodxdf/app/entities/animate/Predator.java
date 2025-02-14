@@ -117,7 +117,7 @@ public class Predator extends Creature {
 
     private Optional<Coordinates> selectCreatureOrCorpse(List<Creature> creatures, List<Corpse> corpses) {
         Creature creatureWithMinHealth = getCreatureWithMinHealth(creatures);
-        if (hungerLevel < characteristics.getHungerThreshold()) {
+        if (hungerLevel < characteristics.getStarvationThreshold()) {
             return mapManager.getEntityCoordinate(creatureWithMinHealth);
         } else if ((canOneHitKill(creatureWithMinHealth)) || (corpses.isEmpty())) {
             return mapManager.getEntityCoordinate(creatureWithMinHealth);
