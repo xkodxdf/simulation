@@ -96,9 +96,21 @@ public class Predator extends Creature {
         }
         if (!creatures.isEmpty()) {
             return selectCreatureOrCorpse(creatures, corpses);
-        } else {
+        }
+        if (hungerLevel >= characteristics.getStarvationThreshold()) {
             return mapManager.getEntityCoordinate(getFreshestCorpse(corpses));
         }
+        return Optional.empty();
+    }
+
+    private Optional<Coordinates> selectCreatureOrCorpse(List<Creature> creatures, List<Corpse> corpses) {
+        Creature creatureWithMinHealth = getCreatureWithMinHealth(creatures);
+        if ((hungerLevel < characteristics.getStarvationThreshold())
+                || (canOneHitKill(creatureWithMinHealth))
+                || corpses.isEmpty()) {
+            return mapManager.getEntityCoordinate(creatureWithMinHealth);
+        }
+        return mapManager.getEntityCoordinate(getFreshestCorpse(corpses));
     }
 
     private List<Corpse> selectCorpses(List<Entity> food) {
@@ -113,17 +125,6 @@ public class Predator extends Creature {
                 .filter(entity -> entity instanceof Creature)
                 .map(entity -> (Creature) entity)
                 .collect(Collectors.toList());
-    }
-
-    private Optional<Coordinates> selectCreatureOrCorpse(List<Creature> creatures, List<Corpse> corpses) {
-        Creature creatureWithMinHealth = getCreatureWithMinHealth(creatures);
-        if (hungerLevel < characteristics.getStarvationThreshold()) {
-            return mapManager.getEntityCoordinate(creatureWithMinHealth);
-        } else if ((canOneHitKill(creatureWithMinHealth)) || (corpses.isEmpty())) {
-            return mapManager.getEntityCoordinate(creatureWithMinHealth);
-        } else {
-            return mapManager.getEntityCoordinate(getFreshestCorpse(corpses));
-        }
     }
 
     private void attackHerbivore(Herbivore herbivore) {
