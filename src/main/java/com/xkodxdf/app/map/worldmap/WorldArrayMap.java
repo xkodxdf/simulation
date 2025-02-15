@@ -16,24 +16,7 @@ public class WorldArrayMap extends BaseWorldMap<Coordinates, Entity> {
         super(width, height);
         rows = height;
         cols = width;
-        initMap(width, height);
-    }
-
-    @Override
-    protected Set<Coordinates> generateMapCoordinates(int width, int height) {
-        initMap(width, height);
-        Set<Coordinates> result = new HashSet<>();
-        for (int row = 0; row < entities.length; row++) {
-            for (int col = 0; col < entities[row].length; col++) {
-                result.add(new Coordinates(col, row));
-            }
-        }
-        return result;
-    }
-
-    @Override
-    protected void clearEntities() {
-        entities = new Entity[0][0];
+        initMap();
     }
 
     @Override
@@ -70,10 +53,19 @@ public class WorldArrayMap extends BaseWorldMap<Coordinates, Entity> {
         return result;
     }
 
-    private void initMap(int width, int height) {
+    @Override
+    protected Coordinates createCoordinate(int x, int y) {
+        return new Coordinates(x, y);
+    }
+
+    @Override
+    protected void clearEntities() {
+        initMap();
+    }
+
+    private void initMap() {
         rows = height;
         cols = width;
         entities = new Entity[rows][cols];
-        Arrays.stream(entities).forEach(e -> Arrays.fill(e, null));
     }
 }

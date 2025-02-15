@@ -8,15 +8,15 @@ import java.util.Set;
 
 public abstract class BaseWorldMap<C, V> implements WorldMap<C, V> {
 
-    private int width;
-    private int height;
+    protected int width;
+    protected int height;
     private final Set<C> freeCoordinates;
     private final Set<C> takenCoordinates;
 
     public BaseWorldMap(int width, int height) {
         this.width = width;
         this.height = height;
-        this.freeCoordinates = generateMapCoordinates(width, height);
+        this.freeCoordinates = generateMapCoordinates();
         this.takenCoordinates = new HashSet<>();
     }
 
@@ -50,7 +50,7 @@ public abstract class BaseWorldMap<C, V> implements WorldMap<C, V> {
         clearEntities();
         freeCoordinates.clear();
         takenCoordinates.clear();
-        freeCoordinates.addAll(generateMapCoordinates(width, height));
+        freeCoordinates.addAll(generateMapCoordinates());
     }
 
     @Override
@@ -70,8 +70,17 @@ public abstract class BaseWorldMap<C, V> implements WorldMap<C, V> {
         freeCoordinates.add(coordinates);
     }
 
+    protected Set<C> generateMapCoordinates() {
+        Set<C> result = new HashSet<>();
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                result.add(createCoordinate(x, y));
+            }
+        }
+        return result;
+    }
+
+    protected abstract C createCoordinate(int x, int y);
+
     protected abstract void clearEntities();
-
-    protected abstract Set<C> generateMapCoordinates(int width, int height);
-
 }

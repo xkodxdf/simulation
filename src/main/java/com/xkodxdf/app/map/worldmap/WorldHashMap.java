@@ -41,14 +41,8 @@ public class WorldHashMap extends BaseWorldMap<Coordinates, Entity> {
     }
 
     @Override
-    protected Set<Coordinates> generateMapCoordinates(int width, int height) {
-        Set<Coordinates> result = new HashSet<>();
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                result.add(new Coordinates(x, y));
-            }
-        }
-        return result;
+    protected Coordinates createCoordinate(int x, int y) {
+        return new Coordinates(x, y);
     }
 
     @Override
