@@ -163,12 +163,16 @@ public abstract class Creature extends Entity {
         Set<Coordinates> freeCoordinates = mapManager.getFreeCoordinates();
         freeCoordinates.add(foodCoordinate);
         Set<Coordinates> path = pathFinder.getPath(currentCoordinate, foodCoordinate, freeCoordinates);
-        int reachableRadius = 1;
-        if (!path.isEmpty() && path.size() != reachableRadius) {
+        if (isPathAvailableToMove(path)) {
             Coordinates target = path.stream().findFirst().get();
             mapManager.removeEntity(currentCoordinate);
             mapManager.setEntity(target, this);
         }
+    }
+
+    private boolean isPathAvailableToMove(Set<Coordinates> path) {
+        int reachableRadius = 1;
+        return (!path.isEmpty() && path.size() != reachableRadius);
     }
 
     protected abstract boolean isFood(Entity entity);
