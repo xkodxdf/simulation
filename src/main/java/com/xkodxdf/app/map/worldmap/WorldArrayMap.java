@@ -4,18 +4,20 @@ import com.xkodxdf.app.entities.base.Entity;
 import com.xkodxdf.app.exceptions.InvalidCoordinatesException;
 import com.xkodxdf.app.map.Coordinates;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 public class WorldArrayMap extends BaseWorldMap<Coordinates, Entity> {
 
     private int rows;
-    private int cols;
+    private int columns;
     private Entity[][] entities;
 
     public WorldArrayMap(int width, int height) {
         super(width, height);
         rows = height;
-        cols = width;
+        columns = width;
         initMap();
     }
 
@@ -59,13 +61,13 @@ public class WorldArrayMap extends BaseWorldMap<Coordinates, Entity> {
     }
 
     @Override
-    protected void clearEntities() {
+    protected void clearValues() {
         initMap();
     }
 
     private void initMap() {
         rows = height;
-        cols = width;
-        entities = new Entity[rows][cols];
+        columns = width;
+        entities = new Entity[rows][columns];
     }
 }

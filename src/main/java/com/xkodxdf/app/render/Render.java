@@ -38,7 +38,7 @@ public class Render {
 
     public void renderTurn(Map<Coordinates, Entity> map) {
         StringBuilder rowContent = new StringBuilder();
-        Config config = Config.getConfig();
+        Config config = Config.getInstance();
         if (entityNotation.equals(EntityNotation.SYMBOL)) {
             drawXCoordinateLine(config.getWidth());
         }
@@ -52,7 +52,7 @@ public class Render {
             printlnString(assembleRow(rowContent, rowCounter, totalColumns, map));
             rowContent.setLength(0);
         }
-        printlnString(SimulationPauseMessages.PROMPT_MSG);
+        printlnString(SimulationPauseMessages.PROMPT);
     }
 
     private String assembleRow(StringBuilder rowContent, int rowCounter, int totalColumns,

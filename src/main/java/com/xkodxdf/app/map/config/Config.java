@@ -43,7 +43,7 @@ public class Config {
         predatorMapFillingPercentage = DEFAULT_PREDATOR_MAP_FILLING_PERCENTAGE;
     }
 
-    public static Config getConfig() {
+    public static Config getInstance() {
         if (config == null) {
             config = new Config();
         }

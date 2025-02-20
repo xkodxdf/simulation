@@ -13,12 +13,12 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
-public class WorldMapManage {
+public class WorldMapManagement {
 
     private final Config config;
-    private WorldMap<Coordinates, Entity> map;
+    private WorldMap<Coordinates, Entity> worldMap;
 
-    public WorldMapManage(Config config) throws InvalidParametersException {
+    public WorldMapManagement(Config config) throws InvalidParametersException {
         ConfigValidator.validateConfig(config);
         this.config = config;
         selectWorldHashMapAsWorldMap();
@@ -29,77 +29,77 @@ public class WorldMapManage {
     }
 
     public void selectWorldHashMapAsWorldMap() {
-        map = new WorldHashMap(config.getWidth(), config.getHeight());
+        worldMap = new WorldHashMap(config.getWidth(), config.getHeight());
     }
 
     public void selectWorldArrayMapAsWorldMap() {
-        map = new WorldArrayMap(config.getWidth(), config.getHeight());
+        worldMap = new WorldArrayMap(config.getWidth(), config.getHeight());
     }
 
     public int getSize() {
-        return map.size();
+        return worldMap.size();
     }
 
     public void recreateMap() {
-        map.recreateMap(config.getWidth(), config.getHeight());
+        worldMap.recreateMap(config.getWidth(), config.getHeight());
     }
 
     public void resetMapSizeToDefault() {
         config.resetMapSizeToDefault();
-        map.recreateMap(config.getWidth(), config.getHeight());
+        worldMap.recreateMap(config.getWidth(), config.getHeight());
     }
 
     public void setEntity(Coordinates coordinates, Entity entity) throws InvalidCoordinatesException {
-        map.setValue(coordinates, entity);
+        worldMap.setValue(coordinates, entity);
     }
 
     public Optional<Entity> getEntity(Coordinates coordinates) throws InvalidCoordinatesException {
-        return map.getValue(coordinates);
+        return worldMap.getValue(coordinates);
     }
 
     public void removeEntity(Coordinates coordinates) throws InvalidCoordinatesException {
-        map.removeValue(coordinates);
+        worldMap.removeValue(coordinates);
     }
 
     public List<Entity> getEntities() {
-        return Arrays.asList(map.getValuesWithCoordinatesCopy().values().toArray(new Entity[0]));
+        return Arrays.asList(worldMap.getValuesWithCoordinatesCopy().values().toArray(new Entity[0]));
     }
 
     public Map<Coordinates, Entity> getEntitiesWithCoordinates() {
-        return map.getValuesWithCoordinatesCopy();
+        return worldMap.getValuesWithCoordinatesCopy();
     }
 
     public List<Entity> getAroundEntities(Set<Coordinates> aroundCoordinates) throws InvalidCoordinatesException {
         List<Entity> result = new ArrayList<>();
         for (Coordinates coordinate : aroundCoordinates) {
-            Optional<Entity> entity = map.getValue(coordinate);
+            Optional<Entity> entity = worldMap.getValue(coordinate);
             entity.ifPresent(result::add);
         }
         return result;
     }
 
     public <T> List<T> getEntitiesByType(Class<T> type) {
-        return map.getValuesWithCoordinatesCopy().values().stream()
+        return worldMap.getValuesWithCoordinatesCopy().values().stream()
                 .filter(type::isInstance)
                 .map(type::cast)
                 .collect(Collectors.toList());
     }
 
     public Set<Coordinates> getFreeCoordinates() {
-        return map.getFreeCoordinatesCopy();
+        return worldMap.getFreeCoordinatesCopy();
     }
 
     public Set<Coordinates> getBorderCoordinates() {
         Set<Coordinates> borderCoordinates = new HashSet<>();
         int firstRowY = 0;
-        int lastRowY = map.getHeight() - 1;
-        for (int x = 0; x < map.getWidth(); x++) {
+        int lastRowY = worldMap.getHeight() - 1;
+        for (int x = 0; x < worldMap.getWidth(); x++) {
             borderCoordinates.add(new Coordinates(x, firstRowY));
             borderCoordinates.add(new Coordinates(x, lastRowY));
         }
         int firstColumn = 0;
-        int lastColumn = map.getWidth() - 1;
-        for (int y = 0; y < map.getHeight(); y++) {
+        int lastColumn = worldMap.getWidth() - 1;
+        for (int y = 0; y < worldMap.getHeight(); y++) {
             borderCoordinates.add(new Coordinates(firstColumn, y));
             borderCoordinates.add(new Coordinates(lastColumn, y));
         }
@@ -108,15 +108,15 @@ public class WorldMapManage {
 
     public Set<Coordinates> getBorderFreeCoordinates() {
         Set<Coordinates> borderFreeCoordinates = new HashSet<>(getBorderCoordinates());
-        borderFreeCoordinates.removeAll(map.getTakenCoordinatesCopy());
+        borderFreeCoordinates.removeAll(worldMap.getTakenCoordinatesCopy());
         return borderFreeCoordinates;
     }
 
     public Optional<Coordinates> getOneRandomFreeCoordinates() {
-        if (map.getFreeCoordinatesCopy().isEmpty()) {
+        if (worldMap.getFreeCoordinatesCopy().isEmpty()) {
             return Optional.empty();
         }
-        Coordinates[] coordinates = map.getFreeCoordinatesCopy().toArray(new Coordinates[0]);
+        Coordinates[] coordinates = worldMap.getFreeCoordinatesCopy().toArray(new Coordinates[0]);
         int randomBound = coordinates.length;
         return Optional.of(coordinates[ThreadLocalRandom.current().nextInt(randomBound)]);
     }
@@ -139,7 +139,7 @@ public class WorldMapManage {
         Set<Coordinates> result = new HashSet<>();
         for (int row = -radius; row <= radius; row++) {
             for (int col = -radius; col <= radius; col++) {
-                if (!(row == targetRow && col == targetCol)) {
+                if (!(row == targetRow) && !(col == targetCol)) {
                     Coordinates coordinate = new Coordinates(x + col, y + row);
                     if (isCoordinatesValid(coordinate)) {
                         result.add(coordinate);
@@ -152,13 +152,13 @@ public class WorldMapManage {
 
     public Set<Coordinates> getAroundFreeCoordinates(Coordinates target, int radius) {
         Set<Coordinates> result = getAroundCoordinates(target, radius);
-        result.retainAll(map.getFreeCoordinatesCopy());
+        result.retainAll(worldMap.getFreeCoordinatesCopy());
         return result;
     }
 
     public Optional<Coordinates> getEntityCoordinate(Entity entity) {
         Optional<Coordinates> result = Optional.empty();
-        for (Map.Entry<Coordinates, Entity> entityEntry : map.getValuesWithCoordinatesCopy().entrySet()) {
+        for (Map.Entry<Coordinates, Entity> entityEntry : worldMap.getValuesWithCoordinatesCopy().entrySet()) {
             if (entityEntry.getValue().equals(entity)) {
                 result = Optional.ofNullable(entityEntry.getKey());
             }
@@ -168,7 +168,7 @@ public class WorldMapManage {
 
     private boolean isCoordinatesValid(Coordinates coordinates) {
         try {
-            map.validateCoordinates(coordinates);
+            worldMap.validateCoordinates(coordinates);
         } catch (InvalidCoordinatesException e) {
             return false;
         }

@@ -46,7 +46,7 @@ public class WorldHashMap extends BaseWorldMap<Coordinates, Entity> {
     }
 
     @Override
-    protected void clearEntities() {
+    protected void clearValues() {
         entities.clear();
     }
 }

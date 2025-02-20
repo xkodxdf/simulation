@@ -62,7 +62,7 @@ public class MenuContent {
         public static final String STOP_RUNNING = "The simulation has completed its work. Good luck.";
     }
 
-    public static final String PROMPT_MSG = "Enter number from 1 to ";
+    public static final String PROMPT = "Enter number from 1 to ";
     public static final String SELECTED = " selected";
     public static final String BACK = "<-back";
     public static final String TO_MAIN_MENU = "<<main menu";

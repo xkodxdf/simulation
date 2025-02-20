@@ -2,15 +2,15 @@ package com.xkodxdf.app.entities.creation;
 
 import com.xkodxdf.app.entities.animate.Herbivore;
 import com.xkodxdf.app.entities.animate.Predator;
-import com.xkodxdf.app.map.WorldMapManage;
+import com.xkodxdf.app.map.WorldMapManagement;
 
 public interface CreatureCreator {
 
-    default Herbivore getHerbivore(WorldMapManage mapManager) {
+    default Herbivore getHerbivore(WorldMapManagement mapManager) {
         return new Herbivore(mapManager);
     }
 
-    default Predator getPredator(WorldMapManage mapManager) {
+    default Predator getPredator(WorldMapManagement mapManager) {
         return new Predator(mapManager);
     }
 }

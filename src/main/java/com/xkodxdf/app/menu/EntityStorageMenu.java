@@ -1,12 +1,12 @@
 package com.xkodxdf.app.menu;
 
-import com.xkodxdf.app.SimulationManage;
+import com.xkodxdf.app.SimulationManagement;
 import com.xkodxdf.app.input.BaseInput;
 import com.xkodxdf.app.text_constants.MenuContent;
 
 public class EntityStorageMenu extends BaseMenu {
 
-    public EntityStorageMenu(BaseInput<Integer> input, SimulationManage simulationManager) {
+    public EntityStorageMenu(BaseInput<Integer> input, SimulationManagement simulationManager) {
         super(MenuContent.EntityStorageMenu.TITLE, input, simulationManager);
         setDefaultMenuContent();
     }

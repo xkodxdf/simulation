@@ -13,7 +13,7 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        SimulationManage simulationManager = new SimulationManage(new StringInput(reader));
+        SimulationManagement simulationManager = new SimulationManagement(new StringInput(reader));
         Menu currentMenu = new MainMenu(new IntegerInput(reader), simulationManager);
         while (!currentMenu.getClass().equals(Exit.class)) {
             currentMenu.display();

@@ -6,7 +6,7 @@ import com.xkodxdf.app.entities.inanimate.Grass;
 import com.xkodxdf.app.exceptions.InvalidCoordinatesException;
 import com.xkodxdf.app.exceptions.InvalidParametersException;
 import com.xkodxdf.app.map.Coordinates;
-import com.xkodxdf.app.map.WorldMapManage;
+import com.xkodxdf.app.map.WorldMapManagement;
 
 import java.util.Optional;
 import java.util.Set;
@@ -14,7 +14,7 @@ import java.util.Set;
 public class GrassSpawn extends SpawnAction implements GrassCreator {
 
     @Override
-    public void process(WorldMapManage mapManager) throws InvalidParametersException {
+    public void process(WorldMapManagement mapManager) throws InvalidParametersException {
         int baseGrassMapFillingPercentage = mapManager.getConfig().getGrassMapFillingPercentage();
         int currentGrassMapFillingPercentage = getCurrentEntityMapFillingPercentage(Grass.class, mapManager);
         if (currentGrassMapFillingPercentage < baseGrassMapFillingPercentage) {
@@ -24,19 +24,19 @@ public class GrassSpawn extends SpawnAction implements GrassCreator {
         }
     }
 
-    private int getAmountOfGrassToAdd(int baseGrass, int currentGrass, WorldMapManage mapManager) {
+    private int getAmountOfGrassToAdd(int baseGrass, int currentGrass, WorldMapManagement mapManager) {
         int bonus = getBonusFromAmountOfHerbivores(mapManager);
         currentGrass = Math.max(currentGrass, 1);
         return (baseGrass + bonus) / currentGrass;
     }
 
-    private int getBonusFromAmountOfHerbivores(WorldMapManage mapManager) {
+    private int getBonusFromAmountOfHerbivores(WorldMapManagement mapManager) {
         int baseHerbivoreMapFillingPercentage = mapManager.getConfig().getHerbivoreMapFillingPercentage();
         int currentHerbivoreMapFillingPercentage = getCurrentEntityMapFillingPercentage(Herbivore.class, mapManager);
         return baseHerbivoreMapFillingPercentage - currentHerbivoreMapFillingPercentage;
     }
 
-    private void spawnGrass(int amountToSpawn, WorldMapManage mapManager) throws InvalidCoordinatesException {
+    private void spawnGrass(int amountToSpawn, WorldMapManagement mapManager) throws InvalidCoordinatesException {
         for (int i = 0; i < amountToSpawn; i++) {
             Set<Coordinates> freeCoordinates = mapManager.getFreeCoordinates();
             freeCoordinates.removeAll(mapManager.getBorderFreeCoordinates());

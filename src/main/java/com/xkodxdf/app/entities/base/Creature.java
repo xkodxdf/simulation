@@ -5,7 +5,7 @@ import com.xkodxdf.app.entities.animate.Characteristics;
 import com.xkodxdf.app.exceptions.InvalidCoordinatesException;
 import com.xkodxdf.app.exceptions.InvalidParametersException;
 import com.xkodxdf.app.map.Coordinates;
-import com.xkodxdf.app.map.WorldMapManage;
+import com.xkodxdf.app.map.WorldMapManagement;
 import com.xkodxdf.app.text_constants.ErrorMessages;
 import com.xkodxdf.app.pathfinder.PathFinder;
 
@@ -21,9 +21,9 @@ public abstract class Creature extends Entity {
     protected int currentHealthPoints;
     private CreatureState state;
     protected final Characteristics characteristics;
-    protected final WorldMapManage mapManager;
+    protected final WorldMapManagement mapManager;
 
-    public Creature(Characteristics characteristics, WorldMapManage mapManager) {
+    public Creature(Characteristics characteristics, WorldMapManagement mapManager) {
         this.hungerLevel = 0;
         this.currentHealthPoints = characteristics.getHealthPoints();
         this.state = CreatureState.ROAM;

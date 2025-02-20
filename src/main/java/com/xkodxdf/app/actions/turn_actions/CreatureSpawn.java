@@ -8,7 +8,7 @@ import com.xkodxdf.app.entities.creation.CreatureCreator;
 import com.xkodxdf.app.exceptions.InvalidCoordinatesException;
 import com.xkodxdf.app.exceptions.InvalidParametersException;
 import com.xkodxdf.app.map.Coordinates;
-import com.xkodxdf.app.map.WorldMapManage;
+import com.xkodxdf.app.map.WorldMapManagement;
 
 import java.util.Set;
 
@@ -20,7 +20,7 @@ public class CreatureSpawn extends SpawnAction implements CreatureCreator {
     private boolean spawningPredatorsAllowed = false;
 
     @Override
-    public void process(WorldMapManage mapManager) throws InvalidParametersException {
+    public void process(WorldMapManagement mapManager) throws InvalidParametersException {
         Set<Coordinates> borderFreeCoordinates = mapManager.getBorderFreeCoordinates();
         if (borderFreeCoordinates.isEmpty()) {
             return;
@@ -34,12 +34,12 @@ public class CreatureSpawn extends SpawnAction implements CreatureCreator {
         }
     }
 
-    private void updateSpawnFlags(WorldMapManage mapManager) throws InvalidParametersException {
+    private void updateSpawnFlags(WorldMapManagement mapManager) throws InvalidParametersException {
         spawningHerbsAllowed = setSpawningFlag(EntityType.HERBIVORE, spawningHerbsAllowed, mapManager);
         spawningPredatorsAllowed = setSpawningFlag(EntityType.PREDATOR, spawningPredatorsAllowed, mapManager);
     }
 
-    private boolean setSpawningFlag(EntityType entityType, boolean spawningFlag, WorldMapManage mapManager)
+    private boolean setSpawningFlag(EntityType entityType, boolean spawningFlag, WorldMapManagement mapManager)
             throws InvalidParametersException {
         int baseMapFillingPercentage = mapManager.getConfig().getEntityMapFillingPercentage(entityType);
         Class<? extends Entity> entyClass = entityType.equals(EntityType.HERBIVORE) ?
@@ -61,7 +61,7 @@ public class CreatureSpawn extends SpawnAction implements CreatureCreator {
         return spawningFlag;
     }
 
-    private void spawnCreature(Entity entityToSpawn, Set<Coordinates> freeCoordinates, WorldMapManage mapManager)
+    private void spawnCreature(Entity entityToSpawn, Set<Coordinates> freeCoordinates, WorldMapManagement mapManager)
             throws InvalidCoordinatesException {
         Coordinates spawnCoordinates = mapManager.getOneRandomFreeCoordinates(freeCoordinates).get();
         mapManager.setEntity(spawnCoordinates, entityToSpawn);

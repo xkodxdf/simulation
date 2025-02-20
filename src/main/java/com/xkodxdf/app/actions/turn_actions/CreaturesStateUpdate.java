@@ -2,14 +2,14 @@ package com.xkodxdf.app.actions.turn_actions;
 
 import com.xkodxdf.app.entities.CreatureState;
 import com.xkodxdf.app.entities.base.Creature;
-import com.xkodxdf.app.map.WorldMapManage;
+import com.xkodxdf.app.map.WorldMapManagement;
 
 import java.util.List;
 
 public class CreaturesStateUpdate extends TurnAction {
 
     @Override
-    public void process(WorldMapManage mapManager) {
+    public void process(WorldMapManagement mapManager) {
         roamStateUpdate(mapManager.getEntitiesByType(Creature.class));
         forageStateUpdate(mapManager.getEntitiesByType(Creature.class));
     }

@@ -5,7 +5,7 @@ import com.xkodxdf.app.entities.base.Entity;
 import com.xkodxdf.app.entities.inanimate.Grass;
 import com.xkodxdf.app.exceptions.InvalidCoordinatesException;
 import com.xkodxdf.app.map.Coordinates;
-import com.xkodxdf.app.map.WorldMapManage;
+import com.xkodxdf.app.map.WorldMapManagement;
 
 public class Herbivore extends Creature {
 
@@ -24,7 +24,7 @@ public class Herbivore extends Creature {
     private static final int MIN_HEALTH_INCREASE = 22;
     private static final int MAX_HEALTH_INCREASE = 34;
 
-    public Herbivore(WorldMapManage mapManager) {
+    public Herbivore(WorldMapManagement mapManager) {
         this(
                 new CharacteristicsBuilder()
                         .setHealthPointsInRange(MIN_HP, MAX_HP)
@@ -39,7 +39,7 @@ public class Herbivore extends Creature {
         );
     }
 
-    public Herbivore(Characteristics characteristics, WorldMapManage mapManager) {
+    public Herbivore(Characteristics characteristics, WorldMapManagement mapManager) {
         super(characteristics, mapManager);
     }
 

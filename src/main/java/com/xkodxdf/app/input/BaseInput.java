@@ -29,10 +29,10 @@ public abstract class BaseInput<V> {
         }
     }
 
-    public V getValidInput(String promptMsg, String invalidInputMsg, Predicate<V> validation) {
+    public V getValidInput(String promptMessage, String invalidInputMessage, Predicate<V> validation) {
         V result;
         while (true) {
-            printMsgIfPresent(promptMsg);
+            printMessageIfPresent(promptMessage);
             try {
                 String input = reader.readLine();
                 result = verification.apply(input);
@@ -41,7 +41,7 @@ public abstract class BaseInput<V> {
                 }
             } catch (Exception ignore) {
             }
-            printMsgIfPresent(invalidInputMsg);
+            printMessageIfPresent(invalidInputMessage);
         }
         return result;
     }
@@ -54,9 +54,9 @@ public abstract class BaseInput<V> {
         }
     }
 
-    private void printMsgIfPresent(String msg) {
-        if ((msg != null) && (!msg.isBlank())) {
-            render.printlnString(msg);
+    private void printMessageIfPresent(String message) {
+        if (message != null && !message.isBlank()) {
+            render.printlnString(message);
         }
     }
 }

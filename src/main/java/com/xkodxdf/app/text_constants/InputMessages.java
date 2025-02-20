@@ -6,7 +6,7 @@ public class InputMessages {
 
     public static class SettingsMenuInput {
 
-        public static final String AMOUNT_OF_TURNS = "Enter the number of moves you want to stimulate " +
+        public static final String AMOUNT_OF_TURNS = "Enter the number of turns you want to stimulate " +
                 "(1 - 1 000 000 000 ):";
 
         public static final String TURN_DELAY = "Enter the delay between moves in milliseconds:";

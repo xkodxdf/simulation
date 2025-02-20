@@ -47,7 +47,7 @@ public abstract class BaseWorldMap<C, V> implements WorldMap<C, V> {
     public void recreateMap(int width, int height) {
         this.width = width;
         this.height = height;
-        clearEntities();
+        clearValues();
         freeCoordinates.clear();
         takenCoordinates.clear();
         freeCoordinates.addAll(generateMapCoordinates());
@@ -82,5 +82,5 @@ public abstract class BaseWorldMap<C, V> implements WorldMap<C, V> {
 
     protected abstract C createCoordinate(int x, int y);
 
-    protected abstract void clearEntities();
+    protected abstract void clearValues();
 }

@@ -1,6 +1,6 @@
 package com.xkodxdf.app.menu;
 
-import com.xkodxdf.app.SimulationManage;
+import com.xkodxdf.app.SimulationManagement;
 import com.xkodxdf.app.input.BaseInput;
 import com.xkodxdf.app.text_constants.InputMessages;
 import com.xkodxdf.app.text_constants.MenuContent;
@@ -8,7 +8,7 @@ import com.xkodxdf.app.text_constants.MenuContent;
 public class GeneralSettings extends BaseMenu {
 
 
-    public GeneralSettings(BaseInput<Integer> input, SimulationManage simulationManager) {
+    public GeneralSettings(BaseInput<Integer> input, SimulationManagement simulationManager) {
         super(MenuContent.SettingsMenu.TITLE, input, simulationManager);
         setDefaultMenuContent();
     }

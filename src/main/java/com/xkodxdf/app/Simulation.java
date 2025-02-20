@@ -5,7 +5,7 @@ import com.xkodxdf.app.actions.init_actions.EntitiesDeployment;
 import com.xkodxdf.app.actions.init_actions.InitAction;
 import com.xkodxdf.app.actions.turn_actions.*;
 import com.xkodxdf.app.exceptions.InvalidParametersException;
-import com.xkodxdf.app.map.WorldMapManage;
+import com.xkodxdf.app.map.WorldMapManagement;
 import com.xkodxdf.app.input.BaseInput;
 import com.xkodxdf.app.render.Render;
 import com.xkodxdf.app.text_constants.SimulationPauseMessages;
@@ -25,12 +25,12 @@ public class Simulation {
     private final int turnsLimit;
     private final BaseInput<String> stringInput;
     private final Render renderer;
-    private final WorldMapManage mapManager;
+    private final WorldMapManagement mapManager;
     private final Object pauseLock;
     private final List<InitAction> initActions;
     private final List<TurnAction> turnActions;
 
-    public Simulation(BaseInput<String> stringInput, Render renderer, WorldMapManage mapManager) {
+    public Simulation(BaseInput<String> stringInput, Render renderer, WorldMapManagement mapManager) {
         this.isPaused = false;
         this.isRunning = true;
         this.currentTurn = 0;
@@ -149,10 +149,10 @@ public class Simulation {
                 pauseLock.notify();
             }
         }
-        String pauseMsg = isPaused ? SimulationPauseMessages.PAUSED + currentTurn
+        String pauseMessage = isPaused ? SimulationPauseMessages.PAUSED + currentTurn
                 : SimulationPauseMessages.RESUMED;
-        renderer.printlnString(pauseMsg);
-        renderer.printlnString(SimulationPauseMessages.PROMPT_MSG);
+        renderer.printlnString(pauseMessage);
+        renderer.printlnString(SimulationPauseMessages.PROMPT);
         try {
             Thread.sleep(100L);
         } catch (InterruptedException e) {

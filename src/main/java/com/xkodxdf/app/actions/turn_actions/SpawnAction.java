@@ -1,11 +1,11 @@
 package com.xkodxdf.app.actions.turn_actions;
 
 import com.xkodxdf.app.entities.base.Entity;
-import com.xkodxdf.app.map.WorldMapManage;
+import com.xkodxdf.app.map.WorldMapManagement;
 
 public abstract class SpawnAction extends TurnAction {
 
-    protected int getCurrentEntityMapFillingPercentage(Class<? extends Entity> entity, WorldMapManage mapManager) {
+    protected int getCurrentEntityMapFillingPercentage(Class<? extends Entity> entity, WorldMapManagement mapManager) {
         int mapSize = mapManager.getSize();
         int currentEntitiesAmountOnMap = mapManager.getEntitiesByType(entity).size();
         double percentDivisor = 100;

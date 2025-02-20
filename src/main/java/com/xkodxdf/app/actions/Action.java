@@ -1,9 +1,9 @@
 package com.xkodxdf.app.actions;
 
 import com.xkodxdf.app.exceptions.InvalidParametersException;
-import com.xkodxdf.app.map.WorldMapManage;
+import com.xkodxdf.app.map.WorldMapManagement;
 
 public interface Action {
 
-    void process(WorldMapManage mapManager) throws InvalidParametersException;
+    void process(WorldMapManagement mapManager) throws InvalidParametersException;
 }
