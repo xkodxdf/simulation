@@ -2,23 +2,21 @@ package com.xkodxdf.app.actions.init_actions;
 
 import com.xkodxdf.app.entities.EntityType;
 import com.xkodxdf.app.entities.creation.EntityCreator;
-import com.xkodxdf.app.worldmap.exceptions.WorldMapException;
+import com.xkodxdf.app.text_constants.ErrorMessages;
 import com.xkodxdf.app.worldmap.Coordinates;
 import com.xkodxdf.app.worldmap.WorldMapManagement;
 import com.xkodxdf.app.worldmap.config.Config;
-import com.xkodxdf.app.text_constants.ErrorMessages;
 
 import java.util.Optional;
 
 public class EntitiesDeployment extends InitAction implements EntityCreator {
 
     @Override
-    public void process(WorldMapManagement mapManager) throws WorldMapException {
+    public void process(WorldMapManagement mapManager) {
         deployEntities(EntityType.values(), mapManager);
     }
 
-    private void deployEntities(EntityType[] entityTypes, WorldMapManagement mapManager)
-            throws WorldMapException {
+    private void deployEntities(EntityType[] entityTypes, WorldMapManagement mapManager) {
         int mapSize = mapManager.getSize();
         for (EntityType entityType : entityTypes) {
             if (entityType.equals(EntityType.CORPSE)) {
@@ -38,8 +36,7 @@ public class EntitiesDeployment extends InitAction implements EntityCreator {
         return (int) (Math.ceil(mapSize / percentDivisor * fillingPercentage));
     }
 
-    private void deployEntity(Coordinates coordinate, EntityType entityType, WorldMapManagement mapManager)
-            throws WorldMapException {
+    private void deployEntity(Coordinates coordinate, EntityType entityType, WorldMapManagement mapManager) {
         switch (entityType) {
             case ROCK:
                 mapManager.setEntity(coordinate, getRock());

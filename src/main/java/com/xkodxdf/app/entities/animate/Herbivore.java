@@ -3,7 +3,6 @@ package com.xkodxdf.app.entities.animate;
 import com.xkodxdf.app.entities.base.Creature;
 import com.xkodxdf.app.entities.base.Entity;
 import com.xkodxdf.app.entities.inanimate.Grass;
-import com.xkodxdf.app.worldmap.exceptions.InvalidCoordinatesException;
 import com.xkodxdf.app.worldmap.Coordinates;
 import com.xkodxdf.app.worldmap.WorldMapManagement;
 
@@ -49,8 +48,7 @@ public class Herbivore extends Creature {
     }
 
     @Override
-    protected void handleFood(Coordinates currentCoordinates, Coordinates foodCoordinates, Entity food)
-            throws InvalidCoordinatesException {
+    protected void handleFood(Coordinates currentCoordinates, Coordinates foodCoordinates, Entity food) {
         mapManager.removeEntity(currentCoordinates);
         mapManager.setEntity(foodCoordinates, this);
     }

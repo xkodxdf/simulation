@@ -1,8 +1,6 @@
 package com.xkodxdf.app.actions.turn_actions;
 
 import com.xkodxdf.app.entities.inanimate.Corpse;
-import com.xkodxdf.app.worldmap.exceptions.InvalidCoordinatesException;
-import com.xkodxdf.app.worldmap.exceptions.WorldMapException;
 import com.xkodxdf.app.worldmap.Coordinates;
 import com.xkodxdf.app.worldmap.WorldMapManagement;
 
@@ -12,7 +10,7 @@ import java.util.stream.Collectors;
 public class CorpseDecay extends TurnAction {
 
     @Override
-    public void process(WorldMapManagement mapManager) throws WorldMapException {
+    public void process(WorldMapManagement mapManager) {
         List<Corpse> corpses = getCorpses(mapManager);
         corpses.forEach(Corpse::decay);
         removeRottedCorpses(corpses, mapManager);
@@ -25,8 +23,7 @@ public class CorpseDecay extends TurnAction {
                 .collect(Collectors.toList());
     }
 
-    private void removeRottedCorpses(List<Corpse> corpses, WorldMapManagement mapManager)
-            throws InvalidCoordinatesException {
+    private void removeRottedCorpses(List<Corpse> corpses, WorldMapManagement mapManager) {
         int rotIndex = 0;
         for (Corpse c : corpses) {
             Coordinates corpseCoordinates = mapManager.getEntityCoordinate(c).get();

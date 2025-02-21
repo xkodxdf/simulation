@@ -3,7 +3,6 @@ package com.xkodxdf.app.entities.animate;
 import com.xkodxdf.app.entities.base.Creature;
 import com.xkodxdf.app.entities.base.Entity;
 import com.xkodxdf.app.entities.inanimate.Corpse;
-import com.xkodxdf.app.worldmap.exceptions.InvalidCoordinatesException;
 import com.xkodxdf.app.worldmap.Coordinates;
 import com.xkodxdf.app.worldmap.WorldMapManagement;
 
@@ -60,8 +59,7 @@ public class Predator extends Creature {
     }
 
     @Override
-    protected void handleFood(Coordinates currentCoordinates, Coordinates foodCoordinates, Entity food)
-            throws InvalidCoordinatesException {
+    protected void handleFood(Coordinates currentCoordinates, Coordinates foodCoordinates, Entity food) {
         if (food instanceof Herbivore) {
             Herbivore herb = (Herbivore) food;
             attackHerbivore(herb);
@@ -131,8 +129,7 @@ public class Predator extends Creature {
         herbivore.takeDamage(characteristics.getAttackStrength());
     }
 
-    private void eatCorpse(Coordinates currentCoordinates, Coordinates corpseCoordinates)
-            throws InvalidCoordinatesException {
+    private void eatCorpse(Coordinates currentCoordinates, Coordinates corpseCoordinates) {
         mapManager.removeEntity(currentCoordinates);
         mapManager.setEntity(corpseCoordinates, this);
     }

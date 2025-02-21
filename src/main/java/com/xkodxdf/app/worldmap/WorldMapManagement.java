@@ -49,16 +49,28 @@ public class WorldMapManagement {
         worldMap.recreateMap(config.getWidth(), config.getHeight());
     }
 
-    public void setEntity(Coordinates coordinates, Entity entity) throws InvalidCoordinatesException {
-        worldMap.setValue(coordinates, entity);
+    public void setEntity(Coordinates coordinates, Entity entity) {
+        try {
+            worldMap.setValue(coordinates, entity);
+        } catch (InvalidCoordinatesException e) {
+            throw new IllegalArgumentException(e);
+        }
     }
 
-    public Optional<Entity> getEntity(Coordinates coordinates) throws InvalidCoordinatesException {
-        return worldMap.getValue(coordinates);
+    public Optional<Entity> getEntity(Coordinates coordinates) {
+        try {
+            return worldMap.getValue(coordinates);
+        } catch (InvalidCoordinatesException e) {
+            throw new IllegalArgumentException(e);
+        }
     }
 
-    public void removeEntity(Coordinates coordinates) throws InvalidCoordinatesException {
-        worldMap.removeValue(coordinates);
+    public void removeEntity(Coordinates coordinates) {
+        try {
+            worldMap.removeValue(coordinates);
+        } catch (InvalidCoordinatesException e) {
+            throw new IllegalArgumentException(e);
+        }
     }
 
     public List<Entity> getEntities() {
@@ -69,10 +81,10 @@ public class WorldMapManagement {
         return worldMap.getValuesWithCoordinatesCopy();
     }
 
-    public List<Entity> getAroundEntities(Set<Coordinates> aroundCoordinates) throws InvalidCoordinatesException {
+    public List<Entity> getAroundEntities(Set<Coordinates> aroundCoordinates) {
         List<Entity> result = new ArrayList<>();
         for (Coordinates coordinate : aroundCoordinates) {
-            Optional<Entity> entity = worldMap.getValue(coordinate);
+            Optional<Entity> entity = getEntity(coordinate);
             entity.ifPresent(result::add);
         }
         return result;

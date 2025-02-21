@@ -2,12 +2,10 @@ package com.xkodxdf.app.entities.base;
 
 import com.xkodxdf.app.entities.CreatureState;
 import com.xkodxdf.app.entities.animate.Characteristics;
-import com.xkodxdf.app.worldmap.exceptions.InvalidCoordinatesException;
-import com.xkodxdf.app.worldmap.exceptions.WorldMapException;
+import com.xkodxdf.app.pathfinder.PathFinder;
+import com.xkodxdf.app.text_constants.ErrorMessages;
 import com.xkodxdf.app.worldmap.Coordinates;
 import com.xkodxdf.app.worldmap.WorldMapManagement;
-import com.xkodxdf.app.text_constants.ErrorMessages;
-import com.xkodxdf.app.pathfinder.PathFinder;
 
 import java.util.HashSet;
 import java.util.List;
@@ -51,7 +49,7 @@ public abstract class Creature extends Entity {
         return characteristics.getHealthPoints() == currentHealthPoints;
     }
 
-    public final void makeMove(PathFinder<Coordinates> pathFinder) throws WorldMapException {
+    public final void makeMove(PathFinder<Coordinates> pathFinder) {
         Optional<Coordinates> optionalCurrentCoordinates = mapManager.getEntityCoordinate(this);
         starve();
         if (isDead() || optionalCurrentCoordinates.isEmpty()) {
@@ -82,7 +80,7 @@ public abstract class Creature extends Entity {
         }
     }
 
-    private void roam(Coordinates currentCoordinates) throws WorldMapException {
+    private void roam(Coordinates currentCoordinates) {
         int moveSquaresPerTurn = 1;
         Set<Coordinates> aroundFreeCoordinates = mapManager.getAroundFreeCoordinates(currentCoordinates,
                 moveSquaresPerTurn);
@@ -93,8 +91,7 @@ public abstract class Creature extends Entity {
         }
     }
 
-    private void forage(Coordinates currentCoordinates, PathFinder<Coordinates> pathFinder)
-            throws WorldMapException {
+    private void forage(Coordinates currentCoordinates, PathFinder<Coordinates> pathFinder) {
         Optional<Coordinates> optionalFoodCoordinates = findNearestFoodCoordinatesInViewRadius(currentCoordinates);
         if (optionalFoodCoordinates.isEmpty()) {
             roam(currentCoordinates);
@@ -105,8 +102,7 @@ public abstract class Creature extends Entity {
         }
     }
 
-    private Optional<Coordinates> findNearestFoodCoordinatesInViewRadius(Coordinates currentCoordinates)
-            throws WorldMapException {
+    private Optional<Coordinates> findNearestFoodCoordinatesInViewRadius(Coordinates currentCoordinates) {
         List<Entity> aroundEntities;
         Set<Coordinates> aroundCoordinates;
         Set<Coordinates> aroundCoordinatesPrevious = new HashSet<>();
@@ -134,14 +130,14 @@ public abstract class Creature extends Entity {
         return mapManager.getEntityCoordinate(aroundFood.get(firstElement));
     }
 
-    private boolean canEat(Coordinates currentCoordinates) throws InvalidCoordinatesException {
+    private boolean canEat(Coordinates currentCoordinates) {
         int reachRadius = 1;
         Set<Coordinates> aroundCoordinates = mapManager.getAroundCoordinates(currentCoordinates, reachRadius);
         List<Entity> aroundEntities = mapManager.getAroundEntities(aroundCoordinates);
         return aroundEntities.stream().anyMatch(this::isFood);
     }
 
-    private void eat(Coordinates foodCoordinates) throws WorldMapException {
+    private void eat(Coordinates foodCoordinates) {
         Optional<Entity> optionalFood = mapManager.getEntity(foodCoordinates);
         Optional<Coordinates> optionalCurrentCoordinate = mapManager.getEntityCoordinate(this);
         if (optionalFood.isEmpty() || optionalCurrentCoordinate.isEmpty()) {
@@ -158,8 +154,7 @@ public abstract class Creature extends Entity {
         currentHealthPoints = Math.min(currentHealthPoints, characteristics.getHealthPoints());
     }
 
-    private void goToFood(Coordinates currentCoordinate, Coordinates foodCoordinate, PathFinder<Coordinates> pathFinder)
-            throws InvalidCoordinatesException {
+    private void goToFood(Coordinates currentCoordinate, Coordinates foodCoordinate, PathFinder<Coordinates> pathFinder) {
         Set<Coordinates> freeCoordinates = mapManager.getFreeCoordinates();
         freeCoordinates.add(foodCoordinate);
         Set<Coordinates> path = pathFinder.getPath(currentCoordinate, foodCoordinate, freeCoordinates);
@@ -179,6 +174,5 @@ public abstract class Creature extends Entity {
 
     protected abstract void satiate(Entity food);
 
-    protected abstract void handleFood(Coordinates currentCoordinates, Coordinates foodCoordinates, Entity food)
-            throws InvalidCoordinatesException;
+    protected abstract void handleFood(Coordinates currentCoordinates, Coordinates foodCoordinates, Entity food);
 }

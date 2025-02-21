@@ -5,8 +5,6 @@ import com.xkodxdf.app.entities.animate.Herbivore;
 import com.xkodxdf.app.entities.animate.Predator;
 import com.xkodxdf.app.entities.base.Entity;
 import com.xkodxdf.app.entities.creation.CreatureCreator;
-import com.xkodxdf.app.worldmap.exceptions.InvalidCoordinatesException;
-import com.xkodxdf.app.worldmap.exceptions.WorldMapException;
 import com.xkodxdf.app.worldmap.Coordinates;
 import com.xkodxdf.app.worldmap.WorldMapManagement;
 
@@ -20,7 +18,7 @@ public class CreatureSpawn extends SpawnAction implements CreatureCreator {
     private boolean spawningPredatorsAllowed = false;
 
     @Override
-    public void process(WorldMapManagement mapManager) throws WorldMapException {
+    public void process(WorldMapManagement mapManager) {
         Set<Coordinates> borderFreeCoordinates = mapManager.getBorderFreeCoordinates();
         if (borderFreeCoordinates.isEmpty()) {
             return;
@@ -60,8 +58,7 @@ public class CreatureSpawn extends SpawnAction implements CreatureCreator {
         return spawningFlag;
     }
 
-    private void spawnCreature(Entity entityToSpawn, Set<Coordinates> freeCoordinates, WorldMapManagement mapManager)
-            throws InvalidCoordinatesException {
+    private void spawnCreature(Entity entityToSpawn, Set<Coordinates> freeCoordinates, WorldMapManagement mapManager) {
         Coordinates spawnCoordinates = mapManager.getOneRandomFreeCoordinates(freeCoordinates).get();
         mapManager.setEntity(spawnCoordinates, entityToSpawn);
     }

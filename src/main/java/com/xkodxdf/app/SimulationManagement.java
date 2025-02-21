@@ -27,7 +27,7 @@ public class SimulationManagement {
         return renderer;
     }
 
-    public void start() throws WorldMapException, InterruptedException {
+    public void start() throws InterruptedException {
         simulation.start();
     }
 
