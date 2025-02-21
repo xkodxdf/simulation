@@ -1,6 +1,6 @@
 package com.xkodxdf.app.pathfinder;
 
-import com.xkodxdf.app.map.Coordinates;
+import com.xkodxdf.app.worldmap.Coordinates;
 
 import java.util.*;
 

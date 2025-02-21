@@ -5,10 +5,10 @@ import com.xkodxdf.app.entities.animate.Herbivore;
 import com.xkodxdf.app.entities.animate.Predator;
 import com.xkodxdf.app.entities.base.Entity;
 import com.xkodxdf.app.entities.creation.CreatureCreator;
-import com.xkodxdf.app.map.exceptions.InvalidCoordinatesException;
-import com.xkodxdf.app.map.exceptions.WorldMapException;
-import com.xkodxdf.app.map.Coordinates;
-import com.xkodxdf.app.map.WorldMapManagement;
+import com.xkodxdf.app.worldmap.exceptions.InvalidCoordinatesException;
+import com.xkodxdf.app.worldmap.exceptions.WorldMapException;
+import com.xkodxdf.app.worldmap.Coordinates;
+import com.xkodxdf.app.worldmap.WorldMapManagement;
 
 import java.util.Set;
 

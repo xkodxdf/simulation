@@ -1,7 +1,7 @@
-package com.xkodxdf.app.map.worldmap;
+package com.xkodxdf.app.worldmap.map;
 
-import com.xkodxdf.app.map.exceptions.InvalidCoordinatesException;
-import com.xkodxdf.app.map.Coordinates;
+import com.xkodxdf.app.worldmap.exceptions.InvalidCoordinatesException;
+import com.xkodxdf.app.worldmap.Coordinates;
 import com.xkodxdf.app.text_constants.ErrorMessages;
 
 import java.util.HashSet;

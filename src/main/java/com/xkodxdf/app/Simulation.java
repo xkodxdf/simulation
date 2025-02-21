@@ -5,8 +5,8 @@ import com.xkodxdf.app.actions.init_actions.EntitiesDeployment;
 import com.xkodxdf.app.actions.init_actions.InitAction;
 import com.xkodxdf.app.actions.turn_actions.*;
 import com.xkodxdf.app.input.BaseInput;
-import com.xkodxdf.app.map.WorldMapManagement;
-import com.xkodxdf.app.map.exceptions.WorldMapException;
+import com.xkodxdf.app.worldmap.WorldMapManagement;
+import com.xkodxdf.app.worldmap.exceptions.WorldMapException;
 import com.xkodxdf.app.render.Render;
 import com.xkodxdf.app.text_constants.SimulationPauseMessages;
 

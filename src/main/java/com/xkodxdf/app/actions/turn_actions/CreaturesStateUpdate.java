@@ -2,7 +2,7 @@ package com.xkodxdf.app.actions.turn_actions;
 
 import com.xkodxdf.app.entities.CreatureState;
 import com.xkodxdf.app.entities.base.Creature;
-import com.xkodxdf.app.map.WorldMapManagement;
+import com.xkodxdf.app.worldmap.WorldMapManagement;
 
 import java.util.List;
 

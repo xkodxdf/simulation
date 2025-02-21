@@ -1,10 +1,10 @@
 package com.xkodxdf.app.actions.turn_actions;
 
 import com.xkodxdf.app.entities.inanimate.Corpse;
-import com.xkodxdf.app.map.exceptions.InvalidCoordinatesException;
-import com.xkodxdf.app.map.exceptions.WorldMapException;
-import com.xkodxdf.app.map.Coordinates;
-import com.xkodxdf.app.map.WorldMapManagement;
+import com.xkodxdf.app.worldmap.exceptions.InvalidCoordinatesException;
+import com.xkodxdf.app.worldmap.exceptions.WorldMapException;
+import com.xkodxdf.app.worldmap.Coordinates;
+import com.xkodxdf.app.worldmap.WorldMapManagement;
 
 import java.util.List;
 import java.util.stream.Collectors;

@@ -3,9 +3,9 @@ package com.xkodxdf.app.entities.animate;
 import com.xkodxdf.app.entities.base.Creature;
 import com.xkodxdf.app.entities.base.Entity;
 import com.xkodxdf.app.entities.inanimate.Corpse;
-import com.xkodxdf.app.map.exceptions.InvalidCoordinatesException;
-import com.xkodxdf.app.map.Coordinates;
-import com.xkodxdf.app.map.WorldMapManagement;
+import com.xkodxdf.app.worldmap.exceptions.InvalidCoordinatesException;
+import com.xkodxdf.app.worldmap.Coordinates;
+import com.xkodxdf.app.worldmap.WorldMapManagement;
 
 import java.util.Comparator;
 import java.util.List;

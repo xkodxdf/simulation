@@ -1,10 +1,10 @@
 package com.xkodxdf.app;
 
-import com.xkodxdf.app.map.exceptions.InvalidFillingPercentageException;
-import com.xkodxdf.app.map.exceptions.InvalidMapSizeParametersException;
-import com.xkodxdf.app.map.exceptions.WorldMapException;
-import com.xkodxdf.app.map.WorldMapManagement;
-import com.xkodxdf.app.map.config.Config;
+import com.xkodxdf.app.worldmap.exceptions.InvalidFillingPercentageException;
+import com.xkodxdf.app.worldmap.exceptions.InvalidMapSizeParametersException;
+import com.xkodxdf.app.worldmap.exceptions.WorldMapException;
+import com.xkodxdf.app.worldmap.WorldMapManagement;
+import com.xkodxdf.app.worldmap.config.Config;
 import com.xkodxdf.app.input.BaseInput;
 import com.xkodxdf.app.render.EntityNotation;
 import com.xkodxdf.app.render.Render;

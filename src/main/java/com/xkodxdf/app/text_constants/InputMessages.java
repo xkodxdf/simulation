@@ -1,6 +1,6 @@
 package com.xkodxdf.app.text_constants;
 
-import com.xkodxdf.app.map.config.Config;
+import com.xkodxdf.app.worldmap.config.Config;
 
 public class InputMessages {
 

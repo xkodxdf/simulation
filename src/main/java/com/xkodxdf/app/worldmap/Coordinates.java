@@ -1,4 +1,4 @@
-package com.xkodxdf.app.map;
+package com.xkodxdf.app.worldmap;
 
 import java.util.Objects;
 

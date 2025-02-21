@@ -1,8 +1,8 @@
-package com.xkodxdf.app.map.config;
+package com.xkodxdf.app.worldmap.config;
 
 import com.xkodxdf.app.entities.EntityType;
-import com.xkodxdf.app.map.exceptions.InvalidFillingPercentageException;
-import com.xkodxdf.app.map.exceptions.InvalidMapSizeParametersException;
+import com.xkodxdf.app.worldmap.exceptions.InvalidFillingPercentageException;
+import com.xkodxdf.app.worldmap.exceptions.InvalidMapSizeParametersException;
 import com.xkodxdf.app.text_constants.ErrorMessages;
 
 public class Config {

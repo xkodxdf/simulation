@@ -1,7 +1,7 @@
 package com.xkodxdf.app.actions;
 
-import com.xkodxdf.app.map.exceptions.WorldMapException;
-import com.xkodxdf.app.map.WorldMapManagement;
+import com.xkodxdf.app.worldmap.exceptions.WorldMapException;
+import com.xkodxdf.app.worldmap.WorldMapManagement;
 
 public interface Action {
 

@@ -1,9 +1,9 @@
 package com.xkodxdf.app.menu;
 
 import com.xkodxdf.app.SimulationManagement;
-import com.xkodxdf.app.map.exceptions.InvalidMapSizeParametersException;
-import com.xkodxdf.app.map.exceptions.WorldMapException;
-import com.xkodxdf.app.map.config.Config;
+import com.xkodxdf.app.worldmap.exceptions.InvalidMapSizeParametersException;
+import com.xkodxdf.app.worldmap.exceptions.WorldMapException;
+import com.xkodxdf.app.worldmap.config.Config;
 import com.xkodxdf.app.input.BaseInput;
 import com.xkodxdf.app.text_constants.InputMessages;
 import com.xkodxdf.app.text_constants.MenuContent;

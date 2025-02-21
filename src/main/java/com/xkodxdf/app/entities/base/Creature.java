@@ -2,10 +2,10 @@ package com.xkodxdf.app.entities.base;
 
 import com.xkodxdf.app.entities.CreatureState;
 import com.xkodxdf.app.entities.animate.Characteristics;
-import com.xkodxdf.app.map.exceptions.InvalidCoordinatesException;
-import com.xkodxdf.app.map.exceptions.WorldMapException;
-import com.xkodxdf.app.map.Coordinates;
-import com.xkodxdf.app.map.WorldMapManagement;
+import com.xkodxdf.app.worldmap.exceptions.InvalidCoordinatesException;
+import com.xkodxdf.app.worldmap.exceptions.WorldMapException;
+import com.xkodxdf.app.worldmap.Coordinates;
+import com.xkodxdf.app.worldmap.WorldMapManagement;
 import com.xkodxdf.app.text_constants.ErrorMessages;
 import com.xkodxdf.app.pathfinder.PathFinder;
 

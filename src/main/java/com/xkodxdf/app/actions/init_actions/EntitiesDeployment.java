@@ -2,10 +2,10 @@ package com.xkodxdf.app.actions.init_actions;
 
 import com.xkodxdf.app.entities.EntityType;
 import com.xkodxdf.app.entities.creation.EntityCreator;
-import com.xkodxdf.app.map.exceptions.WorldMapException;
-import com.xkodxdf.app.map.Coordinates;
-import com.xkodxdf.app.map.WorldMapManagement;
-import com.xkodxdf.app.map.config.Config;
+import com.xkodxdf.app.worldmap.exceptions.WorldMapException;
+import com.xkodxdf.app.worldmap.Coordinates;
+import com.xkodxdf.app.worldmap.WorldMapManagement;
+import com.xkodxdf.app.worldmap.config.Config;
 import com.xkodxdf.app.text_constants.ErrorMessages;
 
 import java.util.Optional;

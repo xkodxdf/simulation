@@ -1,8 +1,8 @@
 package com.xkodxdf.app.render;
 
 import com.xkodxdf.app.entities.base.Entity;
-import com.xkodxdf.app.map.Coordinates;
-import com.xkodxdf.app.map.config.Config;
+import com.xkodxdf.app.worldmap.Coordinates;
+import com.xkodxdf.app.worldmap.config.Config;
 import com.xkodxdf.app.text_constants.ErrorMessages;
 import com.xkodxdf.app.text_constants.SimulationPauseMessages;
 

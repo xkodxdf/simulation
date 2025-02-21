@@ -1,4 +1,4 @@
-package com.xkodxdf.app.map.exceptions;
+package com.xkodxdf.app.worldmap.exceptions;
 
 public class WorldMapException extends Exception {
 

@@ -1,7 +1,7 @@
 package com.xkodxdf.app.actions.turn_actions;
 
 import com.xkodxdf.app.entities.base.Entity;
-import com.xkodxdf.app.map.WorldMapManagement;
+import com.xkodxdf.app.worldmap.WorldMapManagement;
 
 public abstract class SpawnAction extends TurnAction {
 

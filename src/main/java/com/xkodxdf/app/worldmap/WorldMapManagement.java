@@ -1,13 +1,13 @@
-package com.xkodxdf.app.map;
+package com.xkodxdf.app.worldmap;
 
 import com.xkodxdf.app.entities.base.Entity;
-import com.xkodxdf.app.map.exceptions.InvalidCoordinatesException;
-import com.xkodxdf.app.map.exceptions.WorldMapException;
-import com.xkodxdf.app.map.config.Config;
-import com.xkodxdf.app.map.config.ConfigValidator;
-import com.xkodxdf.app.map.worldmap.WorldArrayMap;
-import com.xkodxdf.app.map.worldmap.WorldHashMap;
-import com.xkodxdf.app.map.worldmap.WorldMap;
+import com.xkodxdf.app.worldmap.exceptions.InvalidCoordinatesException;
+import com.xkodxdf.app.worldmap.exceptions.WorldMapException;
+import com.xkodxdf.app.worldmap.config.Config;
+import com.xkodxdf.app.worldmap.config.ConfigValidator;
+import com.xkodxdf.app.worldmap.map.WorldArrayMap;
+import com.xkodxdf.app.worldmap.map.WorldHashMap;
+import com.xkodxdf.app.worldmap.map.WorldMap;
 
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
