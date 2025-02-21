@@ -6,7 +6,7 @@ import com.xkodxdf.app.map.Coordinates;
 
 import java.util.*;
 
-public class WorldHashMap extends BaseWorldMap<Coordinates, Entity> {
+public class WorldHashMap extends BaseWorldMap<Entity> {
 
     private final Map<Coordinates, Entity> entities;
 
@@ -38,11 +38,6 @@ public class WorldHashMap extends BaseWorldMap<Coordinates, Entity> {
     @Override
     public Map<Coordinates, Entity> getValuesWithCoordinatesCopy() {
         return new HashMap<>(entities);
-    }
-
-    @Override
-    protected Coordinates createCoordinate(int x, int y) {
-        return new Coordinates(x, y);
     }
 
     @Override

@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 public class WorldMapManagement {
 
     private final Config config;
-    private WorldMap<Coordinates, Entity> worldMap;
+    private WorldMap<Entity> worldMap;
 
     public WorldMapManagement(Config config) throws InvalidParametersException {
         ConfigValidator.validateConfig(config);
@@ -108,7 +108,7 @@ public class WorldMapManagement {
 
     public Set<Coordinates> getBorderFreeCoordinates() {
         Set<Coordinates> borderFreeCoordinates = new HashSet<>(getBorderCoordinates());
-        borderFreeCoordinates.removeAll(worldMap.getTakenCoordinatesCopy());
+        borderFreeCoordinates.removeAll(worldMap.getValuesWithCoordinatesCopy().keySet());
         return borderFreeCoordinates;
     }
 

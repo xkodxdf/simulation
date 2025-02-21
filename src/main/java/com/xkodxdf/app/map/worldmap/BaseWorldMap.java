@@ -1,23 +1,23 @@
 package com.xkodxdf.app.map.worldmap;
 
 import com.xkodxdf.app.exceptions.InvalidCoordinatesException;
+import com.xkodxdf.app.map.Coordinates;
 import com.xkodxdf.app.text_constants.ErrorMessages;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
-public abstract class BaseWorldMap<C, V> implements WorldMap<C, V> {
+public abstract class BaseWorldMap<V> implements WorldMap<V> {
 
     protected int width;
     protected int height;
-    private final Set<C> freeCoordinates;
-    private final Set<C> takenCoordinates;
+    private Set<Coordinates> freeCoordinates;
 
     public BaseWorldMap(int width, int height) {
         this.width = width;
         this.height = height;
         this.freeCoordinates = generateMapCoordinates();
-        this.takenCoordinates = new HashSet<>();
     }
 
     public int getHeight() {
@@ -34,13 +34,8 @@ public abstract class BaseWorldMap<C, V> implements WorldMap<C, V> {
     }
 
     @Override
-    public Set<C> getFreeCoordinatesCopy() {
+    public Set<Coordinates> getFreeCoordinatesCopy() {
         return new HashSet<>(freeCoordinates);
-    }
-
-    @Override
-    public Set<C> getTakenCoordinatesCopy() {
-        return new HashSet<>(takenCoordinates);
     }
 
     @Override
@@ -48,39 +43,39 @@ public abstract class BaseWorldMap<C, V> implements WorldMap<C, V> {
         this.width = width;
         this.height = height;
         clearValues();
-        freeCoordinates.clear();
-        takenCoordinates.clear();
-        freeCoordinates.addAll(generateMapCoordinates());
+        freeCoordinates = generateMapCoordinates();
     }
 
     @Override
-    public void validateCoordinates(C coordinates) throws InvalidCoordinatesException {
-        if (!freeCoordinates.contains(coordinates) && !takenCoordinates.contains(coordinates)) {
+    public void validateCoordinates(Coordinates coordinates) throws InvalidCoordinatesException {
+        if (Objects.isNull(coordinates) || !isCoordinatesWithinWorldMap(coordinates)) {
             throw new InvalidCoordinatesException(ErrorMessages.INCORRECT_COORDINATES_ARE_SPECIFIED);
         }
     }
 
-    protected void takeCoordinates(C coordinates) {
+    protected void takeCoordinates(Coordinates coordinates) {
         freeCoordinates.remove(coordinates);
-        takenCoordinates.add(coordinates);
     }
 
-    protected void releaseCoordinates(C coordinates) {
-        takenCoordinates.remove(coordinates);
+    protected void releaseCoordinates(Coordinates coordinates) {
         freeCoordinates.add(coordinates);
     }
 
-    protected Set<C> generateMapCoordinates() {
-        Set<C> result = new HashSet<>();
+    protected Set<Coordinates> generateMapCoordinates() {
+        Set<Coordinates> result = new HashSet<>();
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                result.add(createCoordinate(x, y));
+                result.add(new Coordinates(x, y));
             }
         }
         return result;
     }
 
-    protected abstract C createCoordinate(int x, int y);
+    private boolean isCoordinatesWithinWorldMap(Coordinates coordinates) {
+        int x = coordinates.getX();
+        int y = coordinates.getY();
+        return (x >= 0 && y >= 0) && (x < width && y < height);
+    }
 
     protected abstract void clearValues();
 }

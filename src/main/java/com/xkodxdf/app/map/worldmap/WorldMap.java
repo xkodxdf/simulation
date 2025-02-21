@@ -1,12 +1,13 @@
 package com.xkodxdf.app.map.worldmap;
 
 import com.xkodxdf.app.exceptions.InvalidCoordinatesException;
+import com.xkodxdf.app.map.Coordinates;
 
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-public interface WorldMap<C, V> {
+public interface WorldMap<V> {
 
     int size();
 
@@ -14,19 +15,17 @@ public interface WorldMap<C, V> {
 
     int getHeight();
 
-    void setValue(C coordinates, V value) throws InvalidCoordinatesException;
+    void setValue(Coordinates coordinates, V value) throws InvalidCoordinatesException;
 
-    Optional<V> getValue(C coordinates) throws InvalidCoordinatesException;
+    Optional<V> getValue(Coordinates coordinates) throws InvalidCoordinatesException;
 
-    void removeValue(C coordinates) throws InvalidCoordinatesException;
+    void removeValue(Coordinates coordinates) throws InvalidCoordinatesException;
 
-    Set<C> getFreeCoordinatesCopy();
+    Set<Coordinates> getFreeCoordinatesCopy();
 
-    Set<C> getTakenCoordinatesCopy();
-
-    Map<C, V> getValuesWithCoordinatesCopy();
+    Map<Coordinates, V> getValuesWithCoordinatesCopy();
 
     void recreateMap(int width, int height);
 
-    void validateCoordinates(C coordinates) throws InvalidCoordinatesException;
+    void validateCoordinates(Coordinates coordinates) throws InvalidCoordinatesException;
 }

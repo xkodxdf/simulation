@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public class WorldArrayMap extends BaseWorldMap<Coordinates, Entity> {
+public class WorldArrayMap extends BaseWorldMap<Entity> {
 
     private int rows;
     private int columns;
@@ -53,11 +53,6 @@ public class WorldArrayMap extends BaseWorldMap<Coordinates, Entity> {
 
         }
         return result;
-    }
-
-    @Override
-    protected Coordinates createCoordinate(int x, int y) {
-        return new Coordinates(x, y);
     }
 
     @Override
