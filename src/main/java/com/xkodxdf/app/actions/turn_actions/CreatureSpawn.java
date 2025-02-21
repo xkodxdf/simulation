@@ -34,13 +34,12 @@ public class CreatureSpawn extends SpawnAction implements CreatureCreator {
         }
     }
 
-    private void updateSpawnFlags(WorldMapManagement mapManager) throws WorldMapException {
+    private void updateSpawnFlags(WorldMapManagement mapManager) {
         spawningHerbsAllowed = setSpawningFlag(EntityType.HERBIVORE, spawningHerbsAllowed, mapManager);
         spawningPredatorsAllowed = setSpawningFlag(EntityType.PREDATOR, spawningPredatorsAllowed, mapManager);
     }
 
-    private boolean setSpawningFlag(EntityType entityType, boolean spawningFlag, WorldMapManagement mapManager)
-            throws WorldMapException {
+    private boolean setSpawningFlag(EntityType entityType, boolean spawningFlag, WorldMapManagement mapManager) {
         int baseMapFillingPercentage = mapManager.getConfig().getEntityMapFillingPercentage(entityType);
         Class<? extends Entity> entyClass = entityType.equals(EntityType.HERBIVORE) ?
                 Herbivore.class : Predator.class;
