@@ -139,7 +139,7 @@ public class WorldMapManagement {
         Set<Coordinates> result = new HashSet<>();
         for (int row = -radius; row <= radius; row++) {
             for (int col = -radius; col <= radius; col++) {
-                if (!(row == targetRow) && !(col == targetCol)) {
+                if (!(row == targetRow && col == targetCol)) {
                     Coordinates coordinate = new Coordinates(x + col, y + row);
                     if (isCoordinatesValid(coordinate)) {
                         result.add(coordinate);
