@@ -28,9 +28,7 @@ public class EntitiesDeployment extends InitAction implements EntityCreator {
             int squaresAvailableForEntity = calculateSquaresAvailable(mapSize, entityMapFillingPercentage);
             for (int i = 0; i < squaresAvailableForEntity; i++) {
                 Optional<Coordinates> optionalCoordinates = mapManager.getOneRandomFreeCoordinates();
-                if (optionalCoordinates.isPresent()) {
-                    deployEntity(optionalCoordinates.get(), entityType, mapManager);
-                }
+                optionalCoordinates.ifPresent(coordinates -> deployEntity(coordinates, entityType, mapManager));
             }
         }
     }

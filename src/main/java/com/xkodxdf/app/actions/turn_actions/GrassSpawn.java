@@ -41,9 +41,7 @@ public class GrassSpawn extends SpawnAction implements GrassCreator {
             Set<Coordinates> freeCoordinates = mapManager.getFreeCoordinates();
             freeCoordinates.removeAll(mapManager.getBorderFreeCoordinates());
             Optional<Coordinates> spawnCoordinate = mapManager.getOneRandomFreeCoordinates(freeCoordinates);
-            if (spawnCoordinate.isPresent()) {
-                mapManager.setEntity(spawnCoordinate.get(), getGrass());
-            }
+            spawnCoordinate.ifPresent(coordinates -> mapManager.setEntity(coordinates, getGrass()));
         }
     }
 }
