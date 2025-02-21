@@ -4,13 +4,12 @@ import com.xkodxdf.app.actions.Action;
 import com.xkodxdf.app.actions.init_actions.EntitiesDeployment;
 import com.xkodxdf.app.actions.init_actions.InitAction;
 import com.xkodxdf.app.actions.turn_actions.*;
-import com.xkodxdf.app.map.exceptions.WorldMapException;
-import com.xkodxdf.app.map.WorldMapManagement;
 import com.xkodxdf.app.input.BaseInput;
+import com.xkodxdf.app.map.WorldMapManagement;
+import com.xkodxdf.app.map.exceptions.WorldMapException;
 import com.xkodxdf.app.render.Render;
 import com.xkodxdf.app.text_constants.SimulationPauseMessages;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Simulation {
@@ -27,8 +26,8 @@ public class Simulation {
     private final Render renderer;
     private final WorldMapManagement mapManager;
     private final Object pauseLock;
-    private final List<InitAction> initActions;
-    private final List<TurnAction> turnActions;
+    private List<InitAction> initActions;
+    private List<TurnAction> turnActions;
 
     public Simulation(BaseInput<String> stringInput, Render renderer, WorldMapManagement mapManager) {
         this.isPaused = false;
@@ -42,21 +41,19 @@ public class Simulation {
         this.renderer = renderer;
         this.mapManager = mapManager;
         this.pauseLock = new Object();
+        setUpActions();
     }
 
-    {
-        initActions = new ArrayList<>() {{
-            add(new EntitiesDeployment());
-        }};
-
-        turnActions = new ArrayList<>() {{
-            add(new CreaturesMoveExecute());
-            add(new CreaturesStateUpdate());
-            add(new DeadCreaturesReplacement());
-            add(new CorpseDecay());
-            add(new GrassSpawn());
-            add(new CreatureSpawn());
-        }};
+    private void setUpActions() {
+        initActions = List.of(new EntitiesDeployment());
+        turnActions = List.of(
+                new CreaturesMoveExecute(),
+                new CreaturesStateUpdate(),
+                new DeadCreaturesReplacement(),
+                new CorpseDecay(),
+                new GrassSpawn(),
+                new CreatureSpawn()
+        );
     }
 
     public int getTurnsLimit() {
