@@ -59,7 +59,7 @@ public class EntitiesDeployment extends InitAction implements EntityCreator {
                 mapManager.setEntity(coordinate, getPredator(mapManager));
                 break;
             default:
-                throw new InvalidParametersException(ErrorMessages.INVALID_ENTITY_TYPE + entityType.name());
+                throw new IllegalArgumentException(ErrorMessages.INVALID_ENTITY_TYPE + entityType.name());
 
         }
     }

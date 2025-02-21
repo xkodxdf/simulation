@@ -65,7 +65,7 @@ public abstract class Creature extends Entity {
                 forage(optionalCurrentCoordinates.get(), pathFinder);
                 break;
             default:
-                throw new InvalidParametersException(ErrorMessages.INVALID_CREATURE_STATE + state.name());
+                throw new IllegalArgumentException(ErrorMessages.INVALID_CREATURE_STATE + state.name());
         }
     }
 

@@ -139,7 +139,7 @@ public class Config {
         ConfigValidator.validateMapFillingPercentages(this);
     }
 
-    public int getEntityMapFillingPercentage(EntityType entityType) throws InvalidParametersException {
+    public int getEntityMapFillingPercentage(EntityType entityType) {
         switch (entityType) {
             case ROCK:
                 return rocksMapFillingPercentage;
@@ -154,7 +154,7 @@ public class Config {
             case PREDATOR:
                 return predatorMapFillingPercentage;
             default:
-                throw new InvalidParametersException(ErrorMessages.INVALID_ENTITY_TYPE);
+                throw new IllegalArgumentException(ErrorMessages.INVALID_ENTITY_TYPE);
 
         }
     }
