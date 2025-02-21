@@ -1,8 +1,8 @@
 package com.xkodxdf.app.map;
 
 import com.xkodxdf.app.entities.base.Entity;
-import com.xkodxdf.app.exceptions.InvalidCoordinatesException;
-import com.xkodxdf.app.exceptions.InvalidParametersException;
+import com.xkodxdf.app.map.exceptions.InvalidCoordinatesException;
+import com.xkodxdf.app.map.exceptions.WorldMapException;
 import com.xkodxdf.app.map.config.Config;
 import com.xkodxdf.app.map.config.ConfigValidator;
 import com.xkodxdf.app.map.worldmap.WorldArrayMap;
@@ -18,7 +18,7 @@ public class WorldMapManagement {
     private final Config config;
     private WorldMap<Entity> worldMap;
 
-    public WorldMapManagement(Config config) throws InvalidParametersException {
+    public WorldMapManagement(Config config) throws WorldMapException {
         ConfigValidator.validateConfig(config);
         this.config = config;
         selectWorldHashMapAsWorldMap();

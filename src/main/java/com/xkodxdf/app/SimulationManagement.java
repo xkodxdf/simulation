@@ -1,8 +1,8 @@
 package com.xkodxdf.app;
 
-import com.xkodxdf.app.exceptions.InvalidFillingPercentageException;
-import com.xkodxdf.app.exceptions.InvalidMapSizeParametersException;
-import com.xkodxdf.app.exceptions.InvalidParametersException;
+import com.xkodxdf.app.map.exceptions.InvalidFillingPercentageException;
+import com.xkodxdf.app.map.exceptions.InvalidMapSizeParametersException;
+import com.xkodxdf.app.map.exceptions.WorldMapException;
 import com.xkodxdf.app.map.WorldMapManagement;
 import com.xkodxdf.app.map.config.Config;
 import com.xkodxdf.app.input.BaseInput;
@@ -16,7 +16,7 @@ public class SimulationManagement {
     private final WorldMapManagement mapManager;
     private final Simulation simulation;
 
-    public SimulationManagement(BaseInput<String> stringInput) throws InvalidParametersException {
+    public SimulationManagement(BaseInput<String> stringInput) throws WorldMapException {
         this.conf = Config.getInstance();
         this.renderer = new Render();
         this.mapManager = new WorldMapManagement(conf);
@@ -27,7 +27,7 @@ public class SimulationManagement {
         return renderer;
     }
 
-    public void start() throws InvalidParametersException, InterruptedException {
+    public void start() throws WorldMapException, InterruptedException {
         simulation.start();
     }
 

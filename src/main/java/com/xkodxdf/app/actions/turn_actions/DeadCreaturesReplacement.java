@@ -2,7 +2,7 @@ package com.xkodxdf.app.actions.turn_actions;
 
 import com.xkodxdf.app.entities.base.Creature;
 import com.xkodxdf.app.entities.creation.CorpseCreator;
-import com.xkodxdf.app.exceptions.InvalidParametersException;
+import com.xkodxdf.app.map.exceptions.WorldMapException;
 import com.xkodxdf.app.map.Coordinates;
 import com.xkodxdf.app.map.WorldMapManagement;
 
@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 public class DeadCreaturesReplacement extends TurnAction implements CorpseCreator {
 
     @Override
-    public void process(WorldMapManagement mapManager) throws InvalidParametersException {
+    public void process(WorldMapManagement mapManager) throws WorldMapException {
         for (Creature creature : getDeadCreatures(mapManager)) {
             Coordinates creatureCoordinates = mapManager.getEntityCoordinate(creature).get();
             mapManager.setEntity(creatureCoordinates, getCorpse());

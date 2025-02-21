@@ -1,8 +1,8 @@
 package com.xkodxdf.app.menu;
 
 import com.xkodxdf.app.SimulationManagement;
-import com.xkodxdf.app.exceptions.InvalidMapSizeParametersException;
-import com.xkodxdf.app.exceptions.InvalidParametersException;
+import com.xkodxdf.app.map.exceptions.InvalidMapSizeParametersException;
+import com.xkodxdf.app.map.exceptions.WorldMapException;
 import com.xkodxdf.app.map.config.Config;
 import com.xkodxdf.app.input.BaseInput;
 import com.xkodxdf.app.text_constants.InputMessages;
@@ -122,7 +122,7 @@ public class WorldSettings extends BaseMenu {
         return input.getValidInput(
                 prompt,
                 InputMessages.INVALID_INPUT,
-                inputPercentage -> (inputPercentage >= minValueIncl) && (inputPercentage <= maxValueIncl)
+                inputValue -> (inputValue >= minValueIncl) && (inputValue <= maxValueIncl)
         );
     }
 
@@ -131,7 +131,7 @@ public class WorldSettings extends BaseMenu {
         try {
             simulationManager.setHerbivoreMapFillingPercentage(herbivoresPercentage);
             simulationManager.setPredatorMapFillingPercentage(predatorsPercentage);
-        } catch (InvalidParametersException ignore) {
+        } catch (WorldMapException ignore) {
             return false;
         }
         return true;
@@ -144,7 +144,7 @@ public class WorldSettings extends BaseMenu {
             simulationManager.setRockMapFillingPercentage(rocksPercentage);
             simulationManager.setTreeMapFillingPercentage(treesPercentage);
             simulationManager.setGrassMapFillingPercentage(grassPercentage);
-        } catch (InvalidParametersException ignore) {
+        } catch (WorldMapException ignore) {
             return false;
         }
         return true;

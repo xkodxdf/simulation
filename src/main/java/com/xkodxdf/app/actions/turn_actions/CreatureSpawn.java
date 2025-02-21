@@ -5,8 +5,8 @@ import com.xkodxdf.app.entities.animate.Herbivore;
 import com.xkodxdf.app.entities.animate.Predator;
 import com.xkodxdf.app.entities.base.Entity;
 import com.xkodxdf.app.entities.creation.CreatureCreator;
-import com.xkodxdf.app.exceptions.InvalidCoordinatesException;
-import com.xkodxdf.app.exceptions.InvalidParametersException;
+import com.xkodxdf.app.map.exceptions.InvalidCoordinatesException;
+import com.xkodxdf.app.map.exceptions.WorldMapException;
 import com.xkodxdf.app.map.Coordinates;
 import com.xkodxdf.app.map.WorldMapManagement;
 
@@ -20,7 +20,7 @@ public class CreatureSpawn extends SpawnAction implements CreatureCreator {
     private boolean spawningPredatorsAllowed = false;
 
     @Override
-    public void process(WorldMapManagement mapManager) throws InvalidParametersException {
+    public void process(WorldMapManagement mapManager) throws WorldMapException {
         Set<Coordinates> borderFreeCoordinates = mapManager.getBorderFreeCoordinates();
         if (borderFreeCoordinates.isEmpty()) {
             return;
@@ -34,13 +34,13 @@ public class CreatureSpawn extends SpawnAction implements CreatureCreator {
         }
     }
 
-    private void updateSpawnFlags(WorldMapManagement mapManager) throws InvalidParametersException {
+    private void updateSpawnFlags(WorldMapManagement mapManager) throws WorldMapException {
         spawningHerbsAllowed = setSpawningFlag(EntityType.HERBIVORE, spawningHerbsAllowed, mapManager);
         spawningPredatorsAllowed = setSpawningFlag(EntityType.PREDATOR, spawningPredatorsAllowed, mapManager);
     }
 
     private boolean setSpawningFlag(EntityType entityType, boolean spawningFlag, WorldMapManagement mapManager)
-            throws InvalidParametersException {
+            throws WorldMapException {
         int baseMapFillingPercentage = mapManager.getConfig().getEntityMapFillingPercentage(entityType);
         Class<? extends Entity> entyClass = entityType.equals(EntityType.HERBIVORE) ?
                 Herbivore.class : Predator.class;

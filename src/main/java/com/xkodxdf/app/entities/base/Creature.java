@@ -2,8 +2,8 @@ package com.xkodxdf.app.entities.base;
 
 import com.xkodxdf.app.entities.CreatureState;
 import com.xkodxdf.app.entities.animate.Characteristics;
-import com.xkodxdf.app.exceptions.InvalidCoordinatesException;
-import com.xkodxdf.app.exceptions.InvalidParametersException;
+import com.xkodxdf.app.map.exceptions.InvalidCoordinatesException;
+import com.xkodxdf.app.map.exceptions.WorldMapException;
 import com.xkodxdf.app.map.Coordinates;
 import com.xkodxdf.app.map.WorldMapManagement;
 import com.xkodxdf.app.text_constants.ErrorMessages;
@@ -51,7 +51,7 @@ public abstract class Creature extends Entity {
         return characteristics.getHealthPoints() == currentHealthPoints;
     }
 
-    public final void makeMove(PathFinder<Coordinates> pathFinder) throws InvalidParametersException {
+    public final void makeMove(PathFinder<Coordinates> pathFinder) throws WorldMapException {
         Optional<Coordinates> optionalCurrentCoordinates = mapManager.getEntityCoordinate(this);
         starve();
         if (isDead() || optionalCurrentCoordinates.isEmpty()) {
@@ -82,7 +82,7 @@ public abstract class Creature extends Entity {
         }
     }
 
-    private void roam(Coordinates currentCoordinates) throws InvalidParametersException {
+    private void roam(Coordinates currentCoordinates) throws WorldMapException {
         int moveSquaresPerTurn = 1;
         Set<Coordinates> aroundFreeCoordinates = mapManager.getAroundFreeCoordinates(currentCoordinates,
                 moveSquaresPerTurn);
@@ -94,7 +94,7 @@ public abstract class Creature extends Entity {
     }
 
     private void forage(Coordinates currentCoordinates, PathFinder<Coordinates> pathFinder)
-            throws InvalidParametersException {
+            throws WorldMapException {
         Optional<Coordinates> optionalFoodCoordinates = findNearestFoodCoordinatesInViewRadius(currentCoordinates);
         if (optionalFoodCoordinates.isEmpty()) {
             roam(currentCoordinates);
@@ -106,7 +106,7 @@ public abstract class Creature extends Entity {
     }
 
     private Optional<Coordinates> findNearestFoodCoordinatesInViewRadius(Coordinates currentCoordinates)
-            throws InvalidParametersException {
+            throws WorldMapException {
         List<Entity> aroundEntities;
         Set<Coordinates> aroundCoordinates;
         Set<Coordinates> aroundCoordinatesPrevious = new HashSet<>();
@@ -141,7 +141,7 @@ public abstract class Creature extends Entity {
         return aroundEntities.stream().anyMatch(this::isFood);
     }
 
-    private void eat(Coordinates foodCoordinates) throws InvalidParametersException {
+    private void eat(Coordinates foodCoordinates) throws WorldMapException {
         Optional<Entity> optionalFood = mapManager.getEntity(foodCoordinates);
         Optional<Coordinates> optionalCurrentCoordinate = mapManager.getEntityCoordinate(this);
         if (optionalFood.isEmpty() || optionalCurrentCoordinate.isEmpty()) {

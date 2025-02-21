@@ -4,7 +4,7 @@ import com.xkodxdf.app.actions.Action;
 import com.xkodxdf.app.actions.init_actions.EntitiesDeployment;
 import com.xkodxdf.app.actions.init_actions.InitAction;
 import com.xkodxdf.app.actions.turn_actions.*;
-import com.xkodxdf.app.exceptions.InvalidParametersException;
+import com.xkodxdf.app.map.exceptions.WorldMapException;
 import com.xkodxdf.app.map.WorldMapManagement;
 import com.xkodxdf.app.input.BaseInput;
 import com.xkodxdf.app.render.Render;
@@ -79,7 +79,7 @@ public class Simulation {
         turnDelay = defaultTurnDelay;
     }
 
-    public void start() throws InvalidParametersException, InterruptedException {
+    public void start() throws WorldMapException, InterruptedException {
         prepareForFirstTurn();
         runControlThread();
         while (isRunning && (currentTurn < amountOfTurns)) {
@@ -96,7 +96,7 @@ public class Simulation {
         standardStop();
     }
 
-    private void prepareForFirstTurn() throws InvalidParametersException {
+    private void prepareForFirstTurn() throws WorldMapException {
         isRunning = true;
         currentTurn = 0;
         for (Action action : initActions) {
@@ -104,7 +104,7 @@ public class Simulation {
         }
     }
 
-    private void nextTurn() throws InvalidParametersException {
+    private void nextTurn() throws WorldMapException {
         currentTurn++;
         renderer.renderTurn(mapManager.getEntitiesWithCoordinates());
         for (Action action : turnActions) {

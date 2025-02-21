@@ -3,8 +3,8 @@ package com.xkodxdf.app.actions.turn_actions;
 import com.xkodxdf.app.entities.animate.Herbivore;
 import com.xkodxdf.app.entities.creation.GrassCreator;
 import com.xkodxdf.app.entities.inanimate.Grass;
-import com.xkodxdf.app.exceptions.InvalidCoordinatesException;
-import com.xkodxdf.app.exceptions.InvalidParametersException;
+import com.xkodxdf.app.map.exceptions.InvalidCoordinatesException;
+import com.xkodxdf.app.map.exceptions.WorldMapException;
 import com.xkodxdf.app.map.Coordinates;
 import com.xkodxdf.app.map.WorldMapManagement;
 
@@ -14,7 +14,7 @@ import java.util.Set;
 public class GrassSpawn extends SpawnAction implements GrassCreator {
 
     @Override
-    public void process(WorldMapManagement mapManager) throws InvalidParametersException {
+    public void process(WorldMapManagement mapManager) throws WorldMapException {
         int baseGrassMapFillingPercentage = mapManager.getConfig().getGrassMapFillingPercentage();
         int currentGrassMapFillingPercentage = getCurrentEntityMapFillingPercentage(Grass.class, mapManager);
         if (currentGrassMapFillingPercentage < baseGrassMapFillingPercentage) {

@@ -2,7 +2,7 @@ package com.xkodxdf.app.actions.init_actions;
 
 import com.xkodxdf.app.entities.EntityType;
 import com.xkodxdf.app.entities.creation.EntityCreator;
-import com.xkodxdf.app.exceptions.InvalidParametersException;
+import com.xkodxdf.app.map.exceptions.WorldMapException;
 import com.xkodxdf.app.map.Coordinates;
 import com.xkodxdf.app.map.WorldMapManagement;
 import com.xkodxdf.app.map.config.Config;
@@ -13,12 +13,12 @@ import java.util.Optional;
 public class EntitiesDeployment extends InitAction implements EntityCreator {
 
     @Override
-    public void process(WorldMapManagement mapManager) throws InvalidParametersException {
+    public void process(WorldMapManagement mapManager) throws WorldMapException {
         deployEntities(EntityType.values(), mapManager);
     }
 
     private void deployEntities(EntityType[] entityTypes, WorldMapManagement mapManager)
-            throws InvalidParametersException {
+            throws WorldMapException {
         int mapSize = mapManager.getSize();
         for (EntityType entityType : entityTypes) {
             if (entityType.equals(EntityType.CORPSE)) {
@@ -41,7 +41,7 @@ public class EntitiesDeployment extends InitAction implements EntityCreator {
     }
 
     private void deployEntity(Coordinates coordinate, EntityType entityType, WorldMapManagement mapManager)
-            throws InvalidParametersException {
+            throws WorldMapException {
         switch (entityType) {
             case ROCK:
                 mapManager.setEntity(coordinate, getRock());

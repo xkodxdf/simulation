@@ -1,6 +1,6 @@
 package com.xkodxdf.app.map.worldmap;
 
-import com.xkodxdf.app.exceptions.InvalidCoordinatesException;
+import com.xkodxdf.app.map.exceptions.InvalidCoordinatesException;
 import com.xkodxdf.app.map.Coordinates;
 
 import java.util.Map;

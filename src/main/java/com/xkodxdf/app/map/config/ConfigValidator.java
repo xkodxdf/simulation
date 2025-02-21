@@ -1,8 +1,8 @@
 package com.xkodxdf.app.map.config;
 
-import com.xkodxdf.app.exceptions.InvalidFillingPercentageException;
-import com.xkodxdf.app.exceptions.InvalidMapSizeParametersException;
-import com.xkodxdf.app.exceptions.InvalidParametersException;
+import com.xkodxdf.app.map.exceptions.InvalidFillingPercentageException;
+import com.xkodxdf.app.map.exceptions.InvalidMapSizeParametersException;
+import com.xkodxdf.app.map.exceptions.WorldMapException;
 import com.xkodxdf.app.text_constants.ErrorMessages;
 
 import java.util.Arrays;
@@ -13,7 +13,7 @@ public class ConfigValidator {
     private ConfigValidator() {
     }
 
-    public static void validateConfig(Config config) throws InvalidParametersException {
+    public static void validateConfig(Config config) throws WorldMapException {
         validateMapSizeParameters(config);
         validateMapFillingPercentages(config);
     }
