@@ -1,6 +1,9 @@
 package com.xkodxdf.app.text_constants;
 
-public class ErrorMessages {
+public final class ErrorMessages {
+
+    private ErrorMessages() {
+    }
 
     public static final String MUST_NOT_BE_NULL = " must not be null";
     public static final String INCORRECT_COORDINATES_ARE_SPECIFIED = "Incorrect coordinates are specified ";

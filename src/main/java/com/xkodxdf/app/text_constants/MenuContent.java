@@ -2,9 +2,21 @@ package com.xkodxdf.app.text_constants;
 
 import com.xkodxdf.app.render.EntityNotation;
 
-public class MenuContent {
+public final class MenuContent {
 
-    public static class MainMenu {
+    private MenuContent() {
+    }
+
+    public static final String PROMPT = "Enter number from 1 to ";
+    public static final String SELECTED = " selected";
+    public static final String BACK = "<-back";
+    public static final String TO_MAIN_MENU = "<<main menu";
+    public static final String EXIT = "<!exit";
+
+    public final static class MainMenu {
+
+        private MainMenu() {
+        }
 
         public static final String TITLE = "### Main menu ###";
         public static final String START_SIMULATION = "[Start simulation]";
@@ -24,7 +36,10 @@ public class MenuContent {
                 EntityNotation.SymbolNotation.PREDATOR, EntityNotation.SymbolNotation.CORPSE);
     }
 
-    public static class SettingsMenu {
+    public final static class SettingsMenu {
+
+        private SettingsMenu() {
+        }
 
         public static final String TITLE = "### Settings ###";
         public static final String WORLD_SETTINGS = "World settings->";
@@ -35,7 +50,10 @@ public class MenuContent {
         public static final String RESET_SETTINGS = "-Reset settings";
     }
 
-    public static class WorldSettingsMenu {
+    public final static class WorldSettingsMenu {
+
+        private WorldSettingsMenu() {
+        }
 
         public static final String TITLE = "### World settings ###";
         public static final String MAP_SIZE = "-Map size";
@@ -43,28 +61,31 @@ public class MenuContent {
         public static final String INANIMATE_FILL_PERCENTAGE = "-Inanimate world filling percentage";
     }
 
-    public static class GraphicSettingsMenu {
+    public final static class GraphicSettingsMenu {
+
+        private GraphicSettingsMenu() {
+        }
 
         public static final String TITLE = "### Graphics ###";
         public static final String ASCII_GRAPHICS = "-ASCII";
         public static final String EMOJI_GRAPHICS = "-EMOJI";
     }
 
-    public static class EntityStorageMenu {
+    public final static class EntityStorageMenu {
+
+        private EntityStorageMenu() {
+        }
 
         public static final String TITLE = "### Entity storage ###";
         public static final String HASHMAP = "-HashMap storage";
         public static final String ARRAY = "-Array storage";
     }
 
-    public static class Exit {
+    public final static class Exit {
+
+        private Exit() {
+        }
 
         public static final String STOP_RUNNING = "The simulation has completed its work. Good luck.";
     }
-
-    public static final String PROMPT = "Enter number from 1 to ";
-    public static final String SELECTED = " selected";
-    public static final String BACK = "<-back";
-    public static final String TO_MAIN_MENU = "<<main menu";
-    public static final String EXIT = "<!exit";
 }
